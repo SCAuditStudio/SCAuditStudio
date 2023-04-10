@@ -1,0 +1,165 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
+        xmlns:vm="using:SCAuditStudio.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SCAuditStudio.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="SCAuditStudio"
+        Background="#1F1F1F"
+        ExtendClientAreaToDecorationsHint="True"
+        PointerMoved="InputElement_OnPointerMoved"
+        PointerPressed="InputElement_OnPointerPressed"
+        PointerReleased="InputElement_OnPointerReleased">
+
+  <!-- PREVIEW DATA CONTEXT -->
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
+
+  <!-- GENERAL STYLE -->
+  <Window.Styles>
+    <Style Selector="Window[WindowState=Maximized]">
+      <Setter Property="Padding" Value="8"/>
+    </Style>
+  </Window.Styles>
+
+  <DockPanel>    
+    <!-- MENU BAR -->
+    <Menu DockPanel.Dock="Top" FontFamily="Segoe UI" Height="32">
+      <MenuItem Header="SCAuditStudio">
+        <MenuItem Header="Options"/>
+        <Separator/>
+        <MenuItem Header="Exit" Click="ExitProgram_Clicked"/>
+      </MenuItem>
+      <MenuItem Header="File">
+        <MenuItem Header="Open" Click="OpenProject_Clicked"/>
+      </MenuItem>
+      <MenuItem Header="Automation">
+        <MenuItem Header="AI Sort"/>
+        <MenuItem Header="AI Score"/>
+        <MenuItem Header="Basic Score"/>
+      </MenuItem>
+    </Menu>
+    
+    <!-- FILE LIST AND VIEWER -->
+    <Grid ColumnDefinitions="350, 0, *">
+      <!-- MD FILE LIST -->
+      <TreeDataGrid Name="mdFileTree" Source="{Binding mdFileTree}" AutoDragDropRows="True" DoubleTapped="TreeView_DoubleTapped" KeyDown="TreeView_KeyDown">
+        <!-- MD FILE LIST CONTEXT MENU -->
+        <TreeDataGrid.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="Move to">
+              <MenuItem Header="Root" Click="MoveFileToRoot"/>
+              <MenuItem Header="Invalid" Click="MoveFileToInvalid"/>
+              <MenuItem Header="Issue" Items="{Binding mdFileIssues}"/>
+            </MenuItem>
+            <MenuItem Header="Generate Issue">
+              <MenuItem Header="High" Click="MoveFileToNewIssue"/>
+              <MenuItem Header="Medium" Click="MoveFileToNewIssue"/>
+            </MenuItem>
+            <MenuItem Header="Mark">
+              <MenuItem Header="Unmark" Click="MarkFileAsUnmarked"/>
+              <MenuItem Header="As Best" Click="MarkFileAsBest"/>
+            </MenuItem>
+            <MenuItem Header="Highlight" Items="{Binding highlightBrushes}"/>
+          </ContextMenu>
+        </TreeDataGrid.ContextMenu>
+        <!-- MD FILE LIST STYLES -->
+        <TreeDataGrid.Styles>
+          <Style Selector="TreeDataGrid">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3D3D3D"/>
+          </Style>
+          <Style Selector="TreeDataGridRow">
+            <Setter Property="Background" Value="{Binding Background}"/>
+          </Style>
+        </TreeDataGrid.Styles>
+      </TreeDataGrid>
+      <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="#1F1F1F"/>
+      <!-- MD FILE READER -->
+      <TabControl Grid.Column="2" Items="{Binding tabPages}" AutoScrollToSelectedItem="True" KeyDown="CloseTab_KeyDown">
+        <!-- TAB HEADER -->
+        <TabControl.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Margin="0" Spacing="-2">
+              <Rectangle Fill="#7160E8" Height="2"/>
+              <Grid ColumnDefinitions="*, *">
+                <TextBlock Grid.Column="0" Text="{Binding}" Margin="4,0,4,3"/>
+                <Button Grid.Column="1" Click="CloseTab_Clicked" Height="12" Width="12" Margin="0,0,4,0">
+                  <Panel>
+                    <Image IsVisible="{Binding $parent[1].IsPointerOver}" Source="/Assets/close-tab.png" Margin="-6,0,0,0" Height="8" Width="8"/>
+                    <Image IsVisible="{Binding !$parent[1].IsPointerOver}" Name="closeTabInverted" Source="/Assets/close-tab-inverted.png" Margin="-6,0,0,0" Height="8" Width="8"/>
+                  </Panel>
+                </Button>
+              </Grid>
+            </StackPanel>
+          </DataTemplate>
+        </TabControl.ItemTemplate>
+        <!-- TAB CONTENT -->
+        <TabControl.ContentTemplate>
+          <DataTemplate>
+            <Grid RowDefinitions="2, *" Margin="-10,-2,-10,0">
+              <Rectangle Grid.Row="0" Fill="#7160E8" Height="2"/>
+              <ContentControl Grid.Row="1" BorderThickness="1" BorderBrush="#3D3D3D">
+                <md:MarkdownScrollViewer Grid.Row="1" Markdown="{Binding}"/>
+              </ContentControl>
+            </Grid>
+          </DataTemplate>
+        </TabControl.ContentTemplate>
+        <!-- TAB STYLES -->
+        <TabControl.Styles>
+          <Style Selector="TabControl">
+            <Setter Property="Margin" Value="2,5,5,5"/>
+          </Style>
+          <Style Selector="TabControl:empty">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3D3D3D"/>
+          </Style>
+          <Style Selector="TabControl TextBox">
+            <Setter Property="Background" Value="#1F1F1F"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3D3D3D"/>
+          </Style>
+          <Style Selector="TabControl TextBox:selected">
+            <Setter Property="Background" Value="#1F1F1F"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3D3D3D"/>
+          </Style>
+          <Style Selector="TabItem">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="2,0,0,0"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#2E2E2E"/>
+          </Style>
+          <Style Selector="TabItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3D3D3D"/>
+          </Style>
+          <Style Selector="TabItem Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+          </Style>
+          <Style Selector="TabItem:selected">
+            <Setter Property="Background" Value="#3D3D3D"/>
+          </Style>
+          <Style Selector="TabItem Button">
+            <Setter Property="Background" Value="{Binding $parent.Background}"/>
+          </Style>
+          <Style Selector="TabItem Rectangle">
+            <Setter Property="IsVisible" Value="False"/>
+          </Style>
+          <Style Selector="TabItem:selected Rectangle">
+            <Setter Property="IsVisible" Value="True"/>
+          </Style>
+        </TabControl.Styles>
+      </TabControl>
+    </Grid>
+  </DockPanel>                                                                               
+
+</Window>
