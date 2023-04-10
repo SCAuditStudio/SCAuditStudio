@@ -411,6 +411,7 @@ namespace SCAuditStudio.ViewModels
             if (!mdManager.IssueExists(mdFile.subPath)) return;
 
             MDFile[] subFiles = mdManager.GetFilesInSubPath(mdFile.subPath);
+            if (subFiles.Length < 2) return;
             foreach (MDFile subFile in subFiles)
             {
                 if (subFile == mdFile) continue;
