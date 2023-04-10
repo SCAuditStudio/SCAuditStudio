@@ -47,7 +47,7 @@
     <!-- FILE LIST AND VIEWER -->
     <Grid ColumnDefinitions="350, 0, *">
       <!-- MD FILE LIST -->
-      <TreeDataGrid Name="mdFileTree" Source="{Binding mdFileTree}" AutoDragDropRows="True" DoubleTapped="TreeView_DoubleTapped" KeyDown="TreeView_KeyDown">
+      <TreeDataGrid Source="{Binding mdFileTree}" AutoDragDropRows="True" DoubleTapped="TreeView_DoubleTapped" KeyDown="TreeView_KeyDown">
         <!-- MD FILE LIST CONTEXT MENU -->
         <TreeDataGrid.ContextMenu>
           <ContextMenu>

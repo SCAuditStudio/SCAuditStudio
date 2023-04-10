@@ -297,19 +297,13 @@ namespace SCAuditStudio.ViewModels
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? treeView = mainWindow?.FindControl<TreeDataGrid>("mdFileTree");
-            if (treeView == null) return;
-
-            IReadOnlyList<object?>? selectedItems = treeView.RowSelection?.SelectedItems;
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
 
-            foreach (object? item in selectedItems)
+            foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
-                string? fileToMove = ((Node)item).fileName;
-                if (fileToMove == null) continue;
-
-                mdManager.MoveFileToRoot(fileToMove);
+                mdManager.MoveFileToRoot(item.fileName);
             }
 
             LoadMDFileItems();
@@ -319,19 +313,13 @@ namespace SCAuditStudio.ViewModels
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? treeView = mainWindow?.FindControl<TreeDataGrid>("mdFileTree");
-            if (treeView == null) return;
-
-            IReadOnlyList<object?>? selectedItems = treeView.RowSelection?.SelectedItems;
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
 
-            foreach (object? item in selectedItems)
+            foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
-                string? fileToMove = ((Node)item).fileName;
-                if (fileToMove == null) continue;
-
-                mdManager.MoveFileToInvalid(fileToMove);
+                mdManager.MoveFileToInvalid(item.fileName);
             }
 
             LoadMDFileItems();
@@ -341,25 +329,20 @@ namespace SCAuditStudio.ViewModels
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? treeView = mainWindow?.FindControl<TreeDataGrid>("mdFileTree");
-
             MenuItem? menuItem = ((IVisual)e.Source).GetSelfAndVisualAncestors()
             .OfType<MenuItem>()
             .FirstOrDefault();
 
-            if (menuItem == null || treeView == null) return;
+            if (menuItem == null) return;
             string issue = menuItem.Header.ToString() ?? "";
 
-            IReadOnlyList<object?>? selectedItems = treeView.RowSelection?.SelectedItems;
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
 
-            foreach (object? item in selectedItems)
+            foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
-                string? fileToMove = ((Node)item).fileName;
-                if (fileToMove == null) continue;
-
-                mdManager.MoveFileToIssue(fileToMove, issue, false);
+                mdManager.MoveFileToIssue(item.fileName, issue, false);
             }
 
             LoadMDFileItems();
@@ -369,28 +352,23 @@ namespace SCAuditStudio.ViewModels
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? treeView = mainWindow?.FindControl<TreeDataGrid>("mdFileTree");
-
             MenuItem? menuItem = ((IVisual)e.Source).GetSelfAndVisualAncestors()
             .OfType<MenuItem>()
             .FirstOrDefault();
 
-            if (menuItem == null || treeView == null) return;
+            if (menuItem == null) return;
             string? header = menuItem.Header.ToString();
             if (header == null) return;
             MDManager.MDFileIssue severity = header == "High" ? MDManager.MDFileIssue.High : MDManager.MDFileIssue.Medium;
             int issueIndex = mdManager.GetIssueIndex(severity);
 
-            IReadOnlyList<object?>? selectedItems = treeView.RowSelection?.SelectedItems;
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
 
-            foreach (object? item in selectedItems)
+            foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
-                string? fileToMove = ((Node)item).fileName;
-                if (fileToMove == null) continue;
-
-                mdManager.MoveFileToIssue(fileToMove, severity, issueIndex, true);
+                mdManager.MoveFileToIssue(item.fileName, severity, issueIndex, true);
             }
 
             LoadMDFileItems();
@@ -400,16 +378,10 @@ namespace SCAuditStudio.ViewModels
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? treeView = mainWindow?.FindControl<TreeDataGrid>("mdFileTree");
-            if (treeView == null) return;
+            Node? fileNode = mdFileTree.RowSelection?.SelectedItem;
+            if (fileNode == null) return;
 
-            object? selectedItem = treeView.RowSelection?.SelectedItem;
-            if (selectedItem == null) return;
-
-            string? fileToMark = ((Node)selectedItem).fileName;
-            if (fileToMark == null) return;
-
-            MDFile? mdFile = mdManager.GetFile(fileToMark);
+            MDFile? mdFile = mdManager.GetFile(fileNode.fileName);
             if (mdFile == null) return;
             if (!mdManager.IssueExists(mdFile.subPath)) return;
 
@@ -421,7 +393,7 @@ namespace SCAuditStudio.ViewModels
                 mdManager.UnmarkFile(subFile.fileName);
             }
 
-            mdManager.MarkFileAsBest(fileToMark);
+            mdManager.MarkFileAsBest(fileNode.fileName);
 
             LoadMDFileItems();
         }
@@ -429,19 +401,13 @@ namespace SCAuditStudio.ViewModels
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? treeView = mainWindow?.FindControl<TreeDataGrid>("mdFileTree");
-            if (treeView == null) return;
-
-            IReadOnlyList<object?>? selectedItems = treeView.RowSelection?.SelectedItems;
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
 
-            foreach (object? item in selectedItems)
+            foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
-                string? fileToMark = ((Node)item).fileName;
-                if (fileToMark == null) continue;
-
-                mdManager.UnmarkFile(fileToMark);
+                mdManager.UnmarkFile(item.fileName);
             }
 
             LoadMDFileItems();
@@ -450,23 +416,19 @@ namespace SCAuditStudio.ViewModels
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? treeView = mainWindow?.FindControl<TreeDataGrid>("mdFileTree");
-            if (treeView == null) return;
-
             MenuItem? menuItem = ((IVisual)e.Source).GetSelfAndVisualAncestors()
                 .OfType<MenuItem>()
                 .FirstOrDefault();
             if (menuItem == null) return;
 
-            IReadOnlyList<object?>? selectedItems = treeView.RowSelection?.SelectedItems;
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
 
-            foreach (object? item in selectedItems)
+            foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
-                string fileName = ((Node)item).fileName;
 
-                MDFile? mdFile = mdManager.GetFile(fileName);
+                MDFile? mdFile = mdManager.GetFile(item.fileName);
                 if (mdFile == null) continue;
 
                 mdFile.highlight = (IBrush?)menuItem.DataContext;

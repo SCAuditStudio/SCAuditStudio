@@ -131,23 +131,14 @@ namespace SCAuditStudio.Views
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? tree = ((IVisual)e.Source).GetSelfAndVisualAncestors()
-                .OfType<TreeDataGrid>()
-                .FirstOrDefault();
+            MainWindowViewModel.Node? selectedNode = GetViewModel()?.mdFileTree.RowSelection?.SelectedItem;
+            if (selectedNode == null) return;
 
-            if (tree != null)
-            {
-                object? selectedNode = tree.RowSelection?.SelectedItem;
+            //Return if not .md file
+            if (!selectedNode.fileName.EndsWith(".md")) return;
 
-                if (selectedNode == null) return;
-                if (selectedNode is not MainWindowViewModel.Node node) return;
-
-                //Return if not .md file
-                if (!node.fileName.EndsWith(".md")) return;
-
-                //Try Open Tab Page of file
-                GetViewModel()?.OpenTabPage(node.fileName);
-            }
+            //Try Open Tab Page of file
+            GetViewModel()?.OpenTabPage(selectedNode.fileName);
 
             e.Handled = true;
         }
@@ -155,25 +146,20 @@ namespace SCAuditStudio.Views
         {
             if (e.Source == null) return;
 
-            TreeDataGrid? tree = ((IVisual)e.Source).GetSelfAndVisualAncestors()
-                .OfType<TreeDataGrid>()
-                .FirstOrDefault();
-
-            if (tree != null && e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
-                IReadOnlyList<object?>? selectedNodes = tree.RowSelection?.SelectedItems;
+                IReadOnlyList<MainWindowViewModel.Node?>? selectedNodes = GetViewModel()?.mdFileTree.RowSelection?.SelectedItems;
                 if (selectedNodes == null) return;
 
-                foreach (object? selectedNode in selectedNodes)
+                foreach (MainWindowViewModel.Node? selectedNode in selectedNodes)
                 {
                     if (selectedNode == null) continue;
-                    if (selectedNode is not MainWindowViewModel.Node node) return;
 
                     //Return if not .md file
-                    if (!node.fileName.EndsWith(".md")) return;
+                    if (!selectedNode.fileName.EndsWith(".md")) return;
 
                     //Try Open Tab Page of file
-                    GetViewModel()?.OpenTabPage(node.fileName);
+                    GetViewModel()?.OpenTabPage(selectedNode.fileName);
                 }
             }
 
