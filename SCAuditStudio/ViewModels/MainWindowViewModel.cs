@@ -262,6 +262,9 @@ namespace SCAuditStudio.ViewModels
 
             if (TabOpen(fileName))
             {
+                TabItem? item = GetTab(fileName);
+                if (item == null) return;
+                item.IsSelected = true;
                 return;
             }
 
