@@ -16,7 +16,31 @@ Now all issues should appear in the treeview on the left side.
 ## Overview
 Smart Contract Audid Studio is a tool that allows for faster judging on Sherlock.xyz. Using good UI and automated functions the work of judges should be optimized.
 Our mission is to provide a better and faster experience when judging on sherlock.
-## Current News
+## Roadmap
+SCAuditStudio V2.0 (automate Sherlock judging)
+UI/UX
+- add basic UI [done]
 
+Functionality to judge contests:
+- file transfer [done]
+- issue creation/editing [done]
+- file highlight and mark [done]
+- score calculation [WIP]
+- auto invalidate issues [WIP]
+- static sort issues [WIP]
+- allow user to add own scripts and addones [nice to have]
+
+SCAuditStudio V3.0 (Better Auditing)
+UI/UX
+- add basic UI 
+
+Important features for IDE:
+- visualize solidity code and relation between functions
+- highlight and bookmark features
+- mark acsess rights on functions (highlight external and state changing functions)
+- highlight code changes since last audit
+- auto slither
+- ...
+The current goal is to complete the V2.0 and update the future scope accordingly. 
 ## Documentation
  
