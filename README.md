@@ -12,10 +12,12 @@ Start judging by create a local directory using the sherlock judging repository.
 SC Audit Studio, also known as the Smart Contract Audit Studio, is a powerful tool that serves as an all-in-one Integrated Development Environment for smart contract auditing. Its primary function is to help users analyze and identify vulnerabilities in the code or design of defi or WEB3 applications.
 
 ![screen](./Documentation/SCAuditStudioV2.0.png)
-The process of smart contract auditing typically involves two phases: the research phase, where issues are identified, and the judging phase, where these issues are categorized. Although there are several companies and hundreds of independent security researchers that provide this valuable service, the most prominent platforms in this field are Sherlock.xyz, Code 4erna, and Immunefi.
+The process of smart contract auditing typically involves two phases:  
+the research phase, where issues are identified, and the judging phase, where these issues are categorized. Although there are several companies and hundreds of independent security researchers that provide this valuable service, the most prominent platforms in this field are Sherlock.xyz, Code 4erna, and Immunefi.
 
 ![screen](./Documentation/SCAuditStudioV2.0Highlight.png)
-The importance of smart contract auditing cannot be overstated in the realm of Web3 social. Every project that involves smart contracts must undergo a thorough auditing process to ensure its integrity and security.
+The importance of smart contract auditing cannot be overstated in the realm of Web3 social.  
+Every project that involves smart contracts must undergo a thorough auditing process to ensure its integrity and security.
 ## Roadmap
 SCAuditStudio V2.0 (automate Sherlock judging)
 UI/UX
@@ -45,9 +47,9 @@ The current goal is to complete the V2.0 and update the future scope accordingly
 ## Documentation
 Look inside ./Documentation 
 ## Supporter
-You can donate to this address on:
-ETH: 0xB7588A8f964Ff6E76fC392567CcbCCe85700e990
-BTC: 37rJNAo9SRtCdqyhdaKqZLxF2qjzwJe2BL
-XMR: 46RiGk2SB5pez34EDEqQ993byRfqCS5pbXLxSaazSrG3YfLAmtHcsct9mJe9MwoWit75qbvT8xVNB5qYLrm7mNqTM5NPbb2
+You can donate to this address on:  
+ETH: 0xB7588A8f964Ff6E76fC392567CcbCCe85700e990  
+BTC: 37rJNAo9SRtCdqyhdaKqZLxF2qjzwJe2BL  
+XMR: 46RiGk2SB5pez34EDEqQ993byRfqCS5pbXLxSaazSrG3YfLAmtHcsct9mJe9MwoWit75qbvT8xVNB5qYLrm7mNqTM5NPbb2  
 
 or create a github PR
