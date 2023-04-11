@@ -45,4 +45,9 @@ The current goal is to complete the V2.0 and update the future scope accordingly
 ## Documentation
 Look inside ./Documentation 
 ## Supporter
-You can donate to this address on ETH Mainnet: x0, or create a github PR
+You can donate to this address on:
+ETH: 0xB7588A8f964Ff6E76fC392567CcbCCe85700e990
+BTC: 37rJNAo9SRtCdqyhdaKqZLxF2qjzwJe2BL
+XMR: 46RiGk2SB5pez34EDEqQ993byRfqCS5pbXLxSaazSrG3YfLAmtHcsct9mJe9MwoWit75qbvT8xVNB5qYLrm7mNqTM5NPbb2
+
+or create a github PR
