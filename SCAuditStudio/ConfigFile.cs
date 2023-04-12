@@ -1,7 +1,9 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace SCAuditStudio
 {
     public static class ConfigFile
@@ -11,7 +13,7 @@ namespace SCAuditStudio
 
         public static void Init()
         {
-            file = Path.Combine(Application.StartupPath, "config.txt");
+            file = Path.Combine("./", "config.txt");
             CheckFile();
 
             initialized = true;

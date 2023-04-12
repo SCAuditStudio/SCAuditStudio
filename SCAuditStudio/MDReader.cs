@@ -34,20 +34,6 @@ namespace SCAuditStudio
 
             return links;
         }
-        static string[] GetOddIndexedElements(this string[] array)
-        {
-            List<string> result = new();
-
-            for (int l = 0; l < array.Length; l++)
-            {
-                if (l % 2 != 0)
-                {
-                    result.Add(array[l]);
-                }
-            }
-
-            return result.ToArray();
-        }
         static CodeSnippet[] ParseCodeSnippets(MDFile file)
         {
             List<CodeSnippet> snippets = new();
