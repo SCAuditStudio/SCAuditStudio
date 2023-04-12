@@ -26,15 +26,6 @@ namespace SCAuditStudio
                 File.Create(file).Close();
             }
         }
-        public static string ToSingle(this List<string> list)
-        {
-            string result = $"{list[0]}\n";
-            for (int i = 1; i < list.Count; i++)
-            {
-                result += $"{list[i]}\n";
-            }
-            return result;
-        }
 
         public static void Write(string name, object? value)
         {
@@ -45,7 +36,7 @@ namespace SCAuditStudio
 
             CheckFile();
 
-            List<string> content = File.ReadAllText(file).Split("\n", StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> content = File.ReadAllText(file).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).ToList();
             string arg = $"{name} : {value}";
             for (int i = 0; i < content.Count; i++)
             {
@@ -60,7 +51,7 @@ namespace SCAuditStudio
                     return;
                 }
             }
-            File.AppendAllText(file, $"{arg}\n");
+            File.AppendAllText(file, $"{arg}{Environment.NewLine}");
         }
         public static async Task WriteAsync(string name, object value)
         {
@@ -72,7 +63,7 @@ namespace SCAuditStudio
             CheckFile();
 
             string fileContent = await File.ReadAllTextAsync(file);
-            List<string> content = fileContent.Split("\n", StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> content = fileContent.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).ToList();
             string arg = $"{name} : {value}";
             for (int i = 0; i < content.Count; i++)
             {
@@ -85,7 +76,7 @@ namespace SCAuditStudio
                     return;
                 }
             }
-            await File.AppendAllTextAsync(file, $"{arg}\n");
+            await File.AppendAllTextAsync(file, $"{arg}{Environment.NewLine}");
         }
 
         public static T? Read<T>(string name)
@@ -97,7 +88,7 @@ namespace SCAuditStudio
 
             CheckFile();
 
-            List<string> content = File.ReadAllText(file).Split("\n").ToList();
+            List<string> content = File.ReadAllText(file).Split(Environment.NewLine).ToList();
             for (int i = 0; i < content.Count; i++)
             {
                 string line = content[i];
@@ -120,7 +111,7 @@ namespace SCAuditStudio
             CheckFile();
 
             string fileContent = await File.ReadAllTextAsync(file);
-            List<string> content = fileContent.Split("\n").ToList();
+            List<string> content = fileContent.Split(Environment.NewLine).ToList();
             for (int i = 0; i < content.Count; i++)
             {
                 string line = content[i];

@@ -78,7 +78,7 @@ namespace SCAuditStudio
             try
             {
                 string response = await client.GetStringAsync(link);
-                string[] page = response.Split("\n");
+                string[] page = response.Split(Environment.NewLine);
 
                 int lineStart = rawLink.Length > 1 ? int.Parse(lineInfo[0].Replace("L", "")) - 1 : 0;
                 int lineEnd = lineInfo.Length > 1 ? int.Parse(lineInfo[^1].Replace("L", "")) : page.Length;
@@ -107,7 +107,7 @@ namespace SCAuditStudio
 
             mdFile.path = file;
             mdFile.rawContent = await File.ReadAllTextAsync(file);
-            string[] lines = mdFile.rawContent.Split("\n");
+            string[] lines = mdFile.rawContent.Split(Environment.NewLine);
 
             mdFile.author = lines[authorLine];
             mdFile.severity = lines[severityLine];
