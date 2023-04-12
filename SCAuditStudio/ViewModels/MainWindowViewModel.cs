@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SCAuditStudio.Views;
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,10 +10,8 @@ using Avalonia.Media;
 using Avalonia.Controls;
 using Avalonia.VisualTree;
 using Avalonia.Interactivity;
-using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Models.TreeDataGrid;
-using SCAuditStudio.Views;
-using static SCAuditStudio.ViewModels.MainWindowViewModel;
+using System.Net.Http.Headers;
 
 #pragma warning disable IDE1006
 namespace SCAuditStudio.ViewModels
@@ -28,6 +28,8 @@ namespace SCAuditStudio.ViewModels
         public HierarchicalTreeDataGridSource<Node> mdFileTree { get; }
         public ObservableCollection<MenuItem> mdFileIssues { get; private set; }
         public ObservableCollection<MenuItem> highlightBrushes { get; }
+
+        public AppTheme selectedTheme { get; set; }
 
         public MainWindowViewModel(string directory)
         {
@@ -46,61 +48,8 @@ namespace SCAuditStudio.ViewModels
             mdFileIssues = new();
 
             highlightBrushes = new();
-            MenuItem clear = new()
-            {
-                Header = "Clear",
-                DataContext = null
-            };
-            MenuItem red = new()
-            {
-                Header = "Red",
-                DataContext = Brushes.IndianRed,
-                Background = Brushes.IndianRed
-            };
-            MenuItem orange = new()
-            {
-                Header = "Orange",
-                DataContext = Brushes.Orange,
-                Background = Brushes.Orange
-            };
-            MenuItem yellow = new()
-            {
-                Header = "Yellow",
-                DataContext = Brushes.Yellow,
-                Background = Brushes.Yellow
-            };
-            MenuItem green = new()
-            {
-                Header = "Green",
-                DataContext = Brushes.LightGreen,
-                Background = Brushes.LightGreen
-            };
-            MenuItem blue = new()
-            {
-                Header = "Blue",
-                DataContext = Brushes.DeepSkyBlue,
-                Background = Brushes.DeepSkyBlue
-            };
-            MenuItem magenta = new()
-            {
-                Header = "Magenta",
-                DataContext = Brushes.Magenta,
-                Background = Brushes.Magenta
-            };
-            clear.Click += HighlightFile;
-            red.Click += HighlightFile;
-            orange.Click += HighlightFile;
-            yellow.Click += HighlightFile;
-            green.Click += HighlightFile;
-            blue.Click += HighlightFile;
-            magenta.Click += HighlightFile;
-            highlightBrushes.Add(clear);
-            highlightBrushes.Add(red);
-            highlightBrushes.Add(orange);
-            highlightBrushes.Add(yellow);
-            highlightBrushes.Add(green);
-            highlightBrushes.Add(blue);
-            highlightBrushes.Add(magenta);
+            selectedTheme = new();
+            LoadTheme(AppTheme.DefaultDark);
 
             tabPages = new();
         }
@@ -142,7 +91,9 @@ namespace SCAuditStudio.ViewModels
                 Node subNode = new(subDir)
                 {
                     title = "",
-                    score = ""
+                    score = "",
+                    Background = selectedTheme.Background,
+                    Foreground = selectedTheme.Foreground
                 };
 
                 string[] subFiles = Directory.GetFiles(subDir);
@@ -163,6 +114,7 @@ namespace SCAuditStudio.ViewModels
                     subFileNode.title = mdFile?.title ?? subFileNode.title;
                     subFileNode.score = mdFile?.score.ToString() ?? subFileNode.score;
                     subFileNode.Background = mdFile?.highlight;
+                    subFileNode.Foreground = mdFile?.highlight == null ? selectedTheme.Foreground : selectedTheme.SelectedText;
                     subNode.subNodes.Add(subFileNode);
                 }
 
@@ -188,6 +140,7 @@ namespace SCAuditStudio.ViewModels
                 fileNode.title = mdFile?.title ?? fileNode.title;
                 fileNode.score = mdFile?.score.ToString() ?? fileNode.score;
                 fileNode.Background = mdFile?.highlight;
+                fileNode.Foreground = mdFile?.highlight == null ? selectedTheme.Foreground : selectedTheme.SelectedText;
                 mdFileItems.Add(fileNode);
             }
 
@@ -220,6 +173,26 @@ namespace SCAuditStudio.ViewModels
                 issueItem.Click += MoveFileToIssue;
                 mdFileIssues.Add(issueItem);
             }
+        }
+        public void LoadContextBrushes()
+        {
+            highlightBrushes.Clear();
+
+            foreach (AppTheme.ContextBrush brush in selectedTheme.Brushes)
+            {
+                MenuItem item = new() { Header = brush.Name };
+                item.Background = brush.Brush ?? item.Background;
+                item.Foreground = brush.TextBrush ?? item.Foreground;
+                item.DataContext = brush.Brush ?? null;
+                item.Click += new EventHandler<RoutedEventArgs>(HighlightFile);
+
+                highlightBrushes.Add(item);
+            }
+        }
+        public void LoadTheme(AppTheme theme)
+        {
+            selectedTheme = theme;
+            LoadContextBrushes();
         }
 
         public bool TabOpen(string tabName)
@@ -443,6 +416,7 @@ namespace SCAuditStudio.ViewModels
             public ObservableCollection<Node> subNodes { get; set; }
 
             public IBrush? Background { get; set; }
+            public IBrush? Foreground { get; set; }
             public string fileName { get; }
             public string title;
             public string score;

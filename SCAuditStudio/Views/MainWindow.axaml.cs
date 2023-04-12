@@ -91,13 +91,13 @@ namespace SCAuditStudio.Views
             Close();
         }
 
-        public void CloseTab_Clicked(object sender, RoutedEventArgs e)
+        public void CloseTab_Clicked(object sender, PointerPressedEventArgs e)
         {
             mouseDownForWindowMoving = false;
 
             if (e.Source == null) return;
 
-            TextBlock? itemText = ((IVisual)e.Source).VisualParent?.GetSelfAndVisualDescendants()
+            TextBlock? itemText = ((IVisual)e.Source).VisualParent?.VisualParent.GetSelfAndVisualDescendants()
                 .OfType<TextBlock>()
                 .FirstOrDefault();
 

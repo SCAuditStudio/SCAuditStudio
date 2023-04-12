@@ -12,8 +12,6 @@
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
     <None Remove=".gitignore" />
-    <None Remove="Assets\close-tab-inverted.png" />
-    <None Remove="Assets\close-tab.png" />
   </ItemGroup>
 
   <ItemGroup>
