@@ -18,6 +18,15 @@
     <vm:MainWindowViewModel/>
   </Design.DataContext>
 
+  <!-- HARDCODED STYLE ATTRIBUTES OVERWRITE -->
+  <Window.Resources>
+    <SolidColorBrush x:Key="MenuFlyoutPresenterBackground" Color="{Binding selectedTheme.BackgroundColor}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemBackground" Color="{Binding selectedTheme.BackgroundColor}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemForeground" Color="{Binding selectedTheme.ForegroundColor}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
+  </Window.Resources>
+
   <DockPanel>    
     <!-- MENU BAR -->
     <Menu DockPanel.Dock="Top" Height="32">

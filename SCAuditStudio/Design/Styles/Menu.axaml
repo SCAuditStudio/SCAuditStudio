@@ -23,32 +23,7 @@
   <Style Selector="Menu">
     <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
   </Style>
-  <Style Selector="MenuItem">
-    <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
-    <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
-  </Style>
-  <Style Selector="Separator">
+  <Style Selector="Menu Separator">
     <Setter Property="Background" Value="{Binding selectedTheme.SelectedText}"/>
-  </Style>
-  <Style Selector="Menu MenuItem Border Border">
-    <Setter Property="Margin" Value="-3"/>
-  </Style>
-  <Style Selector="Menu MenuItem StackPanel">
-    <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
-  </Style>
-  <Style Selector="MenuItem DockPanel">
-    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-  </Style>
-  <Style Selector="MenuItem:pointerover Panel">
-    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-  </Style>
-  <Style Selector="MenuItem:selected Panel">
-    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-  </Style>
-  <Style Selector="Menu MenuItem:pointerover /template/ ContentPresenter">
-    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-  </Style>
-  <Style Selector="Menu MenuItem:selected /template/ ContentPresenter">
-    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
   </Style>
 </Styles>
