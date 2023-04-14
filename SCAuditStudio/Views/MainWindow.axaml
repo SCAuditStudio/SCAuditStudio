@@ -41,7 +41,6 @@
       <MenuItem Header="Automation">
         <MenuItem Header="AI Sort"/>
         <MenuItem Header="AI Score"/>
-        <MenuItem Header="Basic Score"/>
       </MenuItem>
     </Menu>
     <!-- FILE LIST AND VIEWER -->

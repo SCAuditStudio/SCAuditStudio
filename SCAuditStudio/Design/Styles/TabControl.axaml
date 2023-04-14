@@ -10,7 +10,7 @@
     </Design.PreviewWith>
 
   <Style Selector="TabControl">
-    <Setter Property="Margin" Value="0,5,0,5"/>
+    <Setter Property="Margin" Value="0,5,5,5"/>
   </Style>
   <Style Selector="TabControl:empty">
     <Setter Property="BorderThickness" Value="1"/>
