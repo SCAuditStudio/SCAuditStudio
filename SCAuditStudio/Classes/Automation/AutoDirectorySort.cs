@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace SCAuditStudio
         public static async Task<int> GetScore(MDFile issue, string criteria, string context, int avgIssueTextLength)
         {
             //Perform Static Checks
-            int staticScore = GetStaticScore(issue, avgIssueTextLength);
+            int staticScore = issue.score;
 
             //Perform AI Checks
             string[] userMessage = new string[6];
@@ -68,12 +69,24 @@ namespace SCAuditStudio
             }
         }
 
-        static public int GetStaticScore(MDFile issue,float avgIssueTextLength)
+        static public void SetStaticScore(MDFile[] issues)
         {
-            int totallength = issue.impact.Length + issue.detail.Length + issue.summary.Length;
-            int blackListScore = StaticStringOperations.CheckForBlackList(issue, ConfigFile.Read<string>("BlackList") ?? "");
-            int totalscore = Convert.ToInt16((totallength / avgIssueTextLength) * (issue.impact.Length + blackListScore));
-            return totalscore;
+            //int totallength = issue.impact.Length + issue.detail.Length + issue.summary.Length;
+            float totallength = 0;
+
+            for (int i = 0; i < issues.Length; i++)
+            {
+                totallength += issues[i].impact.Length + issues[i].detail.Length + issues[i].summary.Length;
+            }
+            float avgissuelength = totallength / issues.Length;
+            for (int i = 0; i < issues.Length; i++)
+            {
+                MDFile issue = issues[i];
+                int totallengthIssue = issue.impact.Length + issue.detail.Length + issue.summary.Length;
+                int blackListScore = StaticStringOperations.CheckForBlackList(issue, ConfigFile.Read<string>("BlackList") ?? "");
+                int totalscore = Convert.ToInt32((totallengthIssue / avgissuelength) * (issue.impact.Length + blackListScore));
+                issues[i].score = totalscore;
+            }
         }
         static public float CompareIssuesStatic(MDFile issue1, MDFile issue2)
         {

@@ -201,6 +201,7 @@ namespace SCAuditStudio
             }
 
             mdFiles = mdFileList.OrderBy(f => Path.GetFileName(f.path)).ToArray();
+            AutoDirectorySort.SetStaticScore(mdFiles);
         }
     }
 }

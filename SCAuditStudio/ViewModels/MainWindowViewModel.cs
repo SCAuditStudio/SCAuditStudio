@@ -244,7 +244,7 @@ namespace SCAuditStudio.ViewModels
             TabItem page = new()
             {
                 Header = fileName,
-                Content = file.rawContent[file.rawContent.IndexOf("#")..]
+                Content = file.rawContent
             };
 
             tabPages.Add(page);
