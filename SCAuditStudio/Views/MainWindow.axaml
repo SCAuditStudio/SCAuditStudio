@@ -192,6 +192,12 @@
           <Style Selector="TreeDataGrid ContextMenu MenuItem:selected /template/ ContentPresenter">
             <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
           </Style>
+          <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover /template/ Border">
+            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+          </Style>
+          <Style Selector="TreeDataGrid ContextMenu MenuItem /template/ Border">
+            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+          </Style>
         </TreeDataGrid.Styles>
       </TreeDataGrid>
       <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="{Binding selectedTheme.Background}"/>
