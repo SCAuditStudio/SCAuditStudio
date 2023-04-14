@@ -86,7 +86,11 @@
         <TabControl.ContentTemplate>
           <DataTemplate>
             <ContentControl Grid.Row="1" BorderThickness="1" BorderBrush="{Binding $parent[1].DataContext.selectedTheme.Accent}">
-              <md:MarkdownScrollViewer Markdown="{Binding}"/>
+              <md:MarkdownScrollViewer Markdown="{Binding}">
+                <md:MarkdownScrollViewer.Styles>
+                  <StyleInclude Source="/Design/Styles/MarkdownScrollViewer.axaml"/>
+                </md:MarkdownScrollViewer.Styles>
+              </md:MarkdownScrollViewer>
             </ContentControl>
           </DataTemplate>
         </TabControl.ContentTemplate>
