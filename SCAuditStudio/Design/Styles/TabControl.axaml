@@ -1,0 +1,66 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+          <TabControl>
+            <TabItem Header="item_1"/>
+            <TabItem Header="item_2"/>
+          </TabControl>
+        </Border>
+    </Design.PreviewWith>
+
+  <Style Selector="TabControl">
+    <Setter Property="Margin" Value="0,5,0,5"/>
+  </Style>
+  <Style Selector="TabControl:empty">
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
+  </Style>
+  <Style Selector="TabControl ContentControl">
+    <Setter Property="Margin" Value="-12,-3,-7,0"/>
+  </Style>
+  <Style Selector="TabItem">
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Margin" Value="0,0,2,0"/>
+    <Setter Property="MinHeight" Value="0"/>
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="BorderBrush" Value="{Binding selectedTheme.Accent}"/>
+  </Style>
+  <Style Selector="TabItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TabItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TabItem:selected">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TabItem:selected /template/ Border Border">
+    <Setter Property="IsVisible" Value="False"/>
+  </Style>
+  <Style Selector="TabItem Panel">
+    <Setter Property="Background" Value="Transparent"/>
+  </Style>
+  <Style Selector="TabItem Panel:pointerover">
+    <Setter Property="Background" Value="{Binding $parent[1].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TabItem:pointerover Panel Rectangle">
+    <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TabItem:selected Panel Rectangle">
+    <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TabItem Panel Rectangle">
+    <Setter Property="IsVisible" Value="True"/>
+    <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="TabItem Panel:pointerover Rectangle">
+    <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.Accent}"/>
+  </Style>
+</Styles>

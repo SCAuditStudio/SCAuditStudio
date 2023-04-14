@@ -8,6 +8,10 @@
 
     <Application.Styles>
       <FluentTheme Mode="{Binding selectedTheme.ThemeMode}"/>
-      <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
+      <StyleInclude Source="/Design/Styles/Window.axaml"/>
+      <StyleInclude Source="/Design/Styles/Menu.axaml"/>
+      <StyleInclude Source="/Design/Styles/TreeDataGrid.axaml"/>
+      <StyleInclude Source="/Design/Styles/MarkdownScrollViewer.axaml"/>
+      <StyleInclude Source="/Design/Styles/TabControl.axaml"/>
     </Application.Styles>
 </Application>

@@ -1,0 +1,44 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
+        xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="100">
+          <md:MarkdownScrollViewer xml:space="preserve">
+            # Header
+            
+            ## Summary
+            This could be your Summary.
+            
+            ## Code Snippets
+            This is really cool code:
+            ```cs
+              int example = 0;
+              example++;
+              Console.WriteLine(example);
+            ```
+          </md:MarkdownScrollViewer>
+        </Border>
+    </Design.PreviewWith>
+
+  <Style Selector="ctxt|CTextBlock.Heading1">
+    <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="ctxt|CTextBlock.Heading2">
+    <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="ctxt|CTextBlock.CodeBlock">
+    <Style.Setters>
+      <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Accent}"/>
+      <Setter Property="Background" Value="{Binding $parent[5].DataContext.selectedTheme.Accent}"/>
+      <Setter Property="FontFamily" Value="Meiryo"/>
+    </Style.Setters>
+  </Style>
+  <Style Selector="ctxt|CCode">
+    <Style.Setters>
+      <Setter Property="MonospaceFontFamily" Value="Meiryo" />
+      <Setter Property="Foreground"          Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}" />
+      <Setter Property="Background"          Value="{Binding $parent[5].DataContext.selectedTheme.Background}" />
+    </Style.Setters>
+  </Style>
+</Styles>

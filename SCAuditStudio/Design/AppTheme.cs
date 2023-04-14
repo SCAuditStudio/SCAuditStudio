@@ -3,7 +3,7 @@ using Avalonia.Themes.Fluent;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SCAuditStudio
+namespace SCAuditStudio.Design
 {
     public class AppTheme
     {

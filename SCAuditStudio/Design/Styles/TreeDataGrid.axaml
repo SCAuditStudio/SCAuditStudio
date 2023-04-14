@@ -1,0 +1,104 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="100">
+          <TreeDataGrid>
+            
+          </TreeDataGrid>
+        </Border>
+    </Design.PreviewWith>
+
+  <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
+
+  <Style Selector="TreeDataGrid">
+    <Setter Property="Margin" Value="5"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
+  </Style>
+  <Style Selector="TreeDataGridColumnHeader">
+    <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
+    <Setter Property="Margin" Value="-1,-1,0,0"/>
+    <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+  </Style>
+  <Style Selector="TreeDataGridColumnHeader:pointerover /template/ Border">
+    <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
+  </Style>
+  <Style Selector="TreeDataGridColumnHeader:pointerover /template/ DockPanel">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGridColumnHeader:pointerover TextBlock">
+    <Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGridColumnHeader:pointerover /template/ Panel">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+  </Style>
+  <Style Selector="TreeDataGridColumnHeader /template/ Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.Foreground}"/>
+    <Setter Property="Stroke" Value="{Binding selectedTheme.Foreground}"/>
+    <Setter Property="StrokeThickness" Value="1"/>
+  </Style>
+  <Style Selector="TreeDataGridColumnHeader:pointerover /template/ Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
+    <Setter Property="Stroke" Value="{Binding selectedTheme.SelectedText}"/>
+    <Setter Property="StrokeThickness" Value="1"/>
+  </Style>
+  <Style Selector="TreeDataGridRow">
+    <Setter Property="Background" Value="{Binding Background}"/>
+    <Setter Property="Foreground" Value="{Binding Foreground}"/>
+  </Style>
+  <Style Selector="TreeDataGridRow Path">
+    <Setter Property="Stroke" Value="{Binding Foreground}"/>
+    <Setter Property="StrokeThickness" Value="1"/>
+  </Style>
+  <Style Selector="TreeDataGridRow:pointerover">
+    <Setter Property="Background" Value="{Binding $parent[4].DataContext.selectedTheme.Accent}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[4].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGridRow:selected">
+    <Setter Property="Background" Value="{Binding $parent[4].DataContext.selectedTheme.Accent}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[4].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem">
+    <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
+    <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+    <Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem:selected Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu:pointerover Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu:selected Path">
+    <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover /template/ ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem:selected /template/ ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover /template/ Border">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+  </Style>
+  <Style Selector="TreeDataGrid ContextMenu MenuItem /template/ Border">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+  </Style>
+</Styles>

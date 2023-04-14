@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SCAuditStudio.Views.MainWindow"
-        xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
         Icon="/Assets/SCAS-logo.ico"
         Title="SCAuditStudio"
         ExtendClientAreaToDecorationsHint="True"
@@ -18,18 +17,6 @@
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>
-
-  <!-- GENERAL STYLE -->
-  <Window.Styles>
-    <Style Selector="Window">
-      <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
-      <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
-      <Setter Property="FontFamily" Value="{Binding selectedTheme.FontFamily}"/>
-    </Style>
-    <Style Selector="Window[WindowState=Maximized]">
-      <Setter Property="Padding" Value="8"/>
-    </Style>
-  </Window.Styles>
 
   <DockPanel>    
     <!-- MENU BAR -->
@@ -47,39 +34,6 @@
         <MenuItem Header="AI Score"/>
         <MenuItem Header="Basic Score"/>
       </MenuItem>
-      <Menu.Styles>
-        <Style Selector="Menu">
-          <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
-        </Style>
-        <Style Selector="MenuItem">
-          <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
-          <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
-        </Style>
-        <Style Selector="Separator">
-          <Setter Property="Background" Value="{Binding selectedTheme.SelectedText}"/>
-        </Style>
-        <Style Selector="Menu MenuItem Border Border">
-          <Setter Property="Margin" Value="-3"/>
-        </Style>
-        <Style Selector="MenuItem StackPanel">
-          <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
-        </Style>
-        <Style Selector="MenuItem DockPanel">
-          <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-        </Style>
-        <Style Selector="MenuItem:pointerover Panel">
-          <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-        </Style>
-        <Style Selector="MenuItem:selected Panel">
-          <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-        </Style>
-        <Style Selector="MenuItem:pointerover /template/ ContentPresenter">
-          <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-        </Style>
-        <Style Selector="MenuItem:selected /template/ ContentPresenter">
-          <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-        </Style>
-      </Menu.Styles>
     </Menu>
     
     <!-- FILE LIST AND VIEWER -->
@@ -105,100 +59,6 @@
             <MenuItem Header="Highlight" Items="{Binding highlightBrushes}"/>
           </ContextMenu>
         </TreeDataGrid.ContextMenu>
-        <!-- MD FILE LIST STYLES -->
-        <TreeDataGrid.Styles>
-          <Style Selector="TreeDataGrid">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
-          </Style>
-          <Style Selector="TreeDataGridColumnHeader">
-            <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
-            <Setter Property="Margin" Value="-1,-1,0,0"/>
-            <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-          </Style>
-          <Style Selector="TreeDataGridColumnHeader:pointerover /template/ Border">
-            <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
-          </Style>
-          <Style Selector="TreeDataGridColumnHeader:pointerover /template/ DockPanel">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-            <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGridColumnHeader:pointerover TextBlock">
-            <Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGridColumnHeader:pointerover /template/ Panel">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-          </Style>
-          <Style Selector="TreeDataGridColumnHeader /template/ Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.Foreground}"/>
-            <Setter Property="Stroke" Value="{Binding selectedTheme.Foreground}"/>
-            <Setter Property="StrokeThickness" Value="1"/>
-          </Style>
-          <Style Selector="TreeDataGridColumnHeader:pointerover /template/ Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
-            <Setter Property="Stroke" Value="{Binding selectedTheme.SelectedText}"/>
-            <Setter Property="StrokeThickness" Value="1"/>
-          </Style>
-          <Style Selector="TreeDataGridRow">
-            <Setter Property="Background" Value="{Binding Background}"/>
-            <Setter Property="Foreground" Value="{Binding Foreground}"/>
-          </Style>
-          <Style Selector="TreeDataGridRow Path">
-            <Setter Property="Stroke" Value="{Binding Foreground}"/>
-            <Setter Property="StrokeThickness" Value="1"/>
-          </Style>
-          <Style Selector="TreeDataGridRow:pointerover">
-            <Setter Property="Background" Value="{Binding $parent[4].DataContext.selectedTheme.Accent}"/>
-            <Setter Property="Foreground" Value="{Binding $parent[4].DataContext.selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGridRow:selected">
-            <Setter Property="Background" Value="{Binding $parent[4].DataContext.selectedTheme.Accent}"/>
-            <Setter Property="Foreground" Value="{Binding $parent[4].DataContext.selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem">
-            <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
-            <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-            <Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.Foreground}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem:selected Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.Foreground}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu:pointerover Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu:selected Path">
-            <Setter Property="Fill" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover /template/ ContentPresenter">
-            <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem:selected /template/ ContentPresenter">
-            <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem:pointerover /template/ Border">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-          </Style>
-          <Style Selector="TreeDataGrid ContextMenu MenuItem /template/ Border">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-          </Style>
-        </TreeDataGrid.Styles>
       </TreeDataGrid>
       <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="{Binding selectedTheme.Background}"/>
       <!-- MD FILE READER -->
@@ -219,90 +79,10 @@
         <TabControl.ContentTemplate>
           <DataTemplate>
             <ContentControl Grid.Row="1" BorderThickness="1" BorderBrush="{Binding $parent[1].DataContext.selectedTheme.Accent}">
-              <md:MarkdownScrollViewer Markdown="{Binding}">
-                <md:MarkdownScrollViewer.Styles>
-                  <Style Selector="ctxt|CTextBlock.Heading1">
-                    <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}"/>
-                  </Style>
-                  <Style Selector="ctxt|CTextBlock.Heading2">
-                    <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}"/>
-                  </Style>
-                  <Style Selector="ctxt|CTextBlock.CodeBlock">
-                    <Style.Setters>
-                      <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Accent}"/>
-                      <Setter Property="Background" Value="{Binding $parent[5].DataContext.selectedTheme.Accent}"/>
-                      <Setter Property="FontFamily" Value="Meiryo"/>
-                    </Style.Setters>
-                  </Style>
-                  <Style Selector="ctxt|CCode">
-                    <Style.Setters>
-                      <Setter Property="MonospaceFontFamily" Value="Meiryo" />
-                      <Setter Property="Foreground"          Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}" />
-                      <Setter Property="Background"          Value="{Binding $parent[5].DataContext.selectedTheme.Background}" />
-                    </Style.Setters>
-                  </Style>
-                </md:MarkdownScrollViewer.Styles>
-              </md:MarkdownScrollViewer>
+              <md:MarkdownScrollViewer Markdown="{Binding}"/>
             </ContentControl>
           </DataTemplate>
         </TabControl.ContentTemplate>
-        <!-- TAB STYLES -->
-        <TabControl.Styles>
-          <Style Selector="TabControl">
-            <Setter Property="Margin" Value="0,5,0,5"/>
-          </Style>
-          <Style Selector="TabControl:empty">
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
-          </Style>
-          <Style Selector="TabControl ContentControl">
-            <Setter Property="Margin" Value="-12,-3,-7,0"/>
-          </Style>
-          <Style Selector="TabItem">
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0,0,2,0"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{Binding selectedTheme.Accent}"/>
-          </Style>
-          <Style Selector="TabItem:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-            <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TabItem:selected /template/ ContentPresenter">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-            <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TabItem:selected">
-            <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
-            <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TabItem:selected /template/ Border Border">
-            <Setter Property="IsVisible" Value="False"/>
-          </Style>
-          <Style Selector="TabItem Panel">
-            <Setter Property="Background" Value="Transparent"/>
-          </Style>
-          <Style Selector="TabItem Panel:pointerover">
-            <Setter Property="Background" Value="{Binding $parent[1].DataContext.selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TabItem:pointerover Panel Rectangle">
-            <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TabItem:selected Panel Rectangle">
-            <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.SelectedText}"/>
-          </Style>
-          <Style Selector="TabItem Panel Rectangle">
-            <Setter Property="IsVisible" Value="True"/>
-            <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.Foreground}"/>
-          </Style>
-          <Style Selector="TabItem Panel:pointerover Rectangle">
-            <Setter Property="Fill" Value="{Binding $parent[2].DataContext.selectedTheme.Accent}"/>
-          </Style>
-        </TabControl.Styles>
       </TabControl>
     </Grid>
   </DockPanel>                                                                               
