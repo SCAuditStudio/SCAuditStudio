@@ -42,7 +42,7 @@ namespace SCAuditStudio.ViewModels
             mdFileTree.RowSelection!.SingleSelect = false;
             mdFileTree.Columns.Add(new HierarchicalExpanderColumn<Node>(new TextColumn<Node, string>("File Name", f => f.fileName), f => f.subNodes));
             mdFileTree.Columns.Add(new TextColumn<Node, string>("Title", f => f.title));
-            mdFileTree.Columns.Add(new TextColumn<Node, string>("Score", f => f.score));
+            mdFileTree.Columns.Add(new TextColumn<Node, int>("Score", f => f.score));
             mdFileTree.Columns.SetColumnWidth(0, GridLength.Parse("100"));
             mdFileTree.Columns.SetColumnWidth(1, GridLength.Parse("185"));
             mdFileTree.Columns.SetColumnWidth(2, GridLength.Parse("55"));
@@ -50,7 +50,7 @@ namespace SCAuditStudio.ViewModels
 
             highlightBrushes = new();
             selectedTheme = new();
-            LoadTheme(AppTheme.DefaultLight);
+            LoadTheme(AppTheme.DefaultDark);
 
             tabPages = new();
         }
@@ -92,7 +92,7 @@ namespace SCAuditStudio.ViewModels
                 Node subNode = new(subDir)
                 {
                     title = "",
-                    score = "",
+                    score = 0,
                     Background = selectedTheme.Background,
                     Foreground = selectedTheme.Foreground
                 };
@@ -105,7 +105,7 @@ namespace SCAuditStudio.ViewModels
                     if (!subFile.EndsWith(".md"))
                     {
                         subFileNode.title = "";
-                        subFileNode.score = "";
+                        subFileNode.score = 0;
                         subFileNode.Background = selectedTheme.Background;
                         subFileNode.Foreground = selectedTheme.Foreground;
 
@@ -115,7 +115,7 @@ namespace SCAuditStudio.ViewModels
 
                     MDFile? mdFile = mdManager.GetFile(subFileNode.fileName);
                     subFileNode.title = mdFile?.title ?? subFileNode.title;
-                    subFileNode.score = mdFile?.score.ToString() ?? subFileNode.score;
+                    subFileNode.score = mdFile?.score ?? subFileNode.score;
                     subFileNode.Background = mdFile?.highlight;
                     subFileNode.Foreground = mdFile?.highlight == null ? selectedTheme.Foreground : selectedTheme.SelectedText;
                     subNode.subNodes.Add(subFileNode);
@@ -133,7 +133,7 @@ namespace SCAuditStudio.ViewModels
                 if (!file.EndsWith(".md"))
                 {
                     fileNode.title = "";
-                    fileNode.score = "";
+                    fileNode.score = 0;
                     fileNode.Background = selectedTheme.Background;
                     fileNode.Foreground = selectedTheme.Foreground;
 
@@ -143,7 +143,7 @@ namespace SCAuditStudio.ViewModels
 
                 MDFile? mdFile = mdManager.GetFile(fileNode.fileName);
                 fileNode.title = mdFile?.title ?? fileNode.title;
-                fileNode.score = mdFile?.score.ToString() ?? fileNode.score;
+                fileNode.score = mdFile?.score ?? fileNode.score;
                 fileNode.Background = mdFile?.highlight;
                 fileNode.Foreground = mdFile?.highlight == null ? selectedTheme.Foreground : selectedTheme.SelectedText;
                 mdFileItems.Add(fileNode);
@@ -424,7 +424,7 @@ namespace SCAuditStudio.ViewModels
             public IBrush? Foreground { get; set; }
             public string fileName { get; }
             public string title;
-            public string score;
+            public int score;
 
             public Node(string path)
             {
@@ -432,7 +432,7 @@ namespace SCAuditStudio.ViewModels
                 fileName = Path.GetFileName(path);
 
                 title = "untitled";
-                score = "";
+                score = 0;
             }
         }
     }
