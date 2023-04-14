@@ -50,7 +50,7 @@ namespace SCAuditStudio.ViewModels
 
             highlightBrushes = new();
             selectedTheme = new();
-            LoadTheme(AppTheme.DefaultDark);
+            LoadTheme(AppTheme.DefaultLight);
 
             tabPages = new();
         }
@@ -106,6 +106,8 @@ namespace SCAuditStudio.ViewModels
                     {
                         subFileNode.title = "";
                         subFileNode.score = "";
+                        subFileNode.Background = selectedTheme.Background;
+                        subFileNode.Foreground = selectedTheme.Foreground;
 
                         subNode.subNodes.Add(subFileNode);
                         continue;
@@ -132,6 +134,8 @@ namespace SCAuditStudio.ViewModels
                 {
                     fileNode.title = "";
                     fileNode.score = "";
+                    fileNode.Background = selectedTheme.Background;
+                    fileNode.Foreground = selectedTheme.Foreground;
 
                     mdFileItems.Add(fileNode);
                     continue;

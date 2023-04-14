@@ -44,7 +44,6 @@
         <MenuItem Header="Basic Score"/>
       </MenuItem>
     </Menu>
-    
     <!-- FILE LIST AND VIEWER -->
     <Grid ColumnDefinitions="350, 0, *">
       <!-- MD FILE LIST -->
@@ -95,5 +94,4 @@
       </TabControl>
     </Grid>
   </DockPanel>                                                                               
-
 </Window>

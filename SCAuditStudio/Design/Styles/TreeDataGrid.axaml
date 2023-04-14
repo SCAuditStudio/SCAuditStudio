@@ -48,10 +48,6 @@
     <Setter Property="Background" Value="{Binding Background}"/>
     <Setter Property="Foreground" Value="{Binding Foreground}"/>
   </Style>
-  <Style Selector="TreeDataGridRow Path">
-    <Setter Property="Stroke" Value="{Binding Foreground}"/>
-    <Setter Property="StrokeThickness" Value="1"/>
-  </Style>
   <Style Selector="TreeDataGridRow:pointerover">
     <Setter Property="Background" Value="{Binding $parent[4].DataContext.selectedTheme.Accent}"/>
     <Setter Property="Foreground" Value="{Binding $parent[4].DataContext.selectedTheme.SelectedText}"/>
@@ -59,6 +55,18 @@
   <Style Selector="TreeDataGridRow:selected">
     <Setter Property="Background" Value="{Binding $parent[4].DataContext.selectedTheme.Accent}"/>
     <Setter Property="Foreground" Value="{Binding $parent[4].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="TreeDataGridRow Path">
+    <Setter Property="Stroke" Value="{Binding $parent[9].DataContext.selectedTheme.Foreground}"/>
+    <Setter Property="StrokeThickness" Value="1"/>
+  </Style>
+  <Style Selector="TreeDataGridRow:pointerover Path">
+    <Setter Property="Stroke" Value="{Binding $parent[9].DataContext.selectedTheme.SelectedText}"/>
+    <Setter Property="StrokeThickness" Value="1"/>
+  </Style>
+  <Style Selector="TreeDataGridRow:selected Path">
+    <Setter Property="Stroke" Value="{Binding $parent[9].DataContext.selectedTheme.SelectedText}"/>
+    <Setter Property="StrokeThickness" Value="1"/>
   </Style>
   <Style Selector="TreeDataGrid ContextMenu">
     <Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
