@@ -42,7 +42,7 @@ namespace SCAuditStudio.ViewModels
             mdFileTree.RowSelection!.SingleSelect = false;
             mdFileTree.Columns.Add(new HierarchicalExpanderColumn<Node>(new TextColumn<Node, string>("File Name", f => f.fileName), f => f.subNodes));
             mdFileTree.Columns.Add(new TextColumn<Node, string>("Title", f => f.title));
-            mdFileTree.Columns.Add(new TextColumn<Node, uint>("Score", f => f.score));
+            mdFileTree.Columns.Add(new TextColumn<Node, uint?>("Score", f => f.score));
             mdFileTree.Columns.SetColumnWidth(0, GridLength.Parse("100"));
             mdFileTree.Columns.SetColumnWidth(1, GridLength.Parse("185"));
             mdFileTree.Columns.SetColumnWidth(2, GridLength.Parse("55"));
@@ -72,6 +72,8 @@ namespace SCAuditStudio.ViewModels
 
             mdManager = new(ProjectDirectory);
             await mdManager.LoadFilesAsync();
+            
+            CloseTabPages();
             LoadMDFileItems();
             LoadMDFileContext();
         }
@@ -92,7 +94,6 @@ namespace SCAuditStudio.ViewModels
                 Node subNode = new(subDir)
                 {
                     title = "",
-                    score = 0,
                     Background = selectedTheme.Background,
                     Foreground = selectedTheme.Foreground
                 };
@@ -105,7 +106,6 @@ namespace SCAuditStudio.ViewModels
                     if (!subFile.EndsWith(".md"))
                     {
                         subFileNode.title = "";
-                        subFileNode.score = 0;
                         subFileNode.Background = selectedTheme.Background;
                         subFileNode.Foreground = selectedTheme.Foreground;
 
@@ -133,7 +133,6 @@ namespace SCAuditStudio.ViewModels
                 if (!file.EndsWith(".md"))
                 {
                     fileNode.title = "";
-                    fileNode.score = 0;
                     fileNode.Background = selectedTheme.Background;
                     fileNode.Foreground = selectedTheme.Foreground;
 
@@ -268,6 +267,10 @@ namespace SCAuditStudio.ViewModels
             if (lastTab == null) return;
 
             lastTab.IsSelected = true;
+        }
+        public void CloseTabPages()
+        {
+            tabPages.Clear();
         }
 
         /* EVENTS */
@@ -424,7 +427,7 @@ namespace SCAuditStudio.ViewModels
             public IBrush? Foreground { get; set; }
             public string fileName { get; }
             public string title;
-            public uint score;
+            public uint? score;
 
             public Node(string path)
             {
@@ -432,7 +435,6 @@ namespace SCAuditStudio.ViewModels
                 fileName = Path.GetFileName(path);
 
                 title = "untitled";
-                score = 0;
             }
         }
     }

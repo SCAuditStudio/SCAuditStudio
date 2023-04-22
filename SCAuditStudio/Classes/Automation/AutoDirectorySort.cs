@@ -68,7 +68,8 @@ namespace SCAuditStudio
         {
             //int totallength = issue.impact.Length + issue.detail.Length + issue.summary.Length;
             float totallength = 0;
-            string blacklist = File.ReadAllText(ConfigFile.Read<string>("BlackList") ?? "");
+            string? blacklistPath = ConfigFile.Read<string>("BlackList");
+            string blacklist = File.Exists(blacklistPath) ? File.ReadAllText(blacklistPath) : "";
             for (int i = 0; i < issues.Length; i++)
             {
                 totallength += issues[i].impact.Length + issues[i].detail.Length + issues[i].summary.Length;

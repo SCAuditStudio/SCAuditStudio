@@ -152,6 +152,7 @@ namespace SCAuditStudio.Views
         {
             if (e.Source == null) return;
 
+            //Read File
             if (e.Key == Key.Enter)
             {
                 IReadOnlyList<MainWindowViewModel.Node?>? selectedNodes = GetViewModel()?.mdFileTree.RowSelection?.SelectedItems;
@@ -167,6 +168,18 @@ namespace SCAuditStudio.Views
                     //Try Open Tab Page of file
                     GetViewModel()?.OpenTabPage(selectedNode.fileName);
                 }
+            }
+
+            //Move File to invalid
+            if (e.Key == Key.I)
+            {
+                GetViewModel()?.MoveFileToInvalid(sender, e);
+            }
+
+            //Move File to root
+            if (e.Key == Key.R)
+            {
+                GetViewModel()?.MoveFileToRoot(sender, e);
             }
 
             e.Handled = true;
