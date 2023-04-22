@@ -42,7 +42,7 @@ namespace SCAuditStudio.ViewModels
             mdFileTree.RowSelection!.SingleSelect = false;
             mdFileTree.Columns.Add(new HierarchicalExpanderColumn<Node>(new TextColumn<Node, string>("File Name", f => f.fileName), f => f.subNodes));
             mdFileTree.Columns.Add(new TextColumn<Node, string>("Title", f => f.title));
-            mdFileTree.Columns.Add(new TextColumn<Node, int>("Score", f => f.score));
+            mdFileTree.Columns.Add(new TextColumn<Node, uint>("Score", f => f.score));
             mdFileTree.Columns.SetColumnWidth(0, GridLength.Parse("100"));
             mdFileTree.Columns.SetColumnWidth(1, GridLength.Parse("185"));
             mdFileTree.Columns.SetColumnWidth(2, GridLength.Parse("55"));
@@ -424,7 +424,7 @@ namespace SCAuditStudio.ViewModels
             public IBrush? Foreground { get; set; }
             public string fileName { get; }
             public string title;
-            public int score;
+            public uint score;
 
             public Node(string path)
             {

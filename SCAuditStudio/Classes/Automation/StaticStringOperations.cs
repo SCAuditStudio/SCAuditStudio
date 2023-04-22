@@ -12,28 +12,21 @@ namespace SCAuditStudio
 
             for (int i = 0; i < blackListWords.Length; i++)
             {
-                if (issue.title.Contains(blackListWords[i]))
+                if (issue.title.ToLower().Contains(blackListWords[i].ToLower()))
                 {
                     totalWordsFound++;
                 }
-                if (issue.detail.Contains(blackListWords[i]))
+                if (issue.detail.ToLower().Contains(blackListWords[i].ToLower()))
                 {
                     totalWordsFound++;
                 }
-                if (issue.impact.Contains(blackListWords[i]))
+                if (issue.impact.ToLower().Contains(blackListWords[i].ToLower()))
                 {
                     totalWordsFound++;
                 }
             }
-            if (totalWordsFound == 0)
-            {
-                return 0;
-            }
-            else if (blackListWords.Length > totalWordsFound)
-            {
-                return totalWordsFound;
-            }
-            return 0;
+            
+            return totalWordsFound;
         }
         //Returns float between 0 and 1, 0 when same, 1 when different
         public static float StaticCompareString(string title1, string title2)

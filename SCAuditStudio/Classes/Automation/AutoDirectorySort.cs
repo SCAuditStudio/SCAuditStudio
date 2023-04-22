@@ -2,41 +2,36 @@
 using System.ComponentModel;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace SCAuditStudio
 {
     static class AutoDirectorySort
     {
-        public static async Task<int> GetScore(MDFile issue, string criteria, string context, int avgIssueTextLength)
+        public static async Task<int[]> GetScore(MDFile[] issues, string criteria)
         {
             //Perform Static Checks
-            int staticScore = issue.score;
 
-            //Perform AI Checks
-            string[] userMessage = new string[6];
-            userMessage[0] = "Check if this Smart Contract Vurnability is an valid issue, only return: 'Invalid1' (if the issue is Invalid), 'Invalid2' (if there is a small chance the issue is Invalid), 'Valid' (if you are sure the issue is valid). Use following criteria and context:";
-            userMessage[1] = "Criteria: \n" + criteria;
-            userMessage[2] = "Context: \n" + context;
-            userMessage[3] = "Vurnability Detail: \n" + issue.detail;
-            userMessage[4] = "Vurnability Impact: \n" + issue.summary;
-            userMessage[5] = "Vurnability Impact: \n" + issue.impact;
 
-            var userMessageS = userMessage.ToSingle();
-            string response = await AISort.AskGPT(userMessageS);
+            for (int i = 0; i < issues.Length; i +=2) {
+                //Perform AI Checks
+                string[] userMessage = new string[8];
+                userMessage[0] = "Check if these Smart Contract Vurnabilitys are valid issues, only return: 'Invalid' (if the issue is Invalid),'Valid' (if you are sure the issue is valid) for each issue. Use following criteria:";
+                userMessage[1] = "Criteria: \n" + criteria;
+                //userMessage[2] = "Context: \n" + context;
+                userMessage[2] = "Vurnability1 Summary: \n" + issues[i].summary;
+                userMessage[3] = "Vurnability1 Impact: \n" + issues[i].impact;
+                if (i+1 <= issues.Length)
+                {
+                    userMessage[4] = "Vurnability2 Summary: \n" + issues[i + 1].summary;
+                    userMessage[5] = "Vurnability2 Impact: \n" + issues[i + 1].impact;
+                }
+                var userMessageS = userMessage.ToSingle();
+                string response = await AISort.AskGPT(userMessageS);
 
-            if (response.Contains("Invalid1"))
-            {
-                staticScore *= 0;
+                Console.Write(response);
             }
-            if (response.Contains("Invalid2"))
-            {
-                staticScore *= 1;
-            }
-            if (response.Contains("Valid"))
-            {
-                staticScore *= 2;
-            }
-            return staticScore;
+            return new int[3] { 1, 1, 1 };
         }
 
         static async Task<bool> CompareIssues(MDFile issue1, MDFile issue2, string context)
@@ -73,7 +68,7 @@ namespace SCAuditStudio
         {
             //int totallength = issue.impact.Length + issue.detail.Length + issue.summary.Length;
             float totallength = 0;
-
+            string blacklist = File.ReadAllText(ConfigFile.Read<string>("BlackList") ?? "");
             for (int i = 0; i < issues.Length; i++)
             {
                 totallength += issues[i].impact.Length + issues[i].detail.Length + issues[i].summary.Length;
@@ -83,8 +78,9 @@ namespace SCAuditStudio
             {
                 MDFile issue = issues[i];
                 int totallengthIssue = issue.impact.Length + issue.detail.Length + issue.summary.Length;
-                int blackListScore = StaticStringOperations.CheckForBlackList(issue, ConfigFile.Read<string>("BlackList") ?? "");
-                int totalscore = Convert.ToInt32((totallengthIssue / avgissuelength) * (issue.impact.Length + blackListScore));
+                int blackListScore = StaticStringOperations.CheckForBlackList(issue, blacklist);
+                Console.WriteLine(blackListScore);
+                uint totalscore = (UInt32)((totallengthIssue / avgissuelength)*100 / (blackListScore+1));
                 issues[i].score = totalscore;
             }
         }

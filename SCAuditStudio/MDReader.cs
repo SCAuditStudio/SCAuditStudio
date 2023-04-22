@@ -11,8 +11,8 @@ namespace SCAuditStudio
     public static class MDReader
     {
         static readonly int authorLine   = 0;
-        static readonly int severityLine = 2;
-        static readonly int titleLine    = 4;
+        static readonly int severityLine = 1;
+        static readonly int titleLine    = 2;
         static readonly string summaryHeader        = "## Summary";
         static readonly string detailHeader         = "## Vulnerability Detail";
         static readonly string impactHeader         = "## Impact";
@@ -107,8 +107,11 @@ namespace SCAuditStudio
 
             mdFile.path = file;
             mdFile.rawContent = await File.ReadAllTextAsync(file);
-            string[] lines = mdFile.rawContent.Split(Environment.NewLine);
-
+            string[] lines = mdFile.rawContent.Split(new char[]{'\n','\r'},StringSplitOptions.RemoveEmptyEntries);
+            if (lines.Length < 5 )
+            {
+                return MDFile.Invalid;
+            }
             mdFile.author = lines[authorLine];
             mdFile.severity = lines[severityLine];
             mdFile.title = lines[titleLine][2..];
@@ -119,13 +122,38 @@ namespace SCAuditStudio
             int codeIndex = mdFile.rawContent.IndexOf(codeHeader);
             int toolIndex = mdFile.rawContent.IndexOf(toolHeader);
             int recommendationIndex = mdFile.rawContent.IndexOf(recommendationHeader);
-
-            mdFile.summary = mdFile.rawContent[(summaryIndex + summaryHeader.Length)..detailIndex].Trim();
-            mdFile.detail = mdFile.rawContent[(detailIndex + detailHeader.Length)..impactIndex].Trim();
-            mdFile.impact = mdFile.rawContent[(impactIndex + impactHeader.Length)..codeIndex].Trim();
-            mdFile.tools = mdFile.rawContent[(toolIndex + toolHeader.Length)..recommendationIndex].Trim();
-            mdFile.recommendation = mdFile.rawContent[(recommendationIndex + recommendationHeader.Length)..].Trim();
-
+            
+            if (summaryIndex< 1 || detailIndex < 1|| impactIndex < 1|| codeIndex <1 || toolIndex < 1|| recommendationIndex < 1)
+            {
+                return MDFile.Invalid;
+            }
+            int[] sortedIndexes = new int[6] { summaryIndex, detailIndex, impactIndex, codeIndex, toolIndex, recommendationIndex };
+            sortedIndexes = sortedIndexes.OrderBy(x => x).ToArray();
+            for (int i = 0; i < sortedIndexes.Length-1; i++)
+            {
+                int startindex = sortedIndexes[i];
+                int endindex = sortedIndexes[i+1];
+                if (startindex == summaryIndex)
+                {
+                    mdFile.summary = mdFile.rawContent[(startindex + summaryHeader.Length)..endindex].Trim();
+                }
+                if (startindex == detailIndex)
+                {
+                    mdFile.detail = mdFile.rawContent[(startindex + detailHeader.Length)..endindex].Trim();
+                }
+                if (startindex == impactIndex)
+                {
+                    mdFile.impact = mdFile.rawContent[(startindex + impactHeader.Length)..endindex].Trim();
+                }
+                if (startindex == codeIndex)
+                {
+                    mdFile.tools = mdFile.rawContent[(startindex + toolHeader.Length)..endindex].Trim();
+                }
+                if (startindex == recommendationIndex)
+                {
+                    mdFile.recommendation = mdFile.rawContent[(startindex + recommendationHeader.Length)..endindex].Trim();
+                }
+            }
             CodeSnippet[] codeSnippets = ParseCodeSnippets(mdFile);
             CodeSnippet[] linkSnippets = ignoreLinks ? Array.Empty<CodeSnippet>() : await ParseCodeLinks(mdFile);
             mdFile.code = codeSnippets.Concat(linkSnippets).ToArray();
