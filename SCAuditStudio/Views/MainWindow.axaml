@@ -67,7 +67,7 @@
           </ContextMenu>
         </TreeDataGrid.ContextMenu>
       </TreeDataGrid>
-      <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="{Binding selectedTheme.Background}"/>
+      <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="Transparent"/>
       <!-- MD FILE READER -->
       <TabControl Grid.Column="2" Items="{Binding tabPages}" AutoScrollToSelectedItem="True" KeyDown="CloseTab_KeyDown">
         <!-- TAB HEADER -->

@@ -7,6 +7,13 @@ Start judging by create a local directory using the sherlock judging repository.
 2. Select "Judge Contest" or "Audit Project" 
 3. Open your project
 4. When read click save project, and push your changes
+```
+download BlackList.txt from the Documentation folder
+open build folder
+open config.txt
+add this line "BlackList : C:\\Users\\YourUser\\...\BlackList.txt"
+replace the file path with your own Blacklist path
+```
 ## Known Issues!!!
 - add hotkeys  
 - allow name change for folder  
