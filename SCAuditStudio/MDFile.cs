@@ -19,7 +19,7 @@ namespace SCAuditStudio
         public CodeSnippet[] code;
         public string tools;
         public string recommendation;
-        public int score;
+        public uint score;
         public string fileName { get => Path.GetFileName(path); }
         public IBrush? highlight;
 

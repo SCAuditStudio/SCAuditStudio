@@ -7,7 +7,14 @@ Start judging by create a local directory using the sherlock judging repository.
 2. Select "Judge Contest" or "Audit Project" 
 3. Open your project
 4. When read click save project, and push your changes
-
+## Known Issues!!!
+- add hotkeys  
+- allow name change for folder  
+- tree view show folder and files right  
+- (md reader bugs)  
+- color highlights not saved on close  
+- settings menu  
+- close tabs when open new project  
 ## Overview
 SC Audit Studio, also known as the Smart Contract Audit Studio, is a powerful tool that serves as an all-in-one Integrated Development Environment for smart contract auditing. Its primary function is to help users analyze and identify vulnerabilities in the code or design of defi or WEB3 applications.
 

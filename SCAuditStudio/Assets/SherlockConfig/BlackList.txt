@@ -1,0 +1,1 @@
+Gas opt,Incorrect Event values,magic,magic numbers,best practice,practice,Admin Input,Oracle Price Manipulation,Gas

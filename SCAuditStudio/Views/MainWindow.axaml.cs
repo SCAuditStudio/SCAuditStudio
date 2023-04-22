@@ -10,6 +10,7 @@ using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Models.TreeDataGrid;
+using System.IO;
 
 namespace SCAuditStudio.Views
 {
@@ -90,7 +91,12 @@ namespace SCAuditStudio.Views
 
             Close();
         }
+        public async void AutoInvalidateIssueClicked(object sender, RoutedEventArgs e)
+        {
+            mouseDownForWindowMoving = false;
+            await AutoDirectorySort.GetScore(GetViewModel()?.mdManager.mdFiles,File.ReadAllText(@"C:\\Users\\LinenBox\\Documents\\GitHub\\SCAuditStudio\\SCAuditStudio\\Assets\\SherlockConfig\Criteria.txt"));
 
+        }
         public void CloseTab_Clicked(object sender, PointerPressedEventArgs e)
         {
             mouseDownForWindowMoving = false;
