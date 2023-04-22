@@ -15,13 +15,11 @@ add this line "BlackList : C:\\Users\\YourUser\\...\BlackList.txt"
 replace the file path with your own Blacklist path
 ```
 ## Known Issues!!!
-- add hotkeys  
 - allow name change for folder  
 - tree view show folder and files right  
 - (md reader bugs)  
 - color highlights not saved on close  
 - settings menu  
-- close tabs when open new project  
 ## Overview
 SC Audit Studio, also known as the Smart Contract Audit Studio, is a powerful tool that serves as an all-in-one Integrated Development Environment for smart contract auditing. Its primary function is to help users analyze and identify vulnerabilities in the code or design of defi or WEB3 applications.
 
