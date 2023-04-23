@@ -4,6 +4,7 @@
         xmlns:vm="using:SCAuditStudio.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="using:SCAuditStudio.Views.Editor"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SCAuditStudio.Views.MainWindow"
         Icon="/Assets/SCAS-logo.ico"
@@ -13,10 +14,7 @@
         PointerPressed="InputElement_OnPointerPressed"
         PointerReleased="InputElement_OnPointerReleased">
 
-  <!-- PREVIEW DATA CONTEXT -->
-  <Design.DataContext>
-    <vm:MainWindowViewModel/>
-  </Design.DataContext>
+  
 
   <!-- HARDCODED STYLE ATTRIBUTES OVERWRITE -->
   <Window.Resources>
@@ -26,8 +24,7 @@
     <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
     <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
   </Window.Resources>
-
-  <DockPanel>    
+  <DockPanel>
     <!-- MENU BAR -->
     <Menu DockPanel.Dock="Top" Height="32">
       <MenuItem Header="SCAuditStudio">
@@ -43,58 +40,7 @@
         <MenuItem Header="AI Auto Invalid" Click="AutoInvalidateIssueClicked"/>
       </MenuItem>
     </Menu>
-    <!-- FILE LIST AND VIEWER -->
-    <Grid ColumnDefinitions="350, 0, *">
-      <!-- MD FILE LIST -->
-      <TreeDataGrid Source="{Binding mdFileTree}" AutoDragDropRows="True" DoubleTapped="TreeView_DoubleTapped" KeyDown="TreeView_KeyDown">
-        <!-- MD FILE LIST CONTEXT MENU -->
-        <TreeDataGrid.ContextMenu>
-          <ContextMenu>
-            <MenuItem Header="Move to">
-              <MenuItem Header="Root" Click="MoveFileToRoot"/>
-              <MenuItem Header="Invalid" Click="MoveFileToInvalid"/>
-              <MenuItem Header="Issue" Items="{Binding mdFileIssues}"/>
-            </MenuItem>
-            <MenuItem Header="Generate Issue">
-              <MenuItem Header="High" Click="MoveFileToNewIssue"/>
-              <MenuItem Header="Medium" Click="MoveFileToNewIssue"/>
-            </MenuItem>
-            <MenuItem Header="Mark">
-              <MenuItem Header="Unmark" Click="MarkFileAsUnmarked"/>
-              <MenuItem Header="As Best" Click="MarkFileAsBest"/>
-            </MenuItem>
-            <MenuItem Header="Highlight" Items="{Binding highlightBrushes}"/>
-          </ContextMenu>
-        </TreeDataGrid.ContextMenu>
-      </TreeDataGrid>
-      <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="Transparent"/>
-      <!-- MD FILE READER -->
-      <TabControl Grid.Column="2" Items="{Binding tabPages}" AutoScrollToSelectedItem="True" KeyDown="CloseTab_KeyDown">
-        <!-- TAB HEADER -->
-        <TabControl.ItemTemplate>
-          <DataTemplate>
-            <Grid ColumnDefinitions="*, *" Margin="1,0,1,0">
-              <TextBlock Grid.Column="0" Text="{Binding}" Margin="1,-2,2,0"/>
-              <Panel Grid.Column="1" Width="10" Height="10" Margin="0,0,1,0" PointerPressed="CloseTab_Clicked">
-                <Rectangle Width="8" Height="2" RenderTransform="rotate(45deg)" PointerPressed="CloseTab_Clicked" KeyDown="CloseTab_KeyDown"/>
-                <Rectangle Width="8" Height="2" RenderTransform="rotate(-45deg)" PointerPressed="CloseTab_Clicked" KeyDown="CloseTab_KeyDown"/>
-              </Panel>
-            </Grid>
-          </DataTemplate>
-        </TabControl.ItemTemplate>
-        <!-- TAB CONTENT -->
-        <TabControl.ContentTemplate>
-          <DataTemplate>
-            <ContentControl Grid.Row="1" BorderThickness="1" BorderBrush="{Binding $parent[1].DataContext.selectedTheme.Accent}">
-              <md:MarkdownScrollViewer Markdown="{Binding}">
-                <md:MarkdownScrollViewer.Styles>
-                  <StyleInclude Source="/Design/Styles/MarkdownScrollViewer.axaml"/>
-                </md:MarkdownScrollViewer.Styles>
-              </md:MarkdownScrollViewer>
-            </ContentControl>
-          </DataTemplate>
-        </TabControl.ContentTemplate>
-      </TabControl>
-    </Grid>
-  </DockPanel>                                                                               
+    <uc:MainEditor/>
+  </DockPanel>
+
 </Window>
