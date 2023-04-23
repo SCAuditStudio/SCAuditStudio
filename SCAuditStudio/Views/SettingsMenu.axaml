@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SCAuditStudio.Views.SettingsMenu">
   <DockPanel>
-    <Button Width="160" >Add Score Blacklist</Button>
+    <Button Width="160" Click="OpenBlacklistFolder_Clicked">Add Score Blacklist</Button>
     <Button Width="160" >Add Sherlock Judging Criteria</Button>
     <Button Width="160" >Add AI API key</Button>
   </DockPanel>
