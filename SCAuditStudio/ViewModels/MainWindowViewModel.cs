@@ -11,7 +11,6 @@ using Avalonia.Controls;
 using Avalonia.VisualTree;
 using Avalonia.Interactivity;
 using Avalonia.Controls.Models.TreeDataGrid;
-using System.Net.Http.Headers;
 using SCAuditStudio.Design;
 
 #pragma warning disable IDE1006
