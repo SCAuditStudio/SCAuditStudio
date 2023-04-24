@@ -1,14 +1,19 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 using System.Threading.Tasks;
 
-namespace SCAuditStudio.Views
+namespace SCAuditStudio.Views.Editor
 {
     public partial class SettingsMenu : UserControl
     {
         public SettingsMenu()
         {
             InitializeComponent();
+        }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
         public async void OpenBlacklistFolder_Clicked(object sender, RoutedEventArgs e)
         {

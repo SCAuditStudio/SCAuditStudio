@@ -103,20 +103,5 @@ namespace SCAuditStudio.Views
 
             Close();
         }
-        public void CloseTab_Clicked(object sender, PointerPressedEventArgs e)
-        {
-            mouseDownForWindowMoving = false;
-
-            if (e.Source == null) return;
-
-            TextBlock? itemText = ((IVisual)e.Source).VisualParent?.VisualParent.GetSelfAndVisualDescendants()
-                .OfType<TextBlock>()
-                .FirstOrDefault();
-
-            if (itemText != null)
-            {
-                GetViewModel()?.CloseTabPage(itemText.Text);
-            }
-        }
     }
 }
