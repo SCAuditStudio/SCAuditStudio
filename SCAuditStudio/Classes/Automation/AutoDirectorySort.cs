@@ -31,7 +31,6 @@ namespace SCAuditStudio
                 var userMessageS = userMessage.ToSingle();
                 string response = await AISort.AskGPT(userMessageS);
 
-                Console.Write(response);
             }
             return new int[3] { 1, 1, 1 };
         }
@@ -82,7 +81,6 @@ namespace SCAuditStudio
                 MDFile issue = issues[i];
                 int totallengthIssue = issue.impact.Length + issue.detail.Length + issue.summary.Length;
                 int blackListScore = StaticStringOperations.CheckForBlackList(issue, blacklist);
-                Console.WriteLine(blackListScore);
                 uint totalscore = (UInt32)((totallengthIssue / avgissuelength)*100 / (blackListScore+1));
                 issues[i].score = totalscore;
             }

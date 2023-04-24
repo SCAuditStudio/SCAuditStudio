@@ -91,9 +91,9 @@ namespace SCAuditStudio.ViewModels
             string[] subDirs = mdManager.GetSubDirectories();
             foreach (string subDir in subDirs)
             {
+                string subNodeTitle = "";
                 Node subNode = new(subDir)
                 {
-                    title = "",
                     Background = selectedTheme.Background,
                     Foreground = selectedTheme.Foreground
                 };
@@ -118,9 +118,10 @@ namespace SCAuditStudio.ViewModels
                     subFileNode.score = mdFile?.score ?? subFileNode.score;
                     subFileNode.Background = mdFile?.highlight;
                     subFileNode.Foreground = mdFile?.highlight == null ? selectedTheme.Foreground : selectedTheme.SelectedText;
+                    subNodeTitle = subFileNode.title;
                     subNode.subNodes.Add(subFileNode);
                 }
-
+                subNode.title = subNodeTitle;
                 mdFileItems.Add(subNode);
             }
 
@@ -160,11 +161,14 @@ namespace SCAuditStudio.ViewModels
 
             mdFileIssues.Clear();
 
+            
+
             //Load high issues first
             string[] highIssues = mdManager.GetIssues(MDManager.MDFileIssue.High);
             foreach (string issue in highIssues)
             {
-                MenuItem issueItem = new() { Header = issue };
+                string title = mdFileTree.Items.Where(i => i.fileName == issue).FirstOrDefault().title ?? "";
+                MenuItem issueItem = new() { Header = issue + " - " + title, Name = issue };
                 issueItem.Click += MoveFileToIssue;
                 mdFileIssues.Add(issueItem);
             }
@@ -173,7 +177,8 @@ namespace SCAuditStudio.ViewModels
             string[] mediumIssue = mdManager.GetIssues(MDManager.MDFileIssue.Medium);
             foreach (string issue in mediumIssue)
             {
-                MenuItem issueItem = new() { Header = issue };
+                string title = mdFileTree.Items.Where(i => i.fileName == issue).FirstOrDefault().title ?? "";
+                MenuItem issueItem = new() { Header = issue + " - " + title, Name = issue };
                 issueItem.Click += MoveFileToIssue;
                 mdFileIssues.Add(issueItem);
             }
@@ -341,7 +346,7 @@ namespace SCAuditStudio.ViewModels
             .FirstOrDefault();
 
             if (menuItem == null) return;
-            string issue = menuItem.Header.ToString() ?? "";
+            string issue = menuItem.Name?.ToString() ?? "";
 
             IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
