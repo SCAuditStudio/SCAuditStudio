@@ -10,7 +10,7 @@ Start judging by create a local directory using the sherlock judging repository.
 5. Add Blacklist
 6. Open your project
 7. When read click save project, and push your changes
-
+The blacklist is used to change the score depending on words that indicate invalid issues (for example "Gas optimization").
 ## Known Issues!!!  
 - tree view show folder and files right  
 - (md reader bugs)  
