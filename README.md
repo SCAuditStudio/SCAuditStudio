@@ -23,7 +23,7 @@ The process of smart contract auditing typically involves two phases:
 the research phase, where issues are identified, and the judging phase, where these issues are categorized. Although there are several companies and hundreds of independent security researchers that provide this valuable service, the most prominent platforms in this field are Sherlock.xyz, Code 4erna, and Immunefi.
 
 ![screen](./Documentation/SCAuditStudioV2.0Highlight.png)
-The importance of smart contract auditing cannot be overstated in the realm of Web3 social.  
+The importance of smart contract auditing cannot be overstated.  
 Every project that involves smart contracts must undergo a thorough auditing process to ensure its integrity and security.
 ## Roadmap
 SCAuditStudio V2.0 (automate Sherlock judging)
