@@ -40,7 +40,7 @@ namespace SCAuditStudio.Views
         public async void AutoInvalidateIssueClicked(object sender, RoutedEventArgs e)
         {
             mouseDownForWindowMoving = false;
-            await AutoDirectorySort.GetScore(GetViewModel()?.mdManager.mdFiles, File.ReadAllText(@"C:\\Users\\LinenBox\\Documents\\GitHub\\SCAuditStudio\\SCAuditStudio\\Assets\\SherlockConfig\Criteria.txt"));
+            
         }
 
         /* MOVE WINDOW EVENTS */

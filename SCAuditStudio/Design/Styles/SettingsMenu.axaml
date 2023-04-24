@@ -9,10 +9,10 @@
     </Design.PreviewWith>
 
   <Style Selector="Button">
-    <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[6].DataContext.selectedTheme.Foreground}"/>
   </Style>
   <Style Selector="Button:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="{Binding $parent[5].DataContext.selectedTheme.Accent}"/>
-    <Setter Property="TextBlock.Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.SelectedText}"/>
+    <Setter Property="Background" Value="{Binding $parent[7].DataContext.selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding $parent[7].DataContext.selectedTheme.SelectedText}"/>
   </Style>
 </Styles>
