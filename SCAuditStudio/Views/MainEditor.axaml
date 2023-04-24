@@ -63,7 +63,7 @@
                     <StyleInclude Source="/Design/Styles/MarkdownScrollViewer.axaml"/>
                   </md:MarkdownScrollViewer.Styles>
                 </md:MarkdownScrollViewer>
-                <uc:SettingsMenu DataContext="{Binding $parent[2].DataContext}" IsVisible="{Binding, Converter={x:Static StringConverters.IsNullOrEmpty}}"/>
+                <uc:SettingsMenu IsVisible="{Binding, Converter={x:Static StringConverters.IsNullOrEmpty}}"/>
               </Panel>
             </ContentControl>
           </DataTemplate>
