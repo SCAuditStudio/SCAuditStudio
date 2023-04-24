@@ -1,33 +1,26 @@
-using Avalonia;
 using Avalonia.Controls;
-using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using Avalonia.Input;
 using Avalonia.VisualTree;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
-using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Models.TreeDataGrid;
-using System.IO;
 using Avalonia.Markup.Xaml;
 
 namespace SCAuditStudio.Views.Editor
 {
     public partial class MainEditor : UserControl
     {
-        bool mouseDownForWindowMoving = false;
-        PointerPoint? originalPoint;
-
         public MainEditor()
         {
             InitializeComponent();
         }
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
+
         MainWindowViewModel? GetViewModel()
         {
             if (DataContext == null)
@@ -40,8 +33,6 @@ namespace SCAuditStudio.Views.Editor
 
         public void CloseTab_Clicked(object sender, PointerPressedEventArgs e)
         {
-            mouseDownForWindowMoving = false;
-
             if (e.Source == null) return;
 
             TextBlock? itemText = ((IVisual)e.Source).VisualParent?.VisualParent.GetSelfAndVisualDescendants()

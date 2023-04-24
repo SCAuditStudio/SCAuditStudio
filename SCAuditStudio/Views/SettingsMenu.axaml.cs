@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using System.Threading.Tasks;
 
 namespace SCAuditStudio.Views.Editor
 {
@@ -17,11 +16,20 @@ namespace SCAuditStudio.Views.Editor
         }
         public async void OpenBlacklistFolder_Clicked(object sender, RoutedEventArgs e)
         {
-            OpenFolderDialog dialog = new();
-            string? directory = await dialog.ShowAsync(MainWindow.Instance);
+            OpenFileDialog dialog = new();
+            FileDialogFilter filter = new()
+            {
+                Name = ".txt",
+                Extensions = new System.Collections.Generic.List<string>() {"txt"}
+            };
+            dialog.Filters = new System.Collections.Generic.List<FileDialogFilter> { filter };
 
-            if (directory == null) return;
-            ConfigFile.Write("BlackList", directory);
+            MainWindow? window = MainWindow.Instance;
+            if (window == null) return;
+
+            string[]? file = await dialog.ShowAsync(window);
+            if (file == null) return;
+            if (file[0] != null) ConfigFile.Write("BlackList", file[0]);
         }
     }
 }

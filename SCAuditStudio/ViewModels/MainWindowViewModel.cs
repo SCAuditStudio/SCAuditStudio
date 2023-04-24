@@ -12,6 +12,7 @@ using Avalonia.VisualTree;
 using Avalonia.Interactivity;
 using Avalonia.Controls.Models.TreeDataGrid;
 using SCAuditStudio.Design;
+using SCAuditStudio.Views.Editor;
 
 #pragma warning disable IDE1006
 namespace SCAuditStudio.ViewModels
@@ -247,10 +248,28 @@ namespace SCAuditStudio.ViewModels
             TabItem page = new()
             {
                 Header = fileName,
-                Content = file.rawContent
+                Content = file.rawContent,
             };
 
             tabPages.Add(page);
+            page.IsSelected = true;
+        }
+        public void OpenOptionsPage()
+        {
+            if (TabOpen("Options"))
+            {
+                TabItem? item = GetTab("Options");
+                if (item == null) return;
+                item.IsSelected = true;
+                return;
+            }
+
+            TabItem page = new()
+            {
+                Header = "Options"
+            };
+
+            tabPages.Insert(0, page);
             page.IsSelected = true;
         }
         public void CloseTabPage(string tabName)
@@ -269,7 +288,15 @@ namespace SCAuditStudio.ViewModels
         }
         public void CloseTabPages()
         {
-            tabPages.Clear();
+            for (int t = 0; t < tabPages.Count; t++)
+            {
+                TabItem? page = tabPages[t];
+                if (page.Header?.ToString() != "Options")
+                {
+                    tabPages.RemoveAt(t);
+                    t--;
+                }
+            }
         }
 
         /* EVENTS */

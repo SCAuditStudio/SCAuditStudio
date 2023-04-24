@@ -1,0 +1,18 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:uc="using:SCAuditStudio.Views.Editor">
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+          <uc:SettingsMenu/>
+        </Border>
+    </Design.PreviewWith>
+
+  <Style Selector="Button">
+    <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="Button:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{Binding selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+  </Style>
+</Styles>

@@ -40,7 +40,7 @@
       <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="Transparent"/>
 
       <!-- MD FILE READER -->
-      <TabControl Grid.Column="2" Items="{Binding tabPages}" AutoScrollToSelectedItem="True" KeyDown="CloseTab_KeyDown">
+      <TabControl Name="TabControl" Grid.Column="2" Items="{Binding tabPages}" AutoScrollToSelectedItem="True" KeyDown="CloseTab_KeyDown">
         <!-- TAB HEADER -->
         <TabControl.ItemTemplate>
           <DataTemplate>
@@ -57,16 +57,18 @@
         <TabControl.ContentTemplate>
           <DataTemplate>
             <ContentControl Grid.Row="1" BorderThickness="1" BorderBrush="{Binding $parent[1].DataContext.selectedTheme.Accent}">
-              <md:MarkdownScrollViewer Markdown="{Binding}">
-                <md:MarkdownScrollViewer.Styles>
-                  <StyleInclude Source="/Design/Styles/MarkdownScrollViewer.axaml"/>
-                </md:MarkdownScrollViewer.Styles>
-              </md:MarkdownScrollViewer>
+              <Panel>
+                <md:MarkdownScrollViewer Markdown="{Binding}">
+                  <md:MarkdownScrollViewer.Styles>
+                    <StyleInclude Source="/Design/Styles/MarkdownScrollViewer.axaml"/>
+                  </md:MarkdownScrollViewer.Styles>
+                </md:MarkdownScrollViewer>
+                <uc:SettingsMenu DataContext="{Binding $parent[2].DataContext}" IsVisible="{Binding, Converter={x:Static StringConverters.IsNullOrEmpty}}"/>
+              </Panel>
             </ContentControl>
           </DataTemplate>
         </TabControl.ContentTemplate>
       </TabControl>
-      
     </Grid>
   </DockPanel>
 </UserControl>

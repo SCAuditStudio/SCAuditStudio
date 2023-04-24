@@ -1,17 +1,13 @@
-using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Input;
 using Avalonia.Controls;
 using Avalonia.VisualTree;
+using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
-using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Models.TreeDataGrid;
-using System.IO;
-using Avalonia.Markup.Xaml;
 
 namespace SCAuditStudio.Views
 {
@@ -19,14 +15,15 @@ namespace SCAuditStudio.Views
     {
         bool mouseDownForWindowMoving = false;
         PointerPoint? originalPoint;
-        public static MainWindow Instance { get; private set; }
+
+        public static MainWindow? Instance { get; private set; }
 
         public MainWindow()
         {
             Instance = this;
             InitializeComponent();
         }
-        private void InitializeComponent()
+        void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
@@ -44,8 +41,8 @@ namespace SCAuditStudio.Views
         {
             mouseDownForWindowMoving = false;
             await AutoDirectorySort.GetScore(GetViewModel()?.mdManager.mdFiles, File.ReadAllText(@"C:\\Users\\LinenBox\\Documents\\GitHub\\SCAuditStudio\\SCAuditStudio\\Assets\\SherlockConfig\Criteria.txt"));
-
         }
+
         /* MOVE WINDOW EVENTS */
         void InputElement_OnPointerMoved(object? sender, PointerEventArgs e)
         {
@@ -97,6 +94,10 @@ namespace SCAuditStudio.Views
             if (loadProjectTask == null) return;
             await loadProjectTask;
         }
+        public void OpenOptionsMenu(object sender, RoutedEventArgs e)
+        {
+            GetViewModel()?.OpenOptionsPage();
+        }    
         public void ExitProgram_Clicked(object sender, RoutedEventArgs e)
         {
             mouseDownForWindowMoving = false;

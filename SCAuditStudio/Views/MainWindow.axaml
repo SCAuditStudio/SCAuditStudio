@@ -14,8 +14,6 @@
         PointerPressed="InputElement_OnPointerPressed"
         PointerReleased="InputElement_OnPointerReleased">
 
-  
-
   <!-- HARDCODED STYLE ATTRIBUTES OVERWRITE -->
   <Window.Resources>
     <SolidColorBrush x:Key="MenuFlyoutPresenterBackground" Color="{Binding selectedTheme.BackgroundColor}"/>
@@ -28,7 +26,7 @@
     <!-- MENU BAR -->
     <Menu DockPanel.Dock="Top" Height="32">
       <MenuItem Header="SCAuditStudio">
-        <MenuItem Header="Options"/>
+        <MenuItem Header="Options" Click="OpenOptionsMenu"/>
         <Separator/>
         <MenuItem Header="Exit" Click="ExitProgram_Clicked"/>
       </MenuItem>

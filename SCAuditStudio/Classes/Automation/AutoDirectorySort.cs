@@ -8,8 +8,10 @@ namespace SCAuditStudio
 {
     static class AutoDirectorySort
     {
-        public static async Task<int[]> GetScore(MDFile[] issues, string criteria)
+        public static async Task<int[]> GetScore(MDFile[]? issues, string criteria)
         {
+            if (issues == null) return Array.Empty<int>();
+
             //Perform Static Checks
 
 
