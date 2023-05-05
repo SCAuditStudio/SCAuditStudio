@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SCAuditStudio.Views.StartMenu">
+  <DockPanel Background="Transparent" >
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"></RowDefinition>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
+        <TextBlock Text="Open Recent" />
+      </StackPanel>
+      <Panel Grid.Row="0" Grid.Column="1" Margin="30">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+          </Grid.ColumnDefinitions>
+          <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Audit Project" />
+          </Button>
+          <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Judge Project" />
+          </Button>
+        </Grid>   
+      </Panel>
+    </Grid>
+  </DockPanel>
+</UserControl>
