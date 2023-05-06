@@ -55,22 +55,10 @@ namespace SCAuditStudio.Views
         public void AutoSortIssuesClicked(object sender, RoutedEventArgs e)
         {
             mouseDownForWindowMoving = false;
-            List<MDFile[]>? groups = AutoDirectorySort.GroupIssues(GetViewModel()?.mdManager.mdFiles,15);
-            if (groups == null) return;
-            for(int i = 0; i < groups.Count; i++)
-            {
-                MDFile[] mDFiles = groups[i];
-                int? index = GetViewModel()?.mdManager.GetIssueIndex(MDManager.MDFileIssue.Medium);
-                for (int f = 0; f < mDFiles.Length; f++)
-                {
-                    GetViewModel()?.mdManager.MoveFileToIssue(mDFiles[f].fileName,MDManager.MDFileIssue.Medium, index ?? 0, true);
-                }
-               
-            }
-            GetViewModel()?.LoadMDFileItems();
-            GetViewModel()?.LoadMDFileContext();
+            GetViewModel()?.StaticSortIssues(GetViewModel()?.mdManager.mdFiles);
         }
 
+        
         /* MOVE WINDOW EVENTS */
         void InputElement_OnPointerMoved(object? sender, PointerEventArgs e)
         {

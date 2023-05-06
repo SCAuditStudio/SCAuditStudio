@@ -35,31 +35,29 @@ namespace SCAuditStudio
             }
             return new int[3] { 1, 1, 1 };
         }
-        static public List<MDFile[]>? GroupIssues(MDFile[]? issues,int range)
+        static public List<MDFile[]>? GroupIssues(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith)
         {
-            if(issues == null) return null;
-            if (range > issues.Length) range = issues.Length;
+            if(issuesToCompare == null || issuesToCompareWith == null) return null;
             List<MDFile[]> groups = new List<MDFile[]>();
             List<MDFile> issuesnew = new List<MDFile>();
-            issuesnew.AddRange(issues);
+            issuesnew.AddRange(issuesToCompareWith);
 
-            for (int i= 0; i< range; i++)
+            for (int i= 0; i< issuesToCompare.Length; i++)
             {
                 List<MDFile> similar = new List<MDFile>();
-                int initlength = issuesnew.Count;
 
-                for (int j = i+1; j< initlength; j++)
+                for (int j = i+1; j< issuesnew.Count; j++)
                 {
-                    if(CompareIssues(issues[i], issues[j]))
+                    if(CompareIssues(issuesToCompare[i], issuesnew[j]))
                     {
-                        similar.Add(issues[j]);
-                        issuesnew.Remove(issues[j]);
+                        similar.Add(issuesnew[j]);
+                        issuesnew.RemoveAt(j);
                     }
                 }
 
                 if (similar.Count > 0)
                 {
-                    similar.Add(issues[i]);
+                    similar.Add(issuesToCompare[i]);
                     groups.Add(similar.ToArray());
                 }
             }

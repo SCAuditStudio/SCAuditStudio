@@ -138,5 +138,9 @@ namespace SCAuditStudio.Views.Editor
         {
             GetViewModel()?.MarkFileAsUnmarked(sender, e);
         }
+        public void StaticSortFile(object sender, RoutedEventArgs e)
+        {
+            GetViewModel()?.StaticSortFiles(sender,e);
+        }
     }
 }

@@ -384,6 +384,54 @@ namespace SCAuditStudio.ViewModels
             LoadMDFileItems();
             LoadMDFileContext();
         }
+        public void StaticSortFiles(object? sender, RoutedEventArgs e)
+        {
+            if (e.Source == null) return;
+
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
+            if (selectedItems == null) return;
+
+            List<MDFile> mdfileitems = new List<MDFile>();
+
+
+            foreach (Node? item in selectedItems)
+            {
+                if (item == null) continue;
+                if (item.subNodes.Count > 0)
+                {
+                    foreach (Node subnode in item.subNodes)
+                    {
+                        MDFile? mdfile = mdManager.GetFile(subnode.fileName);
+                        if (mdfile == null) continue;
+                        mdfileitems.Add(mdfile);
+                    }
+                    continue;
+                }
+                MDFile? mdfile1 = mdManager.GetFile(item.fileName);
+                if (mdfile1 == null) continue;
+                mdfileitems.Add(mdfile1);
+            }
+            StaticSortIssues(mdfileitems.ToArray());
+            LoadMDFileItems();
+            LoadMDFileContext();
+        }
+        public void StaticSortIssues(MDFile[]? issuesToCompare)
+        {
+            List<MDFile[]>? groups = AutoDirectorySort.GroupIssues(issuesToCompare, mdManager.mdFiles);
+            if (groups == null) return;
+            for (int i = 0; i < groups.Count; i++)
+            {
+                MDFile[] mDFiles = groups[i];
+                int? index = mdManager.GetIssueIndex(MDManager.MDFileIssue.Medium);
+                for (int f = 0; f < mDFiles.Length; f++)
+                {
+                    mdManager.MoveFileToIssue(mDFiles[f].fileName, MDManager.MDFileIssue.Medium, index ?? 0, true);
+                }
+
+            }
+            LoadMDFileItems();
+            LoadMDFileContext();
+        }
         public void MoveFileToNewIssue(object sender, RoutedEventArgs e)
         {
             if (e.Source == null) return;

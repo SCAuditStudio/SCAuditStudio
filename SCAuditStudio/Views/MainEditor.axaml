@@ -29,6 +29,10 @@
               <MenuItem Header="High" Click="MoveFileToNewIssue"/>
               <MenuItem Header="Medium" Click="MoveFileToNewIssue"/>
             </MenuItem>
+            <MenuItem Header="Sort">
+              <MenuItem Header="Static Sort" Click="StaticSortFile"/>
+              <MenuItem Header="AI Sort" />
+            </MenuItem>
             <MenuItem Header="Mark">
               <MenuItem Header="Unmark" Click="MarkFileAsUnmarked"/>
               <MenuItem Header="As Best" Click="MarkFileAsBest"/>
