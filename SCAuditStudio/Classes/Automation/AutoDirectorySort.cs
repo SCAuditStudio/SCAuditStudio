@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.Generic;
 
 namespace SCAuditStudio
 {
@@ -34,33 +35,49 @@ namespace SCAuditStudio
             }
             return new int[3] { 1, 1, 1 };
         }
-
-        static async Task<bool> CompareIssues(MDFile issue1, MDFile issue2, string context)
+        static public List<MDFile[]>? GroupIssues(MDFile[]? issues,int range)
         {
-            float staticDistance = CompareIssuesStatic(issue1,issue2);
-            if (staticDistance < 0.5)
+            if(issues == null) return null;
+            if (range > issues.Length) range = issues.Length;
+            List<MDFile[]> groups = new List<MDFile[]>();
+            List<MDFile> issuesnew = new List<MDFile>();
+            issuesnew.AddRange(issues);
+
+            for (int i= 0; i< range; i++)
+            {
+                List<MDFile> similar = new List<MDFile>();
+                int initlength = issuesnew.Count;
+
+                for (int j = i+1; j< initlength; j++)
+                {
+                    if(CompareIssues(issues[i], issues[j]))
+                    {
+                        similar.Add(issues[j]);
+                        issuesnew.Remove(issues[j]);
+                    }
+                }
+
+                if (similar.Count > 0)
+                {
+                    similar.Add(issues[i]);
+                    groups.Add(similar.ToArray());
+                }
+            }
+            return groups;
+        }
+        static bool CompareIssues(MDFile issue1, MDFile issue2)
+        {
+            float staticDistanceTitle = StaticStringOperations.StaticCompareString(issue1.title, issue2.title);
+
+            //Static compare content
+            float staticDistanceContent = StaticStringOperations.StaticCompareString(issue1.rawContent, issue2.rawContent);
+            
+            if (staticDistanceTitle < 0.56 || staticDistanceContent < 0.45)
             {
                 return true;
             }
             else
             {
-                string[] userMessage = new string[4];
-                userMessage[0] = "Compare these two Smart Contract Vurnabilitys, only return one of these categorys: Same (if they are identical),Similar (if they they have something in common), Different(if they have nothing in common) use following context:";
-                userMessage[1] = "Context: \n" + context;
-                userMessage[2] = "Vulnability1: \n" + issue1.summary;
-                userMessage[3] = "Vulnability2: \n" + issue1.summary;
-
-                var userMessageS = userMessage.ToSingle();
-                string response = await AISort.AskGPT(userMessageS);
-
-                if (response.Contains("Same") || response.Contains("Similar"))
-                {
-                    return true;
-                }
-                if (response.Contains("Different"))
-                {      
-                    return false;
-                }
                 return false;
             }
         }

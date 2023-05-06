@@ -34,7 +34,7 @@
         <MenuItem Header="Open" Click="OpenProject_Clicked"/>
       </MenuItem>
       <MenuItem Header="Automation">
-        <MenuItem Header="AI Sort"/>
+        <MenuItem Header="AI Sort" Click="AutoSortIssuesClicked" />
         <MenuItem Header="AI Auto Invalid" Click="AutoInvalidateIssueClicked"/>
       </MenuItem>
     </Menu>

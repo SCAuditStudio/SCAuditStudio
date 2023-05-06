@@ -315,6 +315,14 @@ namespace SCAuditStudio.ViewModels
             foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
+                if(item.subNodes.Count > 0)
+                {
+                    foreach(Node subnode in item.subNodes)
+                    {
+                        mdManager.MoveFileToRoot(subnode.fileName);
+                    }
+                    continue;
+                }
                 mdManager.MoveFileToRoot(item.fileName);
             }
 
@@ -331,6 +339,14 @@ namespace SCAuditStudio.ViewModels
             foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
+                if (item.subNodes.Count > 0)
+                {
+                    foreach (Node subnode in item.subNodes)
+                    {
+                        mdManager.MoveFileToInvalid(subnode.fileName);
+                    }
+                    continue;
+                }
                 mdManager.MoveFileToInvalid(item.fileName);
             }
 
@@ -354,6 +370,14 @@ namespace SCAuditStudio.ViewModels
             foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
+                if (item.subNodes.Count > 0)
+                {
+                    foreach (Node subnode in item.subNodes)
+                    {
+                        mdManager.MoveFileToIssue(subnode.fileName, issue, false);
+                    }
+                    continue;
+                }
                 mdManager.MoveFileToIssue(item.fileName, issue, false);
             }
 
@@ -380,6 +404,14 @@ namespace SCAuditStudio.ViewModels
             foreach (Node? item in selectedItems)
             {
                 if (item == null) continue;
+                if (item.subNodes.Count > 0)
+                {
+                    foreach (Node subnode in item.subNodes)
+                    {
+                        mdManager.MoveFileToIssue(subnode.fileName, severity, issueIndex, true);
+                    }
+                    continue;
+                }
                 mdManager.MoveFileToIssue(item.fileName, severity, issueIndex, true);
             }
 
@@ -450,6 +482,7 @@ namespace SCAuditStudio.ViewModels
         }
 
         /* INTERNAL CLASSES */
+        //Folder or MDfile in Treeview
         public class Node
         {
             public ObservableCollection<Node> subNodes { get; set; }

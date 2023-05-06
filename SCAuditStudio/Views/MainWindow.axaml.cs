@@ -8,6 +8,8 @@ using Avalonia.VisualTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
+using System.Collections.Generic;
+using System;
 
 namespace SCAuditStudio.Views
 {
@@ -37,10 +39,36 @@ namespace SCAuditStudio.Views
             return (MainWindowViewModel)DataContext;
         }
 
-        public async void AutoInvalidateIssueClicked(object sender, RoutedEventArgs e)
+        public void AutoInvalidateIssueClicked(object sender, RoutedEventArgs e)
         {
             mouseDownForWindowMoving = false;
-            
+            foreach(MDFile mDFile in GetViewModel()?.mdManager.mdFiles)
+            {
+                if (mDFile.score < 12)
+                {
+                    GetViewModel()?.mdManager.MoveFileToInvalid(mDFile.fileName);
+                }
+            }
+            GetViewModel()?.LoadMDFileItems();
+            GetViewModel()?.LoadMDFileContext();
+        }
+        public void AutoSortIssuesClicked(object sender, RoutedEventArgs e)
+        {
+            mouseDownForWindowMoving = false;
+            List<MDFile[]>? groups = AutoDirectorySort.GroupIssues(GetViewModel()?.mdManager.mdFiles,15);
+            if (groups == null) return;
+            for(int i = 0; i < groups.Count; i++)
+            {
+                MDFile[] mDFiles = groups[i];
+                int? index = GetViewModel()?.mdManager.GetIssueIndex(MDManager.MDFileIssue.Medium);
+                for (int f = 0; f < mDFiles.Length; f++)
+                {
+                    GetViewModel()?.mdManager.MoveFileToIssue(mDFiles[f].fileName,MDManager.MDFileIssue.Medium, index ?? 0, true);
+                }
+               
+            }
+            GetViewModel()?.LoadMDFileItems();
+            GetViewModel()?.LoadMDFileContext();
         }
 
         /* MOVE WINDOW EVENTS */

@@ -31,6 +31,10 @@ namespace SCAuditStudio
         //Returns float between 0 and 1, 0 when same, 1 when different
         public static float StaticCompareString(string title1, string title2)
         {
+            if (title1.Length < 1 || title2.Length < 1)
+            {
+                return 0;
+            }
             float damerauLevenshteinDistance = GetDamerauLevenshteinDistance(title1, title2);
             float staticDistance = title1.Length > title2.Length ? damerauLevenshteinDistance / title1.Length : damerauLevenshteinDistance / title2.Length;
             return staticDistance;
