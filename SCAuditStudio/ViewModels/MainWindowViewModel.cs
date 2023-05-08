@@ -417,7 +417,8 @@ namespace SCAuditStudio.ViewModels
         }
         public void StaticSortIssues(MDFile[]? issuesToCompare)
         {
-            List<MDFile[]>? groups = AutoDirectorySort.GroupIssues(issuesToCompare, mdManager.mdFiles);
+            if (issuesToCompare == null) return;
+            List<MDFile[]>? groups = AutoDirectorySort.GroupIssuesThreaded(issuesToCompare, mdManager.mdFiles,Math.Min(Environment.ProcessorCount*2, issuesToCompare.Length));
             if (groups == null) return;
             for (int i = 0; i < groups.Count; i++)
             {

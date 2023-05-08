@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SCAuditStudio
 {
@@ -35,6 +34,61 @@ namespace SCAuditStudio
             }
             return new int[3] { 1, 1, 1 };
         }
+
+        public static List<MDFile[]>? GroupIssuesThreaded(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith, int maxNumOfThreads)
+        {
+            if(issuesToCompareWith == null || issuesToCompare == null) return null;
+            DateTime start = DateTime.Now;
+            List<Thread> threads = new ();
+            int step = (int)Math.Round(issuesToCompare.Length/ (float)maxNumOfThreads);
+            List<List<MDFile[]>?>? mDFiles = new();
+            List<MDFile[]>? result = new();
+
+            for (int i = 0; i < issuesToCompare.Length; i+=step)
+            {
+                if ((issuesToCompare.Length - i) < step)
+                {
+                    MDFile[] files = issuesToCompare[i..(issuesToCompare.Length-1)];
+                    Thread t = new Thread(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
+                    threads.Add(t);
+                    t.Start();
+                }
+                else
+                {
+                    MDFile[] files = issuesToCompare[i..(i + step)];
+                    Thread t = new Thread(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
+                    threads.Add(t);
+                    t.Start();
+                }
+            }
+            
+            for (int t = 0; t < threads.Count; t++)
+            {
+                while (threads[t].IsAlive)
+                {
+
+                }
+            }
+            for(int t = 0; t < mDFiles.Count; t++)
+            {
+                if (mDFiles[t] == null)
+                {
+                    continue;
+                }
+
+                for (int i = 0; i < mDFiles[t]?.Count; i++)
+                {
+                    if (mDFiles[t][i] == null)
+                    {
+                        continue;
+                    }
+                    result.Add(mDFiles[t][i]);
+                }
+            }
+            Console.WriteLine("Time: " + (DateTime.Now - start).TotalSeconds);
+            return result;
+        }
+
         static public List<MDFile[]>? GroupIssues(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith)
         {
             if(issuesToCompare == null || issuesToCompareWith == null) return null;
@@ -48,14 +102,14 @@ namespace SCAuditStudio
 
                 for (int j = i+1; j< issuesnew.Count; j++)
                 {
+                    
                     if(CompareIssues(issuesToCompare[i], issuesnew[j]))
                     {
                         similar.Add(issuesnew[j]);
                         issuesnew.RemoveAt(j);
                     }
                 }
-
-                if (similar.Count > 0)
+                if (similar.Count > 1)
                 {
                     similar.Add(issuesToCompare[i]);
                     groups.Add(similar.ToArray());
@@ -65,6 +119,7 @@ namespace SCAuditStudio
         }
         static bool CompareIssues(MDFile issue1, MDFile issue2)
         {
+            if(issue1 == MDFile.Invalid || issue2 == MDFile.Invalid) return false;
             float staticDistanceTitle = StaticStringOperations.StaticCompareString(issue1.title, issue2.title);
 
             //Static compare content

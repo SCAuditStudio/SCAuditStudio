@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.IO;
 
@@ -63,6 +64,20 @@ namespace SCAuditStudio
         public static MDFile Invalid
         {
             get { return new MDFile("invalid", "invalid"); }
+        }
+        public static bool operator == (MDFile? a, MDFile? b)
+        {
+            if(a.Equals(null) || Object.Equals(b, null)) return false;
+            bool pathSimilar = a.path == b.path;
+            bool contentSimilar = a.rawContent == b.rawContent;
+            return pathSimilar && contentSimilar;
+        }
+        public static bool operator != (MDFile? a, MDFile? b)
+        {
+            if (a.Equals(null) || Object.Equals(b, null)) return false;
+            bool pathSimilar = a.path != b.path;
+            bool contentSimilar = a.rawContent != b.rawContent;
+            return pathSimilar || contentSimilar;
         }
     }
 }
