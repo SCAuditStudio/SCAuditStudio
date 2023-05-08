@@ -6,6 +6,8 @@ using Avalonia.VisualTree;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
 using Avalonia.Markup.Xaml;
+using System;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace SCAuditStudio.Views.Editor
 {
@@ -105,13 +107,42 @@ namespace SCAuditStudio.Views.Editor
             //Move File to invalid
             if (e.Key == Key.I)
             {
+                IndexPath? selected = GetViewModel()?.mdFileTree.RowSelection?.SelectedIndex;
+
                 GetViewModel()?.MoveFileToInvalid(sender, e);
+
+                if (selected == null) return;
+                GetViewModel()!.mdFileTree.RowSelection!.SelectedIndex = selected ?? IndexPath.Unselected;
             }
 
             //Move File to root
             if (e.Key == Key.R)
             {
                 GetViewModel()?.MoveFileToRoot(sender, e);
+            }
+
+            //Select all files
+            if (e.KeyModifiers == KeyModifiers.Control && e.Key == Key.A)
+            {
+                for (int i = 0; i < GetViewModel()?.mdFileTree.Items.Count(); i++)
+                {
+                    GetViewModel()?.mdFileTree.RowSelection?.Select(new IndexPath(i));
+                }
+            }
+
+            //Open Context Menu
+            if (e.Key == Key.C)
+            {
+                TreeDataGrid? treeDataGrid = ((IVisual)e.Source).GetSelfAndVisualAncestors()
+                    .OfType<TreeDataGrid>()
+                    .FirstOrDefault();
+
+                ContextMenu? contextMenu = treeDataGrid?.ContextMenu;
+                if (contextMenu == null) return;
+
+                contextMenu.PlacementMode = PlacementMode.AnchorAndGravity;
+                contextMenu.Open();
+                contextMenu.SelectedIndex = 0;
             }
 
             e.Handled = true;

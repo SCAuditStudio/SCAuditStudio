@@ -43,7 +43,7 @@ namespace SCAuditStudio
             mdFile.path = path;
 
             //Try remove folder if empty
-            if (Directory.GetFiles(oldPath).Length == 0)
+            if (Directory.GetFiles(oldPath).Length == 0 && oldPath != directory)
             {
                 Directory.Delete(oldPath);
             }
