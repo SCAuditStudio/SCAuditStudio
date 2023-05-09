@@ -28,7 +28,7 @@ namespace SCAuditStudio
 
             //Get file
             MDFile? mdFile = GetFile(name);
-            if (mdFile == null) return;
+            if (object.Equals(mdFile,null)) return;
             if (mdFile.subPath == subPath) return;
 
             //Create subdirectory if necessary

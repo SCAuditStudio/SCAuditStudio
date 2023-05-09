@@ -87,31 +87,6 @@ namespace SCAuditStudio
                 }
             }
 
-            List<MDFile[]> tmpGroups = result;
-            List<MDFile[]> resultGroups = new();
-            for (int i = 0; i < result.Count; i++)
-            {
-                List<MDFile> inner = new();
-
-                for (int j = i + 1; j < tmpGroups.Count; j++)
-                {
-                    if (result[i].Length < 1 || tmpGroups[j].Length < 1) continue;
-                    if (CompareIssues(result[i][0], tmpGroups[j][0]))
-                    {
-                        inner.AddRange(result[i]);
-                        inner.AddRange(tmpGroups[j]);
-                        tmpGroups.RemoveAt(j);
-                    }
-                }
-                
-                if (inner.Count < 1) inner.AddRange(result[i]);
-                resultGroups.Add(inner.ToArray());
-            }
-            if (resultGroups.Count > 1)
-            {
-                result = resultGroups;
-            }
-
             Console.WriteLine("Time: " + (DateTime.Now - start).TotalSeconds);
             return result;
         }
@@ -134,6 +109,7 @@ namespace SCAuditStudio
                     {
                         similar.Add(issuesnew[j]);
                         issuesnew.RemoveAt(j);
+                        j--;
                     }
                 }
                 if (similar.Count > 1)
