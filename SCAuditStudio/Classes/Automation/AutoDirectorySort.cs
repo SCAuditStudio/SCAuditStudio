@@ -51,14 +51,14 @@ namespace SCAuditStudio
                 if ((issuesToCompare.Length - i) < step)
                 {
                     MDFile[] files = issuesToCompare[i..(issuesToCompare.Length-1)];
-                    Thread t = new Thread(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
+                    Thread t = new(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
                     threads.Add(t);
                     t.Start();
                 }
                 else
                 {
                     MDFile[] files = issuesToCompare[i..(i + step)];
-                    Thread t = new Thread(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
+                    Thread t = new(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
                     threads.Add(t);
                     t.Start();
                 }
@@ -80,11 +80,10 @@ namespace SCAuditStudio
 
                 for (int i = 0; i < mDFiles[t]?.Count; i++)
                 {
-                    if (mDFiles[t][i] == null)
+                    if (mDFiles[t]?[i] != null)
                     {
-                        continue;
+                        result.Add(mDFiles[t]![i]);
                     }
-                    result.Add(mDFiles[t][i]);
                 }
             }
 
@@ -120,13 +119,13 @@ namespace SCAuditStudio
         static public List<MDFile[]>? GroupIssues(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith)
         {
             if(issuesToCompare == null || issuesToCompareWith == null) return null;
-            List<MDFile[]> groups = new List<MDFile[]>();
-            List<MDFile> issuesnew = new List<MDFile>();
+            List<MDFile[]> groups = new();
+            List<MDFile> issuesnew = new();
             issuesnew.AddRange(issuesToCompareWith);
 
             for (int i= 0; i< issuesToCompare.Length; i++)
             {
-                List<MDFile> similar = new List<MDFile>();
+                List<MDFile> similar = new();
 
                 for (int j = i+1; j< issuesnew.Count; j++)
                 {

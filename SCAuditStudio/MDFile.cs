@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.IO;
 
+#pragma warning disable IDE1006
 namespace SCAuditStudio
 {
     public class MDFile
@@ -67,17 +68,25 @@ namespace SCAuditStudio
         }
         public static bool operator == (MDFile? a, MDFile? b)
         {
-            if(a.Equals(null) || Object.Equals(b, null)) return false;
+            if(a is null || b is null) return false;
             bool pathSimilar = a.path == b.path;
             bool contentSimilar = a.rawContent == b.rawContent;
             return pathSimilar && contentSimilar;
         }
         public static bool operator != (MDFile? a, MDFile? b)
         {
-            if (a.Equals(null) || Object.Equals(b, null)) return false;
+            if (a is null || b is null) return false;
             bool pathSimilar = a.path != b.path;
             bool contentSimilar = a.rawContent != b.rawContent;
             return pathSimilar || contentSimilar;
+        }
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(path, rawContent);
         }
     }
 }
