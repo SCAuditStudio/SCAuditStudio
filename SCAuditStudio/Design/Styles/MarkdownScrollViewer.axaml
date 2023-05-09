@@ -5,7 +5,7 @@
     <Design.PreviewWith>
         <Border Padding="100">
           <md:MarkdownScrollViewer xml:space="preserve">
-            # Header
+            # `Header`
             
             ## Summary
             This could be your Summary.
@@ -22,23 +22,23 @@
     </Design.PreviewWith>
 
   <Style Selector="ctxt|CTextBlock.Heading1">
-    <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[6].DataContext.selectedTheme.Foreground}"/>
   </Style>
   <Style Selector="ctxt|CTextBlock.Heading2">
-    <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[6].DataContext.selectedTheme.Foreground}"/>
   </Style>
   <Style Selector="ctxt|CTextBlock.CodeBlock">
     <Style.Setters>
-      <Setter Property="Foreground" Value="{Binding $parent[5].DataContext.selectedTheme.Accent}"/>
-      <Setter Property="Background" Value="{Binding $parent[5].DataContext.selectedTheme.Accent}"/>
+      <Setter Property="Foreground" Value="{Binding $parent[7].DataContext.selectedTheme.Foreground}"/>
+      <Setter Property="Background" Value="{Binding $parent[7].DataContext.selectedTheme.Background}"/>
       <Setter Property="FontFamily" Value="Meiryo"/>
     </Style.Setters>
   </Style>
   <Style Selector="ctxt|CCode">
     <Style.Setters>
       <Setter Property="MonospaceFontFamily" Value="Meiryo" />
-      <Setter Property="Foreground"          Value="{Binding $parent[5].DataContext.selectedTheme.Foreground}" />
-      <Setter Property="Background"          Value="{Binding $parent[5].DataContext.selectedTheme.Background}" />
+      <Setter Property="Foreground"          Value="{Binding $parent[6].DataContext.selectedTheme.Accent}" />
+      <Setter Property="Background"          Value="{Binding $parent[6].DataContext.selectedTheme.Background}" />
     </Style.Setters>
   </Style>
 </Styles>
