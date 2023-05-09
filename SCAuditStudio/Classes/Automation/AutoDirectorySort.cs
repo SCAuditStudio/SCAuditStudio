@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
+using AvaloniaEdit.Utils;
+using System.Linq;
 
 namespace SCAuditStudio
 {
@@ -85,6 +87,32 @@ namespace SCAuditStudio
                     result.Add(mDFiles[t][i]);
                 }
             }
+
+            List<MDFile[]> tmpGroups = result;
+            List<MDFile[]> resultGroups = new();
+            for (int i = 0; i < result.Count; i++)
+            {
+                List<MDFile> inner = new();
+
+                for (int j = i + 1; j < tmpGroups.Count; j++)
+                {
+                    if (result[i].Length < 1 || tmpGroups[j].Length < 1) continue;
+                    if (CompareIssues(result[i][0], tmpGroups[j][0]))
+                    {
+                        inner.AddRange(result[i]);
+                        inner.AddRange(tmpGroups[j]);
+                        tmpGroups.RemoveAt(j);
+                    }
+                }
+                
+                if (inner.Count < 1) inner.AddRange(result[i]);
+                resultGroups.Add(inner.ToArray());
+            }
+            if (resultGroups.Count > 1)
+            {
+                result = resultGroups;
+            }
+
             Console.WriteLine("Time: " + (DateTime.Now - start).TotalSeconds);
             return result;
         }
@@ -115,11 +143,16 @@ namespace SCAuditStudio
                     groups.Add(similar.ToArray());
                 }
             }
+            
             return groups;
         }
         static bool CompareIssues(MDFile issue1, MDFile issue2)
         {
             if(issue1 == MDFile.Invalid || issue2 == MDFile.Invalid) return false;
+            if (Object.Equals(issue1, null) || Object.Equals(issue2, null)) return false;
+            if (issue1.rawContent.Length < 1 || issue2.rawContent.Length < 1) return false;
+            if (issue1.title.Length < 1 || issue2.title.Length < 1) return false;
+            
             float staticDistanceTitle = StaticStringOperations.StaticCompareString(issue1.title, issue2.title);
 
             //Static compare content
