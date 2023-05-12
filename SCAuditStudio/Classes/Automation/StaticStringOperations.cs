@@ -29,14 +29,14 @@ namespace SCAuditStudio
             return totalWordsFound;
         }
         //Returns float between 0 and 1, 0 when same, 1 when different
-        public static float StaticCompareString(string title1, string title2)
+        public static float StaticCompareString(string a, string b)
         {
-            if (title1.Length < 1 || title2.Length < 1)
+            if (a.Length < 1 || b.Length < 1)
             {
                 return 0;
             }
-            float damerauLevenshteinDistance = GetDamerauLevenshteinDistance(title1, title2);
-            float staticDistance = title1.Length > title2.Length ? damerauLevenshteinDistance / title1.Length : damerauLevenshteinDistance / title2.Length;
+            float damerauLevenshteinDistance = GetDamerauLevenshteinDistance(a, b);
+            float staticDistance = damerauLevenshteinDistance / Math.Max(a.Length, b.Length);
             return staticDistance;
         }
         //Returns 0 if the same, returns lenght of longer string if everything is different 

@@ -391,7 +391,7 @@ namespace SCAuditStudio.ViewModels
             IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
             if (selectedItems == null) return;
 
-            List<MDFile> mdfileitems = new List<MDFile>();
+            List<MDFile> mdfileitems = new();
 
 
             foreach (Node? item in selectedItems)
@@ -411,6 +411,7 @@ namespace SCAuditStudio.ViewModels
                 if (mdfile1 == null) continue;
                 mdfileitems.Add(mdfile1);
             }
+
             StaticSortIssues(mdfileitems.ToArray());
             LoadMDFileItems();
             LoadMDFileContext();
@@ -418,18 +419,19 @@ namespace SCAuditStudio.ViewModels
         public void StaticSortIssues(MDFile[]? issuesToCompare)
         {
             if (issuesToCompare == null) return;
-            List<MDFile[]>? groups = AutoDirectorySort.GroupIssuesThreaded(issuesToCompare, mdManager.mdFiles,Math.Min(Environment.ProcessorCount*2, issuesToCompare.Length));
+            List<List<MDFile>>? groups = AutoDirectorySort.GroupIssues(issuesToCompare, mdManager.mdFiles);//,Math.Min(Environment.ProcessorCount*2, issuesToCompare.Length));
             if (groups == null) return;
             for (int i = 0; i < groups.Count; i++)
             {
-                MDFile[] mDFiles = groups[i];
+                List<MDFile> mdFiles = groups[i];
                 int? index = mdManager.GetIssueIndex(MDManager.MDFileIssue.Medium);
-                for (int f = 0; f < mDFiles.Length; f++)
+                for (int f = 0; f < mdFiles.Count; f++)
                 {
-                    mdManager.MoveFileToIssue(mDFiles[f].fileName, MDManager.MDFileIssue.Medium, index ?? 0, true);
+                    mdManager.MoveFileToIssue(mdFiles[f].fileName, MDManager.MDFileIssue.Medium, index ?? 0, true);
                 }
 
             }
+
             LoadMDFileItems();
             LoadMDFileContext();
         }

@@ -37,28 +37,28 @@ namespace SCAuditStudio
             return new int[3] { 1, 1, 1 };
         }
 
-        public static List<MDFile[]>? GroupIssuesThreaded(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith, int maxNumOfThreads)
+        public static List<List<MDFile>>? GroupIssuesThreaded(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith, int maxNumOfThreads)
         {
             if(issuesToCompareWith == null || issuesToCompare == null) return null;
             DateTime start = DateTime.Now;
             List<Thread> threads = new ();
             int step = (int)Math.Round(issuesToCompare.Length/ (float)maxNumOfThreads);
-            List<List<MDFile[]>?>? mDFiles = new();
-            List<MDFile[]>? result = new();
+            List<List<List<MDFile>>?>? mdFiles = new();
+            List<List<MDFile>>? result = new();
 
             for (int i = 0; i < issuesToCompare.Length; i+=step)
             {
                 if ((issuesToCompare.Length - i) < step)
                 {
                     MDFile[] files = issuesToCompare[i..(issuesToCompare.Length-1)];
-                    Thread t = new(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
+                    Thread t = new(() => { mdFiles.Add(GroupIssues(files, issuesToCompareWith)); });
                     threads.Add(t);
                     t.Start();
                 }
                 else
                 {
                     MDFile[] files = issuesToCompare[i..(i + step)];
-                    Thread t = new(() => { mDFiles.Add(GroupIssues(files, issuesToCompareWith)); });
+                    Thread t = new(() => { mdFiles.Add(GroupIssues(files, issuesToCompareWith)); });
                     threads.Add(t);
                     t.Start();
                 }
@@ -71,18 +71,19 @@ namespace SCAuditStudio
 
                 }
             }
-            for(int t = 0; t < mDFiles.Count; t++)
+
+            for(int t = 0; t < mdFiles.Count; t++)
             {
-                if (mDFiles[t] == null)
+                if (mdFiles[t] == null)
                 {
                     continue;
                 }
 
-                for (int i = 0; i < mDFiles[t]?.Count; i++)
+                for (int i = 0; i < mdFiles[t]?.Count; i++)
                 {
-                    if (mDFiles[t]?[i] != null)
+                    if (mdFiles[t]?[i] != null)
                     {
-                        result.Add(mDFiles[t]![i]);
+                        result.Add(mdFiles[t]![i]);
                     }
                 }
             }
@@ -91,31 +92,40 @@ namespace SCAuditStudio
             return result;
         }
 
-        static public List<MDFile[]>? GroupIssues(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith)
+        static public List<List<MDFile>>? GroupIssues(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith)
         {
             if(issuesToCompare == null || issuesToCompareWith == null) return null;
-            List<MDFile[]> groups = new();
-            List<MDFile> issuesnew = new();
-            issuesnew.AddRange(issuesToCompareWith);
+            List<List<MDFile>> groups = new();
 
             for (int i= 0; i< issuesToCompare.Length; i++)
             {
                 List<MDFile> similar = new();
+                bool grouped = false;
 
-                for (int j = i+1; j< issuesnew.Count; j++)
+                for (int g = 0; g < groups.Count; g++)
                 {
-                    
-                    if(CompareIssues(issuesToCompare[i], issuesnew[j]))
+                    if (CompareIssues(issuesToCompare[i], groups[g][0]))
                     {
-                        similar.Add(issuesnew[j]);
-                        issuesnew.RemoveAt(j);
-                        j--;
+                        groups[g].Add(issuesToCompare[i]);
+                        grouped = true;
+                        break;
                     }
                 }
+
+                if (grouped) continue;
+
+                for (int j = i+1; j < issuesToCompareWith.Length; j++)
+                {
+                    if(CompareIssues(issuesToCompare[i], issuesToCompareWith[j]))
+                    {
+                        similar.Add(issuesToCompareWith[j]);
+                    }
+                }
+
                 if (similar.Count > 1)
                 {
                     similar.Add(issuesToCompare[i]);
-                    groups.Add(similar.ToArray());
+                    groups.Add(similar);
                 }
             }
             
