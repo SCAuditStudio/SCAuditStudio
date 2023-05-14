@@ -50,7 +50,7 @@ namespace SCAuditStudio.ViewModels
 
             highlightBrushes = new();
             selectedTheme = new();
-            LoadTheme(AppTheme.DefaultDark);
+            LoadTheme();
 
             tabPages = new();
         }
@@ -167,7 +167,7 @@ namespace SCAuditStudio.ViewModels
             string[] highIssues = mdManager.GetIssues(MDManager.MDFileIssue.High);
             foreach (string issue in highIssues)
             {
-                string title = mdFileTree.Items.Where(i => i.fileName == issue).FirstOrDefault().title ?? "";
+                string title = mdFileTree.Items.Where(i => i.fileName == issue).FirstOrDefault()?.title ?? "";
                 MenuItem issueItem = new() { Header = issue + " - " + title, Name = issue };
                 issueItem.Click += MoveFileToIssue;
                 mdFileIssues.Add(issueItem);
@@ -177,7 +177,7 @@ namespace SCAuditStudio.ViewModels
             string[] mediumIssue = mdManager.GetIssues(MDManager.MDFileIssue.Medium);
             foreach (string issue in mediumIssue)
             {
-                string title = mdFileTree.Items.Where(i => i.fileName == issue).FirstOrDefault().title ?? "";
+                string title = mdFileTree.Items.Where(i => i.fileName == issue).FirstOrDefault()?.title ?? "";
                 MenuItem issueItem = new() { Header = issue + " - " + title, Name = issue };
                 issueItem.Click += MoveFileToIssue;
                 mdFileIssues.Add(issueItem);
@@ -198,8 +198,18 @@ namespace SCAuditStudio.ViewModels
                 highlightBrushes.Add(item);
             }
         }
-        public void LoadTheme(AppTheme theme)
+        public void LoadTheme()
         {
+            string themeSelection = ConfigFile.Read<string?>("AppTheme") ?? "DefaultDark";
+            AppTheme theme = AppTheme.Parse(themeSelection);
+            string? imagePath = ConfigFile.Read<string?>("AppTheme_BackgroundImagePath");
+            if (imagePath != null) theme.SetBackgroundImage(imagePath);
+            string? stretchMode = ConfigFile.Read<string?>("AppTheme_BackgroundStretchMode");
+            if (stretchMode != null) { Enum.TryParse<Stretch>(stretchMode, out Stretch mode); theme.BackgroundStretchMode = mode; }
+            float? borderThickness = ConfigFile.Read<float?>("AppTheme_BackgroundBorderThickness");
+            if (borderThickness.HasValue) theme.BackgroundBorderThickness = borderThickness.Value;
+            float? opacity = ConfigFile.Read<float?>("AppTheme_BackgroundOpacity");
+            if (opacity.HasValue) theme.BackgroundOpacity = opacity.Value;
             selectedTheme = theme;
             LoadContextBrushes();
         }

@@ -90,9 +90,7 @@ namespace SCAuditStudio
                 }
 
                 // copy current distance counts to 'previous row' distance counts
-                int[] dPlaceholder = p; //placeholder to assist in swapping p and d
-                p = d;
-                d = dPlaceholder;
+                (d, p) = (p, d); //placeholder to assist in swapping p and d
             }
 
             // our last action in the above loop was to switch d and p, so p now 

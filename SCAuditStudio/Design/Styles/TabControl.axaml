@@ -15,6 +15,7 @@
   <Style Selector="TabControl:empty">
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
+    <Setter Property="Background" Value="{Binding selectedTheme.BackgroundImage}"/>
   </Style>
   <Style Selector="TabControl ContentControl">
     <Setter Property="Margin" Value="-12,-3,-7,0"/>

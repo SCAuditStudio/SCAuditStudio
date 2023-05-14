@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -86,6 +89,12 @@ namespace SCAuditStudio
                 return default;
             }
 
+            Type? t = typeof(T);
+            if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+            {
+                t = Nullable.GetUnderlyingType(typeof(T));
+            }
+
             CheckFile();
 
             List<string> content = File.ReadAllText(file).Split(Environment.NewLine).ToList();
@@ -95,7 +104,9 @@ namespace SCAuditStudio
 
                 if (line.StartsWith(name))
                 {
-                    return (T)Convert.ChangeType(line.Split(" : ")[^1], typeof(T));
+                    string? value = line.Split(" : ")[^1];
+                    object? result = Convert.ChangeType(value, t ?? typeof(T));
+                    return (T)result;
                 }
             }
 
@@ -108,6 +119,12 @@ namespace SCAuditStudio
                 return default;
             }
 
+            Type? t = typeof(T);
+            if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+            {
+                t = Nullable.GetUnderlyingType(typeof(T));
+            }
+
             CheckFile();
 
             string fileContent = await File.ReadAllTextAsync(file);
@@ -118,7 +135,9 @@ namespace SCAuditStudio
 
                 if (line.StartsWith(name))
                 {
-                    return (T)Convert.ChangeType(line.Split(" : ")[^1], typeof(T));
+                    string? value = line.Split(" : ")[^1];
+                    object? result = Convert.ChangeType(value, t ?? typeof(T));
+                    return (T)result;
                 }
             }
 

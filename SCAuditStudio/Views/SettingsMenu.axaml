@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SCAuditStudio.Views.Editor.SettingsMenu">
   <DockPanel Background="Transparent">
-    <Grid ColumnDefinitions="300,1.5*,4*" RowDefinitions="Auto,Auto,Auto"  Margin="4">
+    <Grid ColumnDefinitions="300,1.5*,4*" RowDefinitions="Auto,Auto,Auto,Auto,Auto"  Margin="4">
       <StackPanel Grid.Row="0" Grid.Column="0" >
         <TextBlock Text="Add file containing Blacklisted words:" />
         <Button Width="200" Click="OpenBlacklistFolder_Clicked">Add Score Blacklist</Button>
@@ -17,7 +17,12 @@
       <StackPanel Grid.Column="0"  Grid.Row="2" >
         <TextBlock Text="OpenAI API Key (not used currently):" Grid.Row="2" />
         <Button Grid.Row="2" Width="200" >Add AI API key</Button>
-      </StackPanel> 
+      </StackPanel>
+      <Separator Height="20" Grid.Column="0" Grid.Row="3"/>
+      <StackPanel Grid.Column="0" Grid.Row="4">
+        <TextBlock Text="Background Image"/>
+        <Button Width="200" Click="SetBackgroundImage">Set Background Image</Button>
+      </StackPanel>
     </Grid>
   </DockPanel>
  

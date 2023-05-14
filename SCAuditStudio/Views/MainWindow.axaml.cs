@@ -29,7 +29,7 @@ namespace SCAuditStudio.Views
         {
             AvaloniaXamlLoader.Load(this);
         }
-        MainWindowViewModel? GetViewModel()
+        public MainWindowViewModel? GetViewModel()
         {
             if (DataContext == null)
             {

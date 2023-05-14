@@ -1,7 +1,9 @@
-﻿using Avalonia.Media;
+﻿using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Themes.Fluent;
+using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SCAuditStudio.Design
 {
@@ -19,6 +21,12 @@ namespace SCAuditStudio.Design
         public Color ControlOutlineColor { get; set; }
         public Color SelectedTextColor { get; set; }
 
+        /* BACKGROUND IMAGE */
+        public IBitmap? BackgroundBitmap { get; set; }
+        public Stretch BackgroundStretchMode { get; set; }
+        public float BackgroundBorderThickness { get; set; }
+        public float BackgroundOpacity { get; set; }
+
         /* BRUSH ATTRIBUTES */
         public IBrush Background { get => new SolidColorBrush(BackgroundColor); }
         public IBrush Foreground { get => new SolidColorBrush(ForegroundColor); }
@@ -26,8 +34,37 @@ namespace SCAuditStudio.Design
         public IBrush Accent { get => new SolidColorBrush(AccentColor); }
         public IBrush ControlOutline { get => new SolidColorBrush(ControlOutlineColor); }
         public IBrush SelectedText { get => new SolidColorBrush(SelectedTextColor); }
+        public IBrush BackgroundImage
+        {
+            get
+            {
+                if (BackgroundBitmap == null) return Background;
+
+                ImageBrush imgBrush = new(BackgroundBitmap);
+                imgBrush.SourceRect = new Avalonia.RelativeRect(imgBrush.SourceRect.Rect.Inflate(1f - BackgroundBorderThickness), Avalonia.RelativeUnit.Relative);
+                imgBrush.Stretch = BackgroundStretchMode;
+                imgBrush.Opacity = BackgroundOpacity;
+
+                return imgBrush;
+            }
+        }
 
         /* STATIC ATTRIBUTES */
+        public static AppTheme Parse(string name)
+        {
+            if (name == "DefaultDark") return DefaultDark;
+            if (name == "DefaultLight") return DefaultLight;
+
+            return DefaultDark;
+        }
+        public static Bitmap DefaultBackgroundImage(bool darkMode)
+        {
+            System.IO.MemoryStream memoryStream = new();
+            System.Drawing.Bitmap bgr = darkMode ? Properties.Resources.gategameslogo : Properties.Resources.gategameslogo_inverted;
+            bgr.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+            memoryStream.Position = 0;
+            return new(memoryStream);
+        }
         public static AppTheme DefaultDark => new()
         {
             ThemeMode = FluentThemeMode.Dark,
@@ -39,6 +76,11 @@ namespace SCAuditStudio.Design
             AccentColor = Color.Parse("#7160E8"),
             ControlOutlineColor = Color.Parse("#3D3D3D"),
             SelectedTextColor = Color.Parse("#DFDFDF"),
+
+            BackgroundStretchMode = Stretch.Uniform,
+            BackgroundBorderThickness = 0.25f,
+            BackgroundOpacity = 0.06f,
+            BackgroundBitmap = DefaultBackgroundImage(true),
 
             Brushes = new()
             {
@@ -62,6 +104,11 @@ namespace SCAuditStudio.Design
             ControlOutlineColor = Color.Parse("#CCCEDB"),
             SelectedTextColor = Color.Parse("#EEEEF2"),
 
+            BackgroundStretchMode = Stretch.Uniform,
+            BackgroundBorderThickness = 0.25f,
+            BackgroundOpacity = 0.06f,
+            BackgroundBitmap = DefaultBackgroundImage(false),
+
             Brushes = new()
             {
                 new("Light Red", Color.Parse("#F55762"), Color.Parse("#EEEEF2")),
@@ -78,6 +125,10 @@ namespace SCAuditStudio.Design
             ThemeMode = FluentThemeMode.Dark;
             FontFamily = FontFamily.Default;
             Brushes = new() { ContextBrush.Clear };
+
+            BackgroundStretchMode = Stretch.Uniform;
+            BackgroundBorderThickness = 1;
+            BackgroundOpacity = 1;
         }
 
         public AppTheme(FontFamily fontFamily, Color background, Color accent)
@@ -94,6 +145,20 @@ namespace SCAuditStudio.Design
             ControlOutlineColor = DetailColor;
             AccentColor = accent;
             SelectedTextColor = InvertColor(AccentColor);
+
+            BackgroundStretchMode = Stretch.Uniform;
+            BackgroundBorderThickness = 1;
+            BackgroundOpacity = 1;
+        }
+
+        public void SetBackgroundImage(string path)
+        {
+            if (!System.IO.File.Exists(path)) return;
+            BackgroundBitmap = new Bitmap(path);
+        }
+        public void RemoveBackgroundImage()
+        {
+            BackgroundBitmap = null;
         }
 
         /* COLOR OPERATIONS */
