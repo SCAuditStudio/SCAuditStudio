@@ -30,6 +30,7 @@
     <PackageReference Include="ComputeSharp" Version="2.0.3" />
     <PackageReference Include="Markdown.Avalonia" Version="0.10.14" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="ReactiveUI" Version="18.4.44" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
   </ItemGroup>
 </Project>

@@ -13,14 +13,17 @@ using Avalonia.Interactivity;
 using Avalonia.Controls.Models.TreeDataGrid;
 using SCAuditStudio.Design;
 using SCAuditStudio.Views.Editor;
+using System.Reactive.Linq;
+using System.Reactive;
+using ReactiveUI;
 
 #pragma warning disable IDE1006
 namespace SCAuditStudio.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ReactiveObject
     {
         public string ProjectDirectory;
-
+        private bool _startMenuActive = true;
         public MDManager mdManager { get; private set; }
         public MainWindow? mainWindow { get; private set; }
 
@@ -31,7 +34,11 @@ namespace SCAuditStudio.ViewModels
         public ObservableCollection<MenuItem> highlightBrushes { get; }
 
         public AppTheme selectedTheme { get; set; }
-
+        public bool startmenuactive
+        {
+            get { return _startMenuActive; }
+            set { this.RaiseAndSetIfChanged(ref _startMenuActive, value); }
+        }
         public MainWindowViewModel(string directory)
         {
             ProjectDirectory = directory;
@@ -51,11 +58,14 @@ namespace SCAuditStudio.ViewModels
             highlightBrushes = new();
             selectedTheme = new();
             LoadTheme(AppTheme.DefaultDark);
-
+            
             tabPages = new();
         }
         public MainWindowViewModel() : this("") { }
-
+        public void SetJudgingEditorActive()
+        {
+            startmenuactive = false;
+        }
         public async Task<MainWindowViewModel> Init(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
