@@ -228,6 +228,8 @@ namespace SCAuditStudio.ViewModels
             if (opacity.HasValue) theme.BackgroundOpacity = opacity.Value;
             selectedTheme = theme;
             LoadContextBrushes();
+            LoadMDFileItems();
+            LoadMDFileContext();
         }
 
         public bool TabOpen(string tabName)
