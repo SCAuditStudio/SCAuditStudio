@@ -31,6 +31,7 @@
     <PackageReference Include="Markdown.Avalonia" Version="0.10.14" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+    <PackageReference Include="ReactiveUI" Version="18.4.44" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
   </ItemGroup>
 

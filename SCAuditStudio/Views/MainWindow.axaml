@@ -5,9 +5,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="using:SCAuditStudio.Views.Editor"
+        xmlns:ucmenu="using:SCAuditStudio.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SCAuditStudio.Views.MainWindow"
-        Icon="/Assets/SCAS-logo.ico"
+        Icon="/Assets/SCAS-Logo.ico"
         Title="SCAuditStudio"
         ExtendClientAreaToDecorationsHint="True"
         PointerMoved="InputElement_OnPointerMoved"
@@ -24,21 +25,24 @@
   </Window.Resources>
   <DockPanel>
     <!-- MENU BAR -->
-    <Menu DockPanel.Dock="Top" Height="32">
+    <Menu DockPanel.Dock="Top" Height="32" >
       <MenuItem Header="SCAuditStudio">
-        <MenuItem Header="Options" Click="OpenOptionsMenu"/>
+        <MenuItem Header="Options" Click="OpenOptionsMenu" IsVisible="{Binding !startmenuactive}"/>
         <Separator/>
         <MenuItem Header="Exit" Click="ExitProgram_Clicked"/>
       </MenuItem>
-      <MenuItem Header="File">
+      <MenuItem Header="File" IsVisible="{Binding !startmenuactive}">
         <MenuItem Header="Open" Click="OpenProject_Clicked"/>
       </MenuItem>
-      <MenuItem Header="Automation">
+      <MenuItem Header="Automation" IsVisible="{Binding !startmenuactive}">
         <MenuItem Header="AI Sort" Click="AutoSortIssuesClicked" />
         <MenuItem Header="AI Auto Invalid" Click="AutoInvalidateIssueClicked"/>
       </MenuItem>
     </Menu>
-    <uc:MainEditor/>
+    <Panel>
+      <uc:MainEditor IsVisible="{Binding !startmenuactive}"/>
+      <ucmenu:StartMenu IsVisible="{Binding startmenuactive}"/>
+    </Panel>
   </DockPanel>
 
 </Window>
