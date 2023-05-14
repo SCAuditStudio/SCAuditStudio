@@ -13,6 +13,8 @@ namespace SCAuditStudio.Design
         public FontFamily FontFamily { get; set; }
         public ObservableCollection<ContextBrush> Brushes { get; set; }
 
+        public bool IsDarkTheme => ThemeMode == FluentThemeMode.Dark;
+
         /* COLOR ATTRIBUTES */
         public Color BackgroundColor { get; set; }
         public Color ForegroundColor { get; set; }
@@ -41,7 +43,7 @@ namespace SCAuditStudio.Design
                 if (BackgroundBitmap == null) return Background;
 
                 ImageBrush imgBrush = new(BackgroundBitmap);
-                imgBrush.SourceRect = new Avalonia.RelativeRect(imgBrush.SourceRect.Rect.Inflate(1f - BackgroundBorderThickness), Avalonia.RelativeUnit.Relative);
+                imgBrush.SourceRect = new Avalonia.RelativeRect(imgBrush.SourceRect.Rect.Inflate(BackgroundBorderThickness), Avalonia.RelativeUnit.Relative);
                 imgBrush.Stretch = BackgroundStretchMode;
                 imgBrush.Opacity = BackgroundOpacity;
 
@@ -56,14 +58,6 @@ namespace SCAuditStudio.Design
             if (name == "DefaultLight") return DefaultLight;
 
             return DefaultDark;
-        }
-        public static Bitmap DefaultBackgroundImage(bool darkMode)
-        {
-            System.IO.MemoryStream memoryStream = new();
-            System.Drawing.Bitmap bgr = darkMode ? Properties.Resources.gategameslogo : Properties.Resources.gategameslogo_inverted;
-            bgr.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-            memoryStream.Position = 0;
-            return new(memoryStream);
         }
         public static AppTheme DefaultDark => new()
         {
@@ -80,7 +74,6 @@ namespace SCAuditStudio.Design
             BackgroundStretchMode = Stretch.Uniform,
             BackgroundBorderThickness = 0.25f,
             BackgroundOpacity = 0.06f,
-            BackgroundBitmap = DefaultBackgroundImage(true),
 
             Brushes = new()
             {
@@ -107,7 +100,6 @@ namespace SCAuditStudio.Design
             BackgroundStretchMode = Stretch.Uniform,
             BackgroundBorderThickness = 0.25f,
             BackgroundOpacity = 0.06f,
-            BackgroundBitmap = DefaultBackgroundImage(false),
 
             Brushes = new()
             {

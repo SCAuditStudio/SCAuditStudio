@@ -24,6 +24,7 @@ namespace SCAuditStudio.ViewModels
     {
         public string ProjectDirectory;
         private bool _startMenuActive = true;
+        private AppTheme _selectedTheme;
         public MDManager mdManager { get; private set; }
         public MainWindow? mainWindow { get; private set; }
 
@@ -33,7 +34,11 @@ namespace SCAuditStudio.ViewModels
         public ObservableCollection<MenuItem> mdFileIssues { get; private set; }
         public ObservableCollection<MenuItem> highlightBrushes { get; }
 
-        public AppTheme selectedTheme { get; set; }
+        public AppTheme selectedTheme
+        {
+            get { return _selectedTheme; }
+            set { this.RaiseAndSetIfChanged(ref _selectedTheme, value); }
+        }
         public bool startmenuactive
         {
             get { return _startMenuActive; }
@@ -56,6 +61,7 @@ namespace SCAuditStudio.ViewModels
             mdFileIssues = new();
 
             highlightBrushes = new();
+            _selectedTheme = new();
             selectedTheme = new();
             LoadTheme();
            
@@ -210,12 +216,12 @@ namespace SCAuditStudio.ViewModels
         }
         public void LoadTheme()
         {
-            string themeSelection = ConfigFile.Read<string?>("AppTheme") ?? "DefaultDark";
-            AppTheme theme = AppTheme.Parse(themeSelection);
+            bool darkMode = ConfigFile.Read<bool?>("AppTheme_UseDarkMode") ?? true;
+            AppTheme theme = darkMode ? AppTheme.DefaultDark : AppTheme.DefaultLight;
             string? imagePath = ConfigFile.Read<string?>("AppTheme_BackgroundImagePath");
             if (imagePath != null) theme.SetBackgroundImage(imagePath);
             string? stretchMode = ConfigFile.Read<string?>("AppTheme_BackgroundStretchMode");
-            if (stretchMode != null) { Enum.TryParse<Stretch>(stretchMode, out Stretch mode); theme.BackgroundStretchMode = mode; }
+            if (stretchMode != null) { _ = Enum.TryParse(stretchMode, out Stretch mode); theme.BackgroundStretchMode = mode; }
             float? borderThickness = ConfigFile.Read<float?>("AppTheme_BackgroundBorderThickness");
             if (borderThickness.HasValue) theme.BackgroundBorderThickness = borderThickness.Value;
             float? opacity = ConfigFile.Read<float?>("AppTheme_BackgroundOpacity");

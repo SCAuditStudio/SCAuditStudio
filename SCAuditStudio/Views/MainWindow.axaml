@@ -8,7 +8,7 @@
         xmlns:ucmenu="using:SCAuditStudio.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SCAuditStudio.Views.MainWindow"
-        Icon="/Assets/SCAS-Logo.ico"
+        Icon="/Assets/SCAS-logo.ico"
         Title="SCAuditStudio"
         ExtendClientAreaToDecorationsHint="True"
         PointerMoved="InputElement_OnPointerMoved"

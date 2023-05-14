@@ -1,7 +1,8 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Newtonsoft.Json.Linq;
+using System;
 
 namespace SCAuditStudio.Views.Editor
 {
@@ -33,6 +34,17 @@ namespace SCAuditStudio.Views.Editor
             if (file == null) return;
             if (file[0] != null) ConfigFile.Write("BlackList", file[0]);
         }
+        public void SetDarkMode(object sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            MainWindow? window = MainWindow.Instance;
+            if (window == null) return;
+
+            if (e.Property.Name == "IsChecked")
+            {
+                ConfigFile.Write("AppTheme_UseDarkMode", e.NewValue);
+                window.GetViewModel()?.LoadTheme();
+            }
+        }
         public async void SetBackgroundImage(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new();
@@ -52,6 +64,47 @@ namespace SCAuditStudio.Views.Editor
             if (file[0] != null) ConfigFile.Write("AppTheme_BackgroundImagePath", file[0]);
 
             window.GetViewModel()?.LoadTheme();
+        }
+        public void RemoveBackgroundImage(object sender, RoutedEventArgs e)
+        {
+            MainWindow? window = MainWindow.Instance;
+            if (window == null) return;
+
+            ConfigFile.Write("AppTheme_BackgroundImagePath", null);
+            window.GetViewModel()?.LoadTheme();
+        }
+        public void StretchModeChanged(object sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            MainWindow? window = MainWindow.Instance;
+            if (window == null) return;
+
+            if (e.Property.Name == "SelectionBoxItem")
+            {
+                ConfigFile.Write("AppTheme_BackgroundStretchMode", e.NewValue);
+                window.GetViewModel()?.LoadTheme();
+            }
+        }
+        public void BorderThicknessChanged(object sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            MainWindow? window = MainWindow.Instance;
+            if (window == null) return;
+
+            if (e.Property.Name == "Value")
+            {
+                ConfigFile.Write("AppTheme_BackgroundBorderThickness", e.NewValue);
+                window.GetViewModel()?.LoadTheme();
+            }
+        }
+        public void BackgroundOpacityChanged(object sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            MainWindow? window = MainWindow.Instance;
+            if (window == null) return;
+
+            if (e.Property.Name == "Value")
+            {
+                ConfigFile.Write("AppTheme_BackgroundOpacity", e.NewValue);
+                window.GetViewModel()?.LoadTheme();
+            }
         }
     }
 }
