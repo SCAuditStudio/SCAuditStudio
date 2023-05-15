@@ -30,7 +30,9 @@ namespace SCAuditStudio.ViewModels
 
         public ObservableCollection<TabItem> tabPages { get; }
         public ObservableCollection<Node> mdFileItems { get; }
+        public ObservableCollection<ProjectNode> projectFileTreeItems { get; }
         public HierarchicalTreeDataGridSource<Node> mdFileTree { get; }
+        public HierarchicalTreeDataGridSource<ProjectNode> projectFileTree { get; }
         public ObservableCollection<MenuItem> mdFileIssues { get; private set; }
         public ObservableCollection<MenuItem> highlightBrushes { get; }
 
@@ -59,6 +61,14 @@ namespace SCAuditStudio.ViewModels
             mdFileTree.Columns.SetColumnWidth(1, GridLength.Parse("185"));
             mdFileTree.Columns.SetColumnWidth(2, GridLength.Parse("55"));
             mdFileIssues = new();
+
+            projectFileTreeItems = new();
+            projectFileTree = new(projectFileTreeItems);
+            projectFileTree.Columns.Add(new HierarchicalExpanderColumn<ProjectNode>(new TextColumn<ProjectNode, string>("File Path", f => f.fileName), f => f.subNodes));
+            projectFileTree.Columns.Add(new TextColumn<ProjectNode, string>("Project Name", f => f.title));
+            projectFileTree.Columns.SetColumnWidth(0, GridLength.Parse("*"));
+            projectFileTree.Columns.SetColumnWidth(1, GridLength.Parse("*"));
+
 
             highlightBrushes = new();
             _selectedTheme = new();
@@ -573,6 +583,23 @@ namespace SCAuditStudio.ViewModels
             public uint? score;
 
             public Node(string path)
+            {
+                subNodes = new();
+                fileName = Path.GetFileName(path);
+
+                title = "untitled";
+            }
+        }
+        public class ProjectNode
+        {
+            public ObservableCollection<ProjectNode> subNodes { get; set; }
+
+            public IBrush? Background { get; set; }
+            public IBrush? Foreground { get; set; }
+            public string fileName { get; }
+            public string title;
+
+            public ProjectNode(string path)
             {
                 subNodes = new();
                 fileName = Path.GetFileName(path);

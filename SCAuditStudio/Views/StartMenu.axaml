@@ -3,7 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SCAuditStudio.Views.StartMenu">
+             x:Class="SCAuditStudio.Views.StartMenu"
+			 xmlns:vm="using:SCAuditStudio.ViewModels">
+	<!-- PREVIEW DATA CONTEXT -->
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	
   <DockPanel Background="Transparent" >
     <DockPanel>
       <Grid>
@@ -14,9 +20,13 @@
         <ColumnDefinition Width="*"></ColumnDefinition>
         <ColumnDefinition Width="*"></ColumnDefinition>
       </Grid.ColumnDefinitions>
-      <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
-        <TextBlock Text="Open Recent" />
-      </StackPanel>
+      <DockPanel Grid.Row="0" Grid.Column="0" Margin="10">
+        <TextBlock DockPanel.Dock="Top" Text="Open Recent" />
+		  <TreeDataGrid Source="{Binding projectFileTree}" AutoDragDropRows="True" >
+			  <!-- MD FILE LIST CONTEXT MENU -->
+			  
+		  </TreeDataGrid>
+      </DockPanel>
       <Panel Grid.Row="0" Grid.Column="1" Margin="30">
         <Grid>
           <Grid.RowDefinitions>
