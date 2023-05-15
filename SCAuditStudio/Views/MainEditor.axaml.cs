@@ -5,6 +5,7 @@ using Avalonia.Input;
 using Avalonia.VisualTree;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
+using SCAuditStudio.Classes.CustomElements;
 using Avalonia.Markup.Xaml;
 using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -71,7 +72,7 @@ namespace SCAuditStudio.Views.Editor
         {
             if (e.Source == null) return;
 
-            MainWindowViewModel.Node? selectedNode = GetViewModel()?.mdFileTree.RowSelection?.SelectedItem;
+            Node? selectedNode = GetViewModel()?.mdFileTree.RowSelection?.SelectedItem;
             if (selectedNode == null) return;
 
             //Return if not .md file
@@ -89,10 +90,10 @@ namespace SCAuditStudio.Views.Editor
             //Read File
             if (e.Key == Key.Enter)
             {
-                IReadOnlyList<MainWindowViewModel.Node?>? selectedNodes = GetViewModel()?.mdFileTree.RowSelection?.SelectedItems;
+                IReadOnlyList<Node?>? selectedNodes = GetViewModel()?.mdFileTree.RowSelection?.SelectedItems;
                 if (selectedNodes == null) return;
 
-                foreach (MainWindowViewModel.Node? selectedNode in selectedNodes)
+                foreach (Node? selectedNode in selectedNodes)
                 {
                     if (selectedNode == null) continue;
 
