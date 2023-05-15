@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SCAuditStudio.Views.StartMenu"
-			 xmlns:vm="using:SCAuditStudio.ViewModels">
+			       xmlns:vm="using:SCAuditStudio.ViewModels">
 	<!-- PREVIEW DATA CONTEXT -->
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
+  <Design.DataContext>
+    <vm:StartMenuViewModel/>
+  </Design.DataContext>
 	
   <DockPanel Background="Transparent" >
     <DockPanel>
@@ -20,13 +20,16 @@
         <ColumnDefinition Width="*"></ColumnDefinition>
         <ColumnDefinition Width="*"></ColumnDefinition>
       </Grid.ColumnDefinitions>
-      <DockPanel Grid.Row="0" Grid.Column="0" Margin="10">
-        <TextBlock DockPanel.Dock="Top" Text="Open Recent" />
-		  <TreeDataGrid Source="{Binding projectFileTree}" AutoDragDropRows="True" >
-			  <!-- MD FILE LIST CONTEXT MENU -->
-			  
-		  </TreeDataGrid>
-      </DockPanel>
+        <DockPanel Grid.Row="0" Grid.Column="0" Margin="10">
+          <TextBlock DockPanel.Dock="Top" Text="Open Recent" />
+          <TreeDataGrid Source="{Binding projectFileTree}" DoubleTapped="TreeView_DoubleTapped">
+          <TreeDataGrid.ContextMenu>
+            <ContextMenu>
+              <MenuItem Header="Remove from List" Click="RemoveFromListClick" />
+            </ContextMenu>
+          </TreeDataGrid.ContextMenu>
+          </TreeDataGrid>
+        </DockPanel>
       <Panel Grid.Row="0" Grid.Column="1" Margin="30">
         <Grid>
           <Grid.RowDefinitions>

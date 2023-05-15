@@ -10,9 +10,18 @@ namespace SCAuditStudio.Classes.ProjectFile
 {
     static class ProjectFileReader
     {
-        public static ProjectFile[] ReadProjects(string ProjectFilePath)
+        public static string Appdatafolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string SCAuditProjectsFolderName = "SCASProjects";
+        public static string SCAuditProjectsFileName = "ProjectFilePath.json";
+
+        public static ProjectFile[] ReadProjects()
         {
-            using (StreamReader r = new StreamReader("ProjectFilePath.json"))
+            string SCAuditProjectsPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditProjectsFileName);
+            if (!Directory.Exists(Path.Combine(Appdatafolder, SCAuditProjectsFolderName)) && !File.Exists(SCAuditProjectsPath))
+            {
+               return Array.Empty<ProjectFile>();
+            }
+            using (StreamReader r = new StreamReader(SCAuditProjectsPath))
             {
                 string json = r.ReadToEnd();
                 List<ProjectFile>? projects = JsonConvert.DeserializeObject<List<ProjectFile>>(json);
@@ -20,15 +29,55 @@ namespace SCAuditStudio.Classes.ProjectFile
                 return projects.ToArray();
             }
         }
-
-        public static void CreateProjectFile(List<ProjectFile> projectsData, string ProjectFilePath)
+        public static void RemoveProjectFile(string directory)
         {
+            List<ProjectFile> projects = ReadProjects().ToList();
+            for (int i = 0; i < projects.Count; i++)
+            {
+                if (projects[i].path == directory)
+                {
+                    projects.RemoveAt(i);
+                }
+            }
+
+            string SCAuditProjectsPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditProjectsFileName);
+            if (!Directory.Exists(Path.Combine(Appdatafolder, SCAuditProjectsFolderName)))
+            {
+                Directory.CreateDirectory(Path.Combine(Appdatafolder, SCAuditProjectsFolderName));
+            }
             //open file stream
-            using (StreamWriter file = File.CreateText(ProjectFilePath))
+            using (StreamWriter file = File.CreateText(SCAuditProjectsPath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 //serialize object directly into file stream
-                serializer.Serialize(file, projectsData);
+                serializer.Serialize(file, projects.ToArray());
+            }
+        }
+        public static void CreateProjectFile(string directory)
+        {
+            ProjectFile[] projects = ReadProjects();
+            ProjectFile currentOpenProject = new(Path.GetFileName(directory), directory);
+            foreach (ProjectFile project in projects)
+            {
+                if (project.path == directory)
+                {
+                    return;
+                }
+            }
+
+            projects = projects.Concat(new ProjectFile[1] { currentOpenProject }).ToArray();
+
+            string SCAuditProjectsPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditProjectsFileName);
+            if (!Directory.Exists(Path.Combine(Appdatafolder, SCAuditProjectsFolderName)))
+            {
+                Directory.CreateDirectory(Path.Combine(Appdatafolder, SCAuditProjectsFolderName));
+            }
+            //open file stream
+            using (StreamWriter file = File.CreateText(SCAuditProjectsPath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                //serialize object directly into file stream
+                serializer.Serialize(file, projects);
             }
         }
     }

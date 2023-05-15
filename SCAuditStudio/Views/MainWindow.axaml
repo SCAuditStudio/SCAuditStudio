@@ -41,7 +41,7 @@
     </Menu>
     <Panel>
       <uc:MainEditor IsVisible="{Binding !startmenuactive}"/>
-      <ucmenu:StartMenu IsVisible="{Binding startmenuactive}"/>
+      <ucmenu:StartMenu IsVisible="{Binding $parent.DataContext.startmenuactive}"/>
     </Panel>
   </DockPanel>
 

@@ -13,5 +13,6 @@
       <StyleInclude Source="/Design/Styles/TreeDataGrid.axaml"/>
       <StyleInclude Source="/Design/Styles/TabControl.axaml"/>
       <StyleInclude Source="/Design/Styles/SettingsMenu.axaml"/>
+      <StyleInclude Source="/Design/Styles/StartMenu.axaml"/>
     </Application.Styles>
 </Application>

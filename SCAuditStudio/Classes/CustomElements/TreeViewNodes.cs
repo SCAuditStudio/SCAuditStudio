@@ -29,19 +29,15 @@ namespace SCAuditStudio.Classes.CustomElements
     }
     public class ProjectNode
     {
+        public string path { get; }
+        public string Name;
         public ObservableCollection<ProjectNode> subNodes { get; set; }
-
-        public IBrush? Background { get; set; }
-        public IBrush? Foreground { get; set; }
-        public string fileName { get; }
-        public string title;
 
         public ProjectNode(string path)
         {
             subNodes = new();
-            fileName = Path.GetFileName(path);
-
-            title = "untitled";
+            this.path = path;
+            Name = "untitled";
         }
     }
 }
