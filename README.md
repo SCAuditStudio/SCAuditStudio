@@ -4,17 +4,15 @@
 Download the "build.zip" file, unpack and run the .exe. You can also fork this repo and build it in Visual Studio 2022.
 Start judging by create a local directory using the sherlock judging repository.
 1. Start the SCAS app.
-2. Select "Judge Contest" or "Audit Project"
-3. Download BlackList.txt from the documentation folder
-4. Open Settings Menu by clicking on "SCAuditStudio" in the App
-5. Add Blacklist
-6. Open your project
-7. When read click save project, and push your changes
-The blacklist is used to change the score depending on words that indicate invalid issues (for example "Gas optimization").
+2. Select "Judge Contest" or "Audit Project
+3. Open your project
+4. When ready, push your changes
+
 ## Known Issues!!!  
 - tree view show folder and files right  
 - (md reader bugs)  
 - color highlights not saved on close  
+- Settings menu not right scale
 ## Overview
 SC Audit Studio, also known as the Smart Contract Audit Studio, is a powerful tool that serves as an all-in-one Integrated Development Environment for smart contract auditing. Its primary function is to help users analyze and identify vulnerabilities in the code or design of defi or WEB3 applications.
 
