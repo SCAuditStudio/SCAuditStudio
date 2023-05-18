@@ -7,8 +7,6 @@ using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
 using SCAuditStudio.Classes.CustomElements;
 using Avalonia.Markup.Xaml;
-using System;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace SCAuditStudio.Views.Editor
 {

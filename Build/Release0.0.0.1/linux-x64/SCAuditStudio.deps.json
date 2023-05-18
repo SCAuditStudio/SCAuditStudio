@@ -14,8 +14,11 @@
           "Avalonia.Desktop": "0.10.19",
           "Avalonia.Diagnostics": "0.10.19",
           "CommunityToolkit.Mvvm": "8.1.0",
+          "ComputeSharp": "2.0.3",
           "Markdown.Avalonia": "0.10.14",
           "Newtonsoft.Json": "13.0.3",
+          "ReactiveUI": "18.4.44",
+          "System.Resources.Extensions": "7.0.0",
           "XamlNameReferenceGenerator": "1.6.1",
           "runtimepack.Microsoft.NETCore.App.Runtime.linux-x64": "6.0.16"
         },
@@ -957,11 +960,51 @@
           }
         }
       },
+      "CommunityToolkit.Diagnostics/8.0.0": {
+        "runtime": {
+          "lib/net6.0/CommunityToolkit.Diagnostics.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.1"
+          }
+        }
+      },
       "CommunityToolkit.Mvvm/8.1.0": {
         "runtime": {
           "lib/net6.0/CommunityToolkit.Mvvm.dll": {
             "assemblyVersion": "8.1.0.0",
             "fileVersion": "8.1.0.1"
+          }
+        }
+      },
+      "ComputeSharp/2.0.3": {
+        "dependencies": {
+          "CommunityToolkit.Diagnostics": "8.0.0",
+          "ComputeSharp.Core": "2.0.3",
+          "TerraFX.Interop.D3D12MemoryAllocator": "2.0.1.2"
+        },
+        "runtime": {
+          "lib/net6.0/ComputeSharp.dll": {
+            "assemblyVersion": "2.0.3.0",
+            "fileVersion": "2.0.3.0"
+          }
+        }
+      },
+      "ComputeSharp.Core/2.0.3": {
+        "runtime": {
+          "lib/net6.0/ComputeSharp.Core.dll": {
+            "assemblyVersion": "2.0.3.0",
+            "fileVersion": "2.0.3.0"
+          }
+        }
+      },
+      "DynamicData/7.13.5": {
+        "dependencies": {
+          "System.Reactive": "5.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/DynamicData.dll": {
+            "assemblyVersion": "7.13.0.0",
+            "fileVersion": "7.13.5.53706"
           }
         }
       },
@@ -1294,6 +1337,18 @@
           }
         }
       },
+      "ReactiveUI/18.4.44": {
+        "dependencies": {
+          "DynamicData": "7.13.5",
+          "Splat": "14.6.8"
+        },
+        "runtime": {
+          "lib/net6.0/ReactiveUI.dll": {
+            "assemblyVersion": "18.4.0.0",
+            "fileVersion": "18.4.44.1605"
+          }
+        }
+      },
       "runtime.any.System.Collections/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -1386,6 +1441,14 @@
       "SkiaSharp.NativeAssets.macOS/2.88.1-preview.108": {},
       "SkiaSharp.NativeAssets.WebAssembly/2.88.1-preview.108": {},
       "SkiaSharp.NativeAssets.Win32/2.88.1-preview.108": {},
+      "Splat/14.6.8": {
+        "runtime": {
+          "lib/net6.0/Splat.dll": {
+            "assemblyVersion": "14.6.0.0",
+            "fileVersion": "14.6.8.29002"
+          }
+        }
+      },
       "System.Collections/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.1.2",
@@ -1558,6 +1621,14 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "System.Resources.Extensions/7.0.0": {
+        "runtime": {
+          "lib/net6.0/System.Resources.Extensions.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
       "System.Resources.ResourceManager/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.1.2",
@@ -1634,6 +1705,25 @@
       },
       "System.Threading.Tasks.Extensions/4.5.3": {},
       "System.ValueTuple/4.5.0": {},
+      "TerraFX.Interop.D3D12MemoryAllocator/2.0.1.2": {
+        "dependencies": {
+          "TerraFX.Interop.Windows": "10.0.20348.5"
+        },
+        "runtime": {
+          "lib/net6.0/TerraFX.Interop.D3D12MemoryAllocator.dll": {
+            "assemblyVersion": "2.0.1.2",
+            "fileVersion": "2.0.1.2"
+          }
+        }
+      },
+      "TerraFX.Interop.Windows/10.0.20348.5": {
+        "runtime": {
+          "lib/net6.0/TerraFX.Interop.Windows.dll": {
+            "assemblyVersion": "10.0.20348.5",
+            "fileVersion": "10.0.20348.5"
+          }
+        }
+      },
       "Tmds.DBus/0.9.0": {
         "dependencies": {
           "System.Reflection.Emit": "4.7.0",
@@ -1751,12 +1841,40 @@
       "path": "avalonia.x11/0.10.19",
       "hashPath": "avalonia.x11.0.10.19.nupkg.sha512"
     },
+    "CommunityToolkit.Diagnostics/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wzjy3iA+7qjoL6t89Zhn3qsF9u2linoGEad/sl/MG4i8p8ZnItv3xZ+2/mbIwxwq5u1UdJ0+ZVqMe1wfdV4QRQ==",
+      "path": "communitytoolkit.diagnostics/8.0.0",
+      "hashPath": "communitytoolkit.diagnostics.8.0.0.nupkg.sha512"
+    },
     "CommunityToolkit.Mvvm/8.1.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-xxOt7lu9a5kB5Fs9RfcxzVlKnhuuPe+w7AXHtmCFtS3oldrsUhEMxHfNulluXSscUUoGxZ0jh55Om12ZP6abHA==",
       "path": "communitytoolkit.mvvm/8.1.0",
       "hashPath": "communitytoolkit.mvvm.8.1.0.nupkg.sha512"
+    },
+    "ComputeSharp/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h1tQILjdFi53qcf0+K5dRrnjnYqYviGL4p2cp1S//cMlC7YBosMVKyLJrjCsegLXFPjxTASD2iPCPhi1yi3eEg==",
+      "path": "computesharp/2.0.3",
+      "hashPath": "computesharp.2.0.3.nupkg.sha512"
+    },
+    "ComputeSharp.Core/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-p0ZrdwrrT346pb+q52YF2Me2eVdzCEDpi/7wqA1nhRfeW4y0FYR+iPIIkOAns3x7fdknaIbXrpyWcKNfe3qMQA==",
+      "path": "computesharp.core/2.0.3",
+      "hashPath": "computesharp.core.2.0.3.nupkg.sha512"
+    },
+    "DynamicData/7.13.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jpu26ujgGrMSO68t8b6ClEL3tvZy6K7np8Iem30JkQaLMeOCLxLCZ2Uk/Eyq67k/rwEWrraQ3FB5SBEKJaE2iw==",
+      "path": "dynamicdata/7.13.5",
+      "hashPath": "dynamicdata.7.13.5.nupkg.sha512"
     },
     "HarfBuzzSharp/2.8.2.1-preview.108": {
       "type": "package",
@@ -1890,6 +2008,13 @@
       "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+    },
+    "ReactiveUI/18.4.44": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DRtnK85MBdtwG+zjTluLWVnbUPzDOoHOFuIy6B4OAwvWNCkkRpf7FIHVwZz7cTjlG25eBeIJqWjgaejP6ejCHg==",
+      "path": "reactiveui/18.4.44",
+      "hashPath": "reactiveui.18.4.44.nupkg.sha512"
     },
     "runtime.any.System.Collections/4.3.0": {
       "type": "package",
@@ -2115,6 +2240,13 @@
       "path": "skiasharp.nativeassets.win32/2.88.1-preview.108",
       "hashPath": "skiasharp.nativeassets.win32.2.88.1-preview.108.nupkg.sha512"
     },
+    "Splat/14.6.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WdhGXUvsWPNPzBLc/LC1Q5jLOczupHDc+4Skl0JaTEuyoDjxxe/Dme8UjGTkCPYbhnVWEsEJprWqyWDY5RNB9A==",
+      "path": "splat/14.6.8",
+      "hashPath": "splat.14.6.8.nupkg.sha512"
+    },
     "System.Collections/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -2276,6 +2408,13 @@
       "path": "system.reflection.typeextensions/4.3.0",
       "hashPath": "system.reflection.typeextensions.4.3.0.nupkg.sha512"
     },
+    "System.Resources.Extensions/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-65ufm9ABXvxRkQ//hMcUDrQXbGWkC7z0WWZAvHlQ6Qv+JmrIwHH1lmX8aXlNlXpIrT9KxDpuZPqJTVqqwzMD8Q==",
+      "path": "system.resources.extensions/7.0.0",
+      "hashPath": "system.resources.extensions.7.0.0.nupkg.sha512"
+    },
     "System.Resources.ResourceManager/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -2366,6 +2505,20 @@
       "sha512": "sha512-okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
       "path": "system.valuetuple/4.5.0",
       "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
+    },
+    "TerraFX.Interop.D3D12MemoryAllocator/2.0.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4vg1YDMeAzq+mvkY5vO5QZQxTCjYPaOWEptXxUkzraY0kaHcaVsYihy2WNGzENYNP/YCoaU/RCWvjeGJnCXuHA==",
+      "path": "terrafx.interop.d3d12memoryallocator/2.0.1.2",
+      "hashPath": "terrafx.interop.d3d12memoryallocator.2.0.1.2.nupkg.sha512"
+    },
+    "TerraFX.Interop.Windows/10.0.20348.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XxfLzvCthKkfwNEryGAMLTOVU0MoQPwE1YZBJycdL9PnJKlz7sajuwfScNJoKfuPSunm74F+Z+KUp4biI0dXBQ==",
+      "path": "terrafx.interop.windows/10.0.20348.5",
+      "hashPath": "terrafx.interop.windows.10.0.20348.5.nupkg.sha512"
     },
     "Tmds.DBus/0.9.0": {
       "type": "package",
