@@ -7,7 +7,7 @@ Start judging by create a local directory using the sherlock judging repository.
 2. Select "Judge Contest" or "Audit Project
 3. Open your project
 4. When ready, push your changes
-Watch this youtube video for more info: [How to use SCAuditStudio]("https://www.youtube.com/watch?v=MoD9sPa7P9o")
+Watch this youtube video for more info: [How to use SCAuditStudio](https://www.youtube.com/watch?v=MoD9sPa7P9o)
 ## Known Issues!!!  
 - tree view show folder and files right  
 - (md reader bugs)  
