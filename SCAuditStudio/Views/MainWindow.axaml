@@ -35,7 +35,7 @@
         <MenuItem Header="Open" Click="OpenProject_Clicked"/>
       </MenuItem>
       <MenuItem Header="Automation" IsVisible="{Binding !startmenuactive}">
-        <MenuItem Header="AI Sort" Click="AutoSortIssuesClicked" />
+        <MenuItem Header="Static Sort" Click="AutoSortIssuesClicked" />
         <MenuItem Header="AI Auto Invalid" Click="AutoInvalidateIssueClicked"/>
       </MenuItem>
     </Menu>

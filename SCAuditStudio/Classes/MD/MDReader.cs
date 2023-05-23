@@ -157,7 +157,7 @@ namespace SCAuditStudio
             CodeSnippet[] codeSnippets = ParseCodeSnippets(mdFile);
             CodeSnippet[] linkSnippets = ignoreLinks ? Array.Empty<CodeSnippet>() : await ParseCodeLinks(mdFile);
             mdFile.code = codeSnippets.Concat(linkSnippets).ToArray();
-
+            mdFile.links = ParseWebLinks(mdFile.rawContent);
             return mdFile;
         }
     }

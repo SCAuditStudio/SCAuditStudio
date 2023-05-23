@@ -18,6 +18,7 @@ namespace SCAuditStudio
         public string detail;
         public string impact;
         public CodeSnippet[] code;
+        public string[] links;
         public string tools;
         public string recommendation;
         public uint score;
@@ -38,6 +39,7 @@ namespace SCAuditStudio
             detail = "";
             impact = "";
             code = Array.Empty<CodeSnippet>();
+            links = Array.Empty<string>();
             tools = "";
             recommendation = "";
             score = 0;
@@ -55,6 +57,7 @@ namespace SCAuditStudio
             detail = "";
             impact = "";
             code = Array.Empty<CodeSnippet>();
+            links = Array.Empty<string>();
             tools = "";
             recommendation = "";
             score = 0;
