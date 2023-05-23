@@ -1,4 +1,3 @@
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
@@ -8,8 +7,6 @@ using Avalonia.VisualTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
-using System.Collections.Generic;
-using System;
 
 namespace SCAuditStudio.Views
 {

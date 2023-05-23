@@ -4,7 +4,6 @@ using SCAuditStudio.Classes.CustomElements;
 using SCAuditStudio.Classes.ProjectFile;
 using SCAuditStudio.ViewModels;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace SCAuditStudio.Views
 {

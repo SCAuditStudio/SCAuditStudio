@@ -12,9 +12,7 @@ using Avalonia.VisualTree;
 using Avalonia.Interactivity;
 using Avalonia.Controls.Models.TreeDataGrid;
 using SCAuditStudio.Design;
-using SCAuditStudio.Views.Editor;
 using System.Reactive.Linq;
-using System.Reactive;
 using ReactiveUI;
 using SCAuditStudio.Classes.ProjectFile;
 
