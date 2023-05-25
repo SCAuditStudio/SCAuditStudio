@@ -33,6 +33,8 @@ namespace SCAuditStudio.ViewModels
         public ObservableCollection<MenuItem> mdFileIssues { get; private set; }
         public ObservableCollection<MenuItem> highlightBrushes { get; }
 
+        public List<Node> expandedNodes { get; private set; }
+        public List<IndexPath> expandedIndexes { get; private set; }
 
         public AppTheme selectedTheme
         {
@@ -58,6 +60,10 @@ namespace SCAuditStudio.ViewModels
             mdFileTree.Columns.SetColumnWidth(0, GridLength.Parse("100"));
             mdFileTree.Columns.SetColumnWidth(1, GridLength.Parse("185"));
             mdFileTree.Columns.SetColumnWidth(2, GridLength.Parse("55"));
+            expandedNodes = new();
+            expandedIndexes = new();
+            mdFileTree.RowExpanded += (s, e) => { expandedNodes.Add(e.Row.Model); expandedIndexes.Add(e.Row.ModelIndexPath); };
+            mdFileTree.RowCollapsed += (s, e) => { for (int n = 0; n < expandedNodes.Count; n++) if (expandedNodes[n].fileName == e.Row.Model.fileName) { expandedNodes.RemoveAt(n); expandedIndexes.RemoveAt(n); } };
             mdFileIssues = new();
 
             highlightBrushes = new();
@@ -95,7 +101,7 @@ namespace SCAuditStudio.ViewModels
             AddProjectToFolder(directory);
         }
 
-        public void AddProjectToFolder(string directory)
+        public static void AddProjectToFolder(string directory)
         {
             ProjectFileReader.CreateProjectFile(directory);
         }
@@ -145,6 +151,16 @@ namespace SCAuditStudio.ViewModels
                 }
                 subNode.title = subNodeTitle;
                 mdFileItems.Add(subNode);
+
+                //expand node if possible
+                foreach (Node node in expandedNodes)
+                {
+                    if (node.fileName == subNode.fileName)
+                    {
+                        mdFileTree.Expand(expandedIndexes[expandedNodes.IndexOf(node)]);
+                        break;
+                    }
+                }
             }
 
             //Load remaining files in root
