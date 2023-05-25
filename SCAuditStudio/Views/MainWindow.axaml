@@ -41,6 +41,7 @@
     <SolidColorBrush x:Key="ToggleSwitchFillOff" Color="{Binding selectedTheme.BackgroundColor}"/>
     <SolidColorBrush x:Key="ToggleSwitchFillOffPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
     <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
+    <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="{Binding selectedTheme.ForegroundColor}"/>
   </Window.Resources>
   <DockPanel>
     <!-- MENU BAR -->
