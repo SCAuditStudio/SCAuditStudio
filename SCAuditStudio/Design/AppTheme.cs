@@ -1,8 +1,6 @@
-﻿using Avalonia.Controls;
-using Avalonia.Media;
+﻿using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Themes.Fluent;
-using System;
 using System.Collections.ObjectModel;
 
 namespace SCAuditStudio.Design

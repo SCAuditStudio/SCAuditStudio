@@ -5,7 +5,6 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using SCAuditStudio.ViewModels;
 using SCAuditStudio.Views;
-using System;
 
 namespace SCAuditStudio
 {

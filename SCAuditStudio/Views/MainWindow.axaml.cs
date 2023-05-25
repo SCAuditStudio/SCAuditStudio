@@ -7,6 +7,7 @@ using Avalonia.VisualTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
+using System;
 
 namespace SCAuditStudio.Views
 {
@@ -39,7 +40,8 @@ namespace SCAuditStudio.Views
         public void AutoInvalidateIssueClicked(object sender, RoutedEventArgs e)
         {
             mouseDownForWindowMoving = false;
-            foreach(MDFile mDFile in GetViewModel()?.mdManager.mdFiles)
+            MDFile[] mDFiles = GetViewModel()?.mdManager.mdFiles ?? Array.Empty<MDFile>();
+            foreach (MDFile mDFile in mDFiles)
             {
                 if (mDFile.score < 12)
                 {

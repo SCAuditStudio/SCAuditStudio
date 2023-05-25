@@ -11,9 +11,8 @@
   <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
 
   <Style Selector="TreeDataGrid">
-    <Setter Property="Margin" Value="5"/>
     <Setter Property="BorderThickness" Value="1"/>
-    <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource TreeDataGridBorderBrush}"/>
   </Style>
   <Style Selector="TreeDataGridColumnHeader">
     <Setter Property="Foreground" Value="{Binding selectedTheme.Foreground}"/>

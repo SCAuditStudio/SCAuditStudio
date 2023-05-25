@@ -1,12 +1,8 @@
 ﻿using Avalonia.Media;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+#pragma warning disable IDE1006
 namespace SCAuditStudio.Classes.CustomElements
 {
     public class Node
@@ -31,11 +27,9 @@ namespace SCAuditStudio.Classes.CustomElements
     {
         public string path { get; }
         public string Name;
-        public ObservableCollection<ProjectNode> subNodes { get; set; }
 
         public ProjectNode(string path)
         {
-            subNodes = new();
             this.path = path;
             Name = "untitled";
         }

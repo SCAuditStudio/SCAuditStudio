@@ -7,7 +7,7 @@ namespace SCAuditStudio
 {
     static class AutoDirectorySort
     {
-        static string regexCodeLink = @"(.+)\.sol(?:#)?L+(\d+)(?:.+)?(?:-L+(\d+)(?:.+)?)";
+        static readonly string regexCodeLink = @"(.+)\.sol(?:#)?L+(\d+)(?:.+)?(?:-L+(\d+)(?:.+)?)";
 
         static public List<List<MDFile>>? GroupIssues(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith)
         {
