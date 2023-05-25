@@ -48,7 +48,7 @@
         <!-- TAB HEADER -->
         <TabControl.ItemTemplate>
           <DataTemplate>
-            <Grid ColumnDefinitions="*, *" Margin="1,0,1,0">
+            <Grid ColumnDefinitions="*, 10" Margin="1,0,1,0">
               <TextBlock Grid.Column="0" Text="{Binding}" Margin="1,-2,2,0"/>
               <Panel Grid.Column="1" Width="10" Height="10" Margin="0,0,1,0" PointerPressed="CloseTab_Clicked">
                 <Rectangle Width="8" Height="2" RenderTransform="rotate(45deg)" PointerPressed="CloseTab_Clicked" KeyDown="CloseTab_KeyDown"/>

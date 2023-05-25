@@ -10,9 +10,10 @@
     </Design.PreviewWith>
 
   <Style Selector="TabControl">
-    <Setter Property="Margin" Value="0,5,5,5"/>
+    <Setter Property="Margin" Value="0,3,5,5"/>
   </Style>
   <Style Selector="TabControl:empty">
+    <Setter Property="Margin" Value="0,5,5,5"/>
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="BorderBrush" Value="{Binding selectedTheme.ControlOutline}"/>
     <Setter Property="Background" Value="{Binding selectedTheme.BackgroundImage}"/>
@@ -22,7 +23,8 @@
   </Style>
   <Style Selector="TabItem">
     <Setter Property="Padding" Value="0"/>
-    <Setter Property="Margin" Value="0,0,2,0"/>
+    <Setter Property="Margin" Value="0,2,2,0"/>
+    <Setter Property="MinWidth" Value="75"/>
     <Setter Property="MinHeight" Value="0"/>
     <Setter Property="FontSize" Value="13"/>
     <Setter Property="Background" Value="Transparent"/>
