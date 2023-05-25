@@ -22,6 +22,26 @@
     <SolidColorBrush x:Key="MenuFlyoutItemForeground" Color="{Binding selectedTheme.ForegroundColor}"/>
     <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
     <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
+    <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="{Binding selectedTheme.BackgroundColor}"/>
+    <SolidColorBrush x:Key="ComboBoxBackgroundPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="ComboBoxForegroundPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
+    <SolidColorBrush x:Key="ComboBoxItemBackgroundSelected" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="ComboBoxItemForegroundSelected" Color="{Binding selectedTheme.SelectedTextColor}"/>
+    <SolidColorBrush x:Key="SliderTrackFill" Color="{Binding selectedTheme.ForegroundColor}"/>
+    <SolidColorBrush x:Key="SliderTrackValueFill" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="SliderThumbBackground" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="SliderTrackFillPointerOver" Color="{Binding selectedTheme.ForegroundColor}"/>
+    <SolidColorBrush x:Key="SliderTrackValueFillPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="SliderThumbBackgroundPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="SliderTrackFillPressed" Color="{Binding selectedTheme.ForegroundColor}"/>
+    <SolidColorBrush x:Key="SliderTrackValueFillPressed" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="SliderThumbBackgroundPressed" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchFillOff" Color="{Binding selectedTheme.BackgroundColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchFillOffPointerOver" Color="{Binding selectedTheme.AccentColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
+    <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="{Binding selectedTheme.ForegroundColor}"/>
   </Window.Resources>
   <DockPanel>
     <!-- MENU BAR -->

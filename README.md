@@ -1,18 +1,20 @@
 # SCAuditStudio
 
 ## Getting Started
-Download the "build.zip" file, unpack and run the .exe. You can also fork this repo and build it in Visual Studio 2022.
-Start judging by create a local directory using the sherlock judging repository.
-1. Start the SCAS app.
-2. Select "Judge Contest" or "Audit Project
-3. Open your project
-4. When ready, push your changes
-Watch this youtube video for more info: [How to use SCAuditStudio](https://www.youtube.com/watch?v=MoD9sPa7P9o)
+1. Download or fork this repo  
+2. Go to the Build/Release folder  
+3. Got to win or linux folder depending on your system  
+4. Start the SCAS app.
+5. Select "Judge Contest" or "Audit Project
+6. Open your project
+7. When ready, push your changes over github  
+  
+Watch this youtube video for more info: [How to use SCAuditStudio](https://www.youtube.com/watch?v=MoD9sPa7P9o)  
+
 ## Known Issues!!!  
-- tree view show folder and files right  
 - (md reader bugs)  
 - color highlights not saved on close  
-- Settings menu not right scale
+
 ## Overview
 SC Audit Studio, also known as the Smart Contract Audit Studio, is a powerful tool that serves as an all-in-one Integrated Development Environment for smart contract auditing. Its primary function is to help users analyze and identify vulnerabilities in the code or design of defi or WEB3 applications.
 
@@ -34,23 +36,15 @@ Functionality to judge contests:
 - file highlight and mark [done]
 - score calculation [WIP]
 - auto invalidate issues [WIP]
-- static sort issues [WIP]
+- static sort issues [done]
 - allow user to add own scripts and addones [nice to have]
 
 SCAuditStudio V3.0 (Better Auditing)
-UI/UX
-- add basic UI 
+Stay tuned!;)
 
-Important features for IDE:
-- visualize solidity code and relation between functions
-- highlight and bookmark features
-- mark acsess rights on functions (highlight external and state changing functions)
-- highlight code changes since last audit
-- auto slither
-- ...
-The current goal is to complete the V2.0 and update the future scope accordingly. 
 ## Documentation
 Look inside ./Documentation 
+
 ## Supporter
 You can donate to this address on:  
 ETH: 0xB7588A8f964Ff6E76fC392567CcbCCe85700e990  

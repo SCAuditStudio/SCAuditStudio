@@ -5,44 +5,44 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SCAuditStudio.Views.Editor.SettingsMenu">
   <DockPanel Background="Transparent">
-    <Grid ColumnDefinitions="220,220,220,220" RowDefinitions="Auto,Auto,Auto,Auto,Auto"  Margin="4">
-      <StackPanel Grid.Row="0" Grid.Column="0" >
+    <Grid ColumnDefinitions="*,1.5*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" Margin="4">
+      <StackPanel Grid.Row="0" Grid.Column="0">
         <TextBlock Text="Add file for blacklisted words:" />
-        <Button Width="200" Click="OpenBlacklistFolder_Clicked">Add Score Blacklist</Button>
+        <Button Width="200" Click="OpenBlacklistFolder_Clicked">Add Blacklist</Button>
       </StackPanel>
-      <StackPanel Grid.Column="1"  Grid.Row="0" >
-        <TextBlock Text="Summary file of Judging Criteria:" />
-        <Button  Width="200" >Add Sherlock Judging Criteria</Button>
+      <StackPanel Grid.Column="1"  Grid.Row="0">
+        <TextBlock Text="Summary of Criteria:" />
+        <Button  Width="200" >Add Sherlock Judging File</Button>
       </StackPanel>
-      <StackPanel Grid.Column="0"  Grid.Row="2" >
+      <StackPanel Grid.Column="0"  Grid.Row="2">
         <TextBlock Text="OpenAI API Key (unused):" Grid.Row="2" />
         <Button Grid.Row="2" Width="200" >Add AI API key</Button>
       </StackPanel>
       <Separator Height="20" Grid.Column="0" Grid.Row="3"/>
+      <StackPanel Grid.Column="0" Grid.Row="3">
+        <ToggleSwitch PropertyChanged="SetDarkMode" IsChecked="{Binding $parent[6].DataContext.selectedTheme.IsDarkTheme, Mode=OneTime}">Dark Mode</ToggleSwitch>
+      </StackPanel>
       <StackPanel Grid.Column="0" Grid.Row="4">
         <TextBlock Text="Select Background Image:"/>
         <Button Width="200" Click="SetBackgroundImage">Set Background Image</Button>
         <Button Width="200" Click="RemoveBackgroundImage">Remove Background Image</Button>
-      </StackPanel>
-      <StackPanel Grid.Column="3" Grid.Row="0">
-        <ToggleSwitch PropertyChanged="SetDarkMode" IsChecked="{Binding $parent[6].DataContext.selectedTheme.IsDarkTheme, Mode=OneTime}">Dark Mode</ToggleSwitch>
-      </StackPanel>
+      </StackPanel> 
       <StackPanel Grid.Column="1" Grid.Row="4">
         <TextBlock Text="Background Stretch Mode"/>
-        <DropDown Width="200" SelectedIndex="2" PropertyChanged="StretchModeChanged">
-          <DropDownItem>None</DropDownItem>
-          <DropDownItem>Fill</DropDownItem>
-          <DropDownItem>Uniform</DropDownItem>
-          <DropDownItem>UniformToFill</DropDownItem>
-        </DropDown>
+        <ComboBox Width="200" SelectedIndex="2" PropertyChanged="StretchModeChanged">
+          <ComboBoxItem>None</ComboBoxItem>
+          <ComboBoxItem>Fill</ComboBoxItem>
+          <ComboBoxItem>Uniform</ComboBoxItem>
+          <ComboBoxItem>UniformToFill</ComboBoxItem>
+        </ComboBox>
       </StackPanel>
-      <StackPanel Grid.Column="2" Grid.Row="4">
+      <StackPanel Grid.Column="0" Grid.Row="5">
         <TextBlock Text="Border Thickness"/>
-        <Slider Minimum="0" Maximum="1" Value="{Binding $parent[6].DataContext.selectedTheme.BackgroundBorderThickness, Mode=OneTime}" PropertyChanged="BorderThicknessChanged"/>
+        <Slider Margin="0,0,120,0" Minimum="0" Maximum="1" Value="{Binding $parent[6].DataContext.selectedTheme.BackgroundBorderThickness, Mode=OneTime}" PropertyChanged="BorderThicknessChanged"/>
       </StackPanel>
-      <StackPanel Grid.Column="3" Grid.Row="4">
+      <StackPanel Grid.Column="0" Grid.Row="6">
         <TextBlock Text="Opacity"/>
-        <Slider Minimum="0" Maximum="1" Value="{Binding $parent[6].DataContext.selectedTheme.BackgroundOpacity, Mode=OneTime}" PropertyChanged="BackgroundOpacityChanged"/>
+        <Slider Margin="0,0,120,0" Minimum="0" Maximum="1" Value="{Binding $parent[6].DataContext.selectedTheme.BackgroundOpacity, Mode=OneTime}" PropertyChanged="BackgroundOpacityChanged"/>
       </StackPanel>
     </Grid>
   </DockPanel>

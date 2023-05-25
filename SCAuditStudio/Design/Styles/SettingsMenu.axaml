@@ -15,4 +15,25 @@
     <Setter Property="Background" Value="{Binding $parent[7].DataContext.selectedTheme.Accent}"/>
     <Setter Property="TextBlock.Foreground" Value="{Binding $parent[7].DataContext.selectedTheme.SelectedText}"/>
   </Style>
+  <Style Selector="ToggleSwitch">
+    <Setter Property="TextBlock.Foreground" Value="{Binding $parent[12].DataContext.selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="ComboBox">
+    <Setter Property="Background" Value="{Binding $parent[12].DataContext.selectedTheme.Background}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[12].DataContext.selectedTheme.Foreground}"/>
+    
+  </Style>
+
+  <Style Selector="ComboBoxItem">
+    <Setter Property="Background" Value="{Binding $parent[12].DataContext.selectedTheme.Background}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[12].DataContext.selectedTheme.Foreground}"/>
+  </Style>
+  <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{Binding $parent[12].DataContext.selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding $parent[12].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
+  <Style Selector="ComboBox:pointerover">
+    <Setter Property="Background" Value="{Binding $parent[12].DataContext.selectedTheme.Accent}"/>
+    <Setter Property="TextBlock.Foreground" Value="{Binding $parent[12].DataContext.selectedTheme.SelectedText}"/>
+  </Style>
 </Styles>
