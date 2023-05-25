@@ -9,13 +9,14 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+#pragma warning disable IDE1006
 namespace SCAuditStudio.ViewModels
 {
     public class StartMenuViewModel : ReactiveObject
     {
-        public HierarchicalTreeDataGridSource<ProjectNode> projectFileTree { get; }
+        public FlatTreeDataGridSource<ProjectNode> projectFileTree { get; }
         public ObservableCollection<ProjectNode> projectFileTreeItems { get; }
-        public AppTheme? selectedTheme
+        public static AppTheme? selectedTheme
         {
             get { return MainWindow.Instance?.GetViewModel()?.selectedTheme; }
         }
@@ -24,7 +25,7 @@ namespace SCAuditStudio.ViewModels
         {
             projectFileTreeItems = new();
             projectFileTree = new(projectFileTreeItems);
-            projectFileTree.Columns.Add(new HierarchicalExpanderColumn<ProjectNode>(new TextColumn<ProjectNode, string>("Project path", f => f.path), f => f.subNodes));
+            projectFileTree.Columns.Add(new TextColumn<ProjectNode, string>("Project Path", f => f.path));
             projectFileTree.Columns.Add(new TextColumn<ProjectNode, string>("Project Name", f => f.Name));
             projectFileTree.Columns.SetColumnWidth(0, GridLength.Parse("*"));
             projectFileTree.Columns.SetColumnWidth(1, GridLength.Parse("*"));
@@ -32,7 +33,7 @@ namespace SCAuditStudio.ViewModels
             LoadProjectItems();
         }
 
-        public void SetJudgingEditorActive()
+        public static void SetJudgingEditorActive()
         {
             MainWindow.Instance?.GetViewModel()?.SetJudgingEditorActive();
         }

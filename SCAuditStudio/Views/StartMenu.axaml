@@ -11,18 +11,11 @@
   </Design.DataContext>
 	
   <DockPanel Background="Transparent" >
-    <DockPanel>
-      <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="*"></RowDefinition>
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"></ColumnDefinition>
-        <ColumnDefinition Width="*"></ColumnDefinition>
-      </Grid.ColumnDefinitions>
-        <DockPanel Grid.Row="0" Grid.Column="0" Margin="10">
-          <TextBlock DockPanel.Dock="Top" Text="Open Recent" />
-          <TreeDataGrid Source="{Binding projectFileTree}" DoubleTapped="TreeView_DoubleTapped">
+    <TextBlock Margin="10,0,0,25" FontSize="25" DockPanel.Dock="Top" Text="SC Audit Studio" />
+    <TextBlock Margin="20,0,0,0" DockPanel.Dock="Top" Text="Open Recent" />
+      <Grid ColumnDefinitions="*,*">
+        <DockPanel Margin="10" Grid.Row="0" Grid.Column="0">
+          <TreeDataGrid Margin="10" Source="{Binding projectFileTree}" DoubleTapped="TreeView_DoubleTapped">
           <TreeDataGrid.ContextMenu>
             <ContextMenu>
               <MenuItem Header="Remove from List" Click="RemoveFromListClick" />
@@ -30,16 +23,9 @@
           </TreeDataGrid.ContextMenu>
           </TreeDataGrid>
         </DockPanel>
-      <Panel Grid.Row="0" Grid.Column="1" Margin="30">
-        <Grid>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-          </Grid.ColumnDefinitions>
+        
+        <Panel Grid.Row="0" Grid.Column="1">
+        <Grid RowDefinitions="*,*,*">
           <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Audit Project" />
           </Button>
@@ -52,6 +38,5 @@
         </Grid>   
       </Panel>
     </Grid>
-    </DockPanel>
   </DockPanel>
 </UserControl>

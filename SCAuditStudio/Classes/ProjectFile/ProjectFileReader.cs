@@ -19,13 +19,11 @@ namespace SCAuditStudio.Classes.ProjectFile
             {
                return Array.Empty<ProjectFile>();
             }
-            using (StreamReader r = new StreamReader(SCAuditProjectsPath))
-            {
-                string json = r.ReadToEnd();
-                List<ProjectFile>? projects = JsonConvert.DeserializeObject<List<ProjectFile>>(json);
-                if (projects == null) return Array.Empty<ProjectFile>();
-                return projects.ToArray();
-            }
+            using StreamReader r = new (SCAuditProjectsPath);
+            string json = r.ReadToEnd();
+            List<ProjectFile>? projects = JsonConvert.DeserializeObject<List<ProjectFile>>(json);
+            if (projects == null) return Array.Empty<ProjectFile>();
+            return projects.ToArray();
         }
         public static void RemoveProjectFile(string directory)
         {
@@ -44,12 +42,10 @@ namespace SCAuditStudio.Classes.ProjectFile
                 Directory.CreateDirectory(Path.Combine(Appdatafolder, SCAuditProjectsFolderName));
             }
             //open file stream
-            using (StreamWriter file = File.CreateText(SCAuditProjectsPath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, projects.ToArray());
-            }
+            using StreamWriter file = File.CreateText(SCAuditProjectsPath);
+            JsonSerializer serializer = new ();
+            //serialize object directly into file stream
+            serializer.Serialize(file, projects.ToArray());
         }
         public static void CreateProjectFile(string directory)
         {
@@ -71,12 +67,10 @@ namespace SCAuditStudio.Classes.ProjectFile
                 Directory.CreateDirectory(Path.Combine(Appdatafolder, SCAuditProjectsFolderName));
             }
             //open file stream
-            using (StreamWriter file = File.CreateText(SCAuditProjectsPath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, projects);
-            }
+            using StreamWriter file = File.CreateText(SCAuditProjectsPath);
+            JsonSerializer serializer = new ();
+            //serialize object directly into file stream
+            serializer.Serialize(file, projects);
         }
     }
 }

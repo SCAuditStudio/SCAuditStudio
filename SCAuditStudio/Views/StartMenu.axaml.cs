@@ -9,7 +9,6 @@ namespace SCAuditStudio.Views
 {
     public partial class StartMenu : UserControl
     {
-        bool mouseDownForWindowMoving = false;
 
         public StartMenu()
         {
