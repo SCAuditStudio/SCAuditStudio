@@ -5,7 +5,7 @@
 2. Go to the Build/Release folder  
 3. Got to win or linux folder depending on your system  
 4. Start the SCAS app.
-5. Select "Judge Contest" or "Audit Project
+5. Select "Judge Contest" or "Audit Project"
 6. Open your project
 7. When ready, push your changes over github  
   
