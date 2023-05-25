@@ -50,7 +50,6 @@ namespace SCAuditStudio
         }
         static bool CompareIssues(MDFile issue1, MDFile issue2)
         {
-            if(issue1 == MDFile.Invalid || issue2 == MDFile.Invalid) return false;
             if (Object.Equals(issue1, null) || Object.Equals(issue2, null)) return false;
             if (issue1.rawContent.Length < 1 || issue2.rawContent.Length < 1) return false;
             if (issue1.title.Length < 1 || issue2.title.Length < 1) return false;

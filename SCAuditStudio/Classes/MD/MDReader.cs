@@ -103,14 +103,16 @@ namespace SCAuditStudio
             MDFile mdFile = new();
 
             //search file, return invalid if not found
-            if (!File.Exists(file)) { return MDFile.Invalid; }
+            if (!File.Exists(file)) {
+                return MDFile.Invalid(Path.GetFileName(file));
+            }
 
             mdFile.path = file;
             mdFile.rawContent = await File.ReadAllTextAsync(file);
             string[] lines = mdFile.rawContent.Split(new char[]{'\n','\r'},StringSplitOptions.RemoveEmptyEntries);
             if (lines.Length < 5 )
             {
-                return MDFile.Invalid;
+                return MDFile.Invalid(Path.GetFileName(file));
             }
             mdFile.author = lines[authorLine];
             mdFile.severity = lines[severityLine];
@@ -125,7 +127,7 @@ namespace SCAuditStudio
             
             if (summaryIndex< 1 || detailIndex < 1|| impactIndex < 1|| codeIndex <1 || toolIndex < 1|| recommendationIndex < 1)
             {
-                return MDFile.Invalid;
+                return MDFile.Invalid(Path.GetFileName(file));
             }
             int[] sortedIndexes = new int[6] { summaryIndex, detailIndex, impactIndex, codeIndex, toolIndex, recommendationIndex };
             sortedIndexes = sortedIndexes.OrderBy(x => x).ToArray();
@@ -158,6 +160,7 @@ namespace SCAuditStudio
             CodeSnippet[] linkSnippets = ignoreLinks ? Array.Empty<CodeSnippet>() : await ParseCodeLinks(mdFile);
             mdFile.code = codeSnippets.Concat(linkSnippets).ToArray();
             mdFile.links = ParseWebLinks(mdFile.rawContent);
+
             return mdFile;
         }
     }

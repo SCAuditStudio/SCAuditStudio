@@ -64,9 +64,13 @@ namespace SCAuditStudio
         }
 
         /* STATIC PROPERTIES */
-        public static MDFile Invalid
+        public static MDFile Invalid(string fileName)
         {
-            get { return new MDFile("invalid", "invalid"); }
+            MDFile invalid = new(fileName, "invalid")
+            {
+                title = "Invalid"
+            };
+            return invalid;
         }
         public static bool operator == (MDFile? a, MDFile? b)
         {

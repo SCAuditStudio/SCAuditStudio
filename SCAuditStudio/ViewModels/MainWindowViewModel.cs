@@ -299,7 +299,7 @@ namespace SCAuditStudio.ViewModels
                 item.IsSelected = true;
                 return;
             }
-
+            
             TabItem page = new()
             {
                 Header = fileName,
