@@ -24,7 +24,12 @@ the research phase, where issues are identified, and the judging phase, where th
 
 ![screen](./Documentation/SCAuditStudioV2.0Highlight.png)
 The importance of smart contract auditing cannot be overstated.  
-Every project that involves smart contracts must undergo a thorough auditing process to ensure its integrity and security.
+Every project that involves smart contracts must undergo a thorough auditing process to ensure its integrity and security.  
+  
+![screen](./Documentation/SCAuditStudioV2Settings.png)
+With our powerful background changing feature, you can effortlessly personalize your desktop by selecting any picture as your backdrop.  
+Say goodbye to monotony and hello to a world of visual delight. Not only that, but our application also offers the flexibility of light and dark themes, ensuring optimal viewing comfort in any lighting condition.  
+Take control of your desktop experience and embrace a new level of personalization with our feature-rich application.   
 ## Roadmap
 SCAuditStudio V2.0 (automate Sherlock judging)
 UI/UX
