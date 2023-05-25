@@ -7,6 +7,7 @@ namespace SCAuditStudio
 {
     static class AutoDirectorySort
     {
+        static string regexCodeLink = @"(.+)\.sol(?:#)?L+(\d+)(?:.+)?(?:-L+(\d+)(?:.+)?)";
 
         static public List<List<MDFile>>? GroupIssues(MDFile[]? issuesToCompare, MDFile[]? issuesToCompareWith)
         {
@@ -84,28 +85,23 @@ namespace SCAuditStudio
             }
 
             return false;
-
-            //Static compare content
-            //float staticDistanceContent = StaticStringOperations.StaticCompareString(issue1.rawContent, issue2.rawContent);
         }
         static bool CompareLinks(string link1, string link2)
         {
             string trimedlink1 = link1.Split('/')[^1];
             string trimedlink2 = link2.Split('/')[^1];
 
-            //L10-L100
-            //L22
-            //(.+)\.sol(?:#)?L+(\d+)(?:.+)?(?:-L+(\d+)(?:.+)?)
-            Match match1 = Regex.Match(trimedlink1, @"(.+)\.sol(?:#)?L+(\d+)(?:.+)?(?:-L+(\d+)(?:.+)?)");
+            Match match1 = Regex.Match(trimedlink1, regexCodeLink, RegexOptions.Singleline | RegexOptions.Compiled);
             string filename1 = match1.Groups[1].Value;
 
-            int? startline1 = match1.Groups.Count > 2 ?int.Parse(match1.Groups[2].Value) : null;
+            int? startline1 = match1.Groups.Count > 2 ? int.Parse(match1.Groups[2].Value) : null;
             int? endline1 = match1.Groups.Count > 3 ? int.Parse(match1.Groups[3].Value) : startline1;
 
-            Match match2 = Regex.Match(trimedlink2, @"(.+)\.sol(?:#)?L+(\d+)(?:.+)?(?:-L+(\d+)(?:.+)?)");
+            Match match2 = Regex.Match(trimedlink2, regexCodeLink, RegexOptions.Singleline | RegexOptions.Compiled);
             string filename2 = match2.Groups[1].Value;
             int? startline2 = match2.Groups.Count > 2 ? int.Parse(match2.Groups[2].Value) : null;
             int? endline2 = match2.Groups.Count > 3 ? int.Parse(match2.Groups[3].Value) : startline2;
+
             if (filename1 != filename2)
             {
                 return false;
@@ -133,7 +129,7 @@ namespace SCAuditStudio
             {
                 return true;
             }
-            if (Math.Abs((float)(startline1 - startline2)) <= 10 && Math.Abs((float)(endline1 - endline2)) <= 10)
+            if (Math.Abs((float)(startline1 - startline2)) <= 10 && Math.Abs((float)(endline1 ?? startline1 - endline2 ?? startline2)) <= 10)
             {
                 return true;
             }
