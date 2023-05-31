@@ -14,7 +14,7 @@ Watch this youtube video for more info: [How to use SCAuditStudio](https://www.y
 ## Important Links  
 [Twitter](https://twitter.com/SCAuditStudio)  
 [Youtube](https://www.youtube.com/@SmartContractAuditStudio)  
-
+[Website](http://scauditstudio.de/)
 
 ## Overview
 SC Audit Studio, also known as the Smart Contract Audit Studio, is a powerful tool that serves as an all-in-one Integrated Development Environment for smart contract auditing. Its primary function is to help users analyze and identify vulnerabilities in the code or design of defi or WEB3 applications.
