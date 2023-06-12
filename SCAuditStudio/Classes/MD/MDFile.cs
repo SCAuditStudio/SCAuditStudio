@@ -64,11 +64,12 @@ namespace SCAuditStudio
         }
 
         /* STATIC PROPERTIES */
-        public static MDFile Invalid(string fileName)
+        public static MDFile Invalid(string fileName,string _path)
         {
             MDFile invalid = new(fileName, "invalid")
             {
-                title = "Invalid"
+                title = "Invalid",
+                path = _path
             };
             return invalid;
         }

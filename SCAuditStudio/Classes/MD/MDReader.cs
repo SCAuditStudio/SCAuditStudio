@@ -104,7 +104,7 @@ namespace SCAuditStudio
 
             //search file, return invalid if not found
             if (!File.Exists(file)) {
-                return MDFile.Invalid(Path.GetFileName(file));
+                return MDFile.Invalid(Path.GetFileName(file),"");
             }
 
             mdFile.path = file;
@@ -112,7 +112,7 @@ namespace SCAuditStudio
             string[] lines = mdFile.rawContent.Split(new char[]{'\n','\r'},StringSplitOptions.RemoveEmptyEntries);
             if (lines.Length < 5 )
             {
-                return MDFile.Invalid(Path.GetFileName(file));
+                return MDFile.Invalid(Path.GetFileName(file), mdFile.path);
             }
             mdFile.author = lines[authorLine];
             mdFile.severity = lines[severityLine];
@@ -127,7 +127,7 @@ namespace SCAuditStudio
             
             if (summaryIndex< 1 || detailIndex < 1|| impactIndex < 1|| codeIndex <1 || toolIndex < 1|| recommendationIndex < 1)
             {
-                return MDFile.Invalid(Path.GetFileName(file));
+                return MDFile.Invalid(Path.GetFileName(file), mdFile.path);
             }
             int[] sortedIndexes = new int[6] { summaryIndex, detailIndex, impactIndex, codeIndex, toolIndex, recommendationIndex };
             sortedIndexes = sortedIndexes.OrderBy(x => x).ToArray();
