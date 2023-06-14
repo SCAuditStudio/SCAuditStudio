@@ -16,6 +16,9 @@
               <MenuItem Header="AI Score"/>
               <MenuItem Header="Basic Score"/>
             </MenuItem>
+			  <MenuItem Header="Automation">
+				  <TextBox Watermark="Search"  />
+			  </MenuItem>
           </Menu>
         </Border>
     </Design.PreviewWith>
@@ -26,4 +29,9 @@
   <Style Selector="Menu Separator">
     <Setter Property="Background" Value="{Binding selectedTheme.SelectedText}"/>
   </Style>
+    <Style Selector="TextBox" >
+		<Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
+		<Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+		<Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+	</Style>
 </Styles>
