@@ -199,8 +199,6 @@ namespace SCAuditStudio.ViewModels
 
             mdFileIssues.Clear();
 
-            
-
             //Load high issues first
             string[] highIssues = mdManager.GetIssues(MDManager.MDFileIssue.High);
             foreach (string issue in highIssues)

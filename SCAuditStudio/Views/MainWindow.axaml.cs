@@ -56,8 +56,14 @@ namespace SCAuditStudio.Views
             mouseDownForWindowMoving = false;
             GetViewModel()?.StaticSortIssues(GetViewModel()?.mdManager.mdFiles);
         }
+        public void ReorderFiles(object sender, RoutedEventArgs e)
+        {
+            GetViewModel()?.mdManager.ReorderIssues();
+            GetViewModel()?.LoadMDFileItems();
+            GetViewModel()?.LoadMDFileContext();
+        }
 
-        
+
         /* MOVE WINDOW EVENTS */
         void InputElement_OnPointerMoved(object? sender, PointerEventArgs e)
         {

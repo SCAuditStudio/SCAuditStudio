@@ -14,8 +14,8 @@
         PointerMoved="InputElement_OnPointerMoved"
         PointerPressed="InputElement_OnPointerPressed"
         PointerReleased="InputElement_OnPointerReleased"
-		WindowStartupLocation="CenterScreen"
-		ExtendClientAreaTitleBarHeightHint="50"
+		    WindowStartupLocation="CenterScreen"
+		    ExtendClientAreaTitleBarHeightHint="50"
         ExtendClientAreaChromeHints="Default, PreferSystemChrome, OSXThickTitleBar"
 		>
 
@@ -62,7 +62,6 @@
       <MenuItem Header="Automation" IsVisible="{Binding !startmenuactive}">
         <MenuItem Header="Static Sort" Click="AutoSortIssuesClicked" />
         <MenuItem Header="Auto Invalid" Click="AutoInvalidateIssueClicked"/>
-		  <MenuItem Header="Rename Folders" Click="AutoInvalidateIssueClicked"/>
       </MenuItem>
 		<MenuItem Header="Search" IsVisible="{Binding !startmenuactive}" >
 			<TextBox Width="200" Height="5" Watermark="Search" />

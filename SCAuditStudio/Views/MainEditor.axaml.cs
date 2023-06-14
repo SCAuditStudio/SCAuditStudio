@@ -108,7 +108,7 @@ namespace SCAuditStudio.Views.Editor
             {
                 IndexPath? selected = GetViewModel()?.mdFileTree.RowSelection?.SelectedIndex;
 
-                GetViewModel()?.MoveFileToInvalid(sender, e);
+                MoveFileToInvalid(sender, e);
 
                 if (selected == null) return;
                 GetViewModel()!.mdFileTree.RowSelection!.SelectedIndex = selected ?? IndexPath.Unselected;
@@ -117,7 +117,7 @@ namespace SCAuditStudio.Views.Editor
             //Move File to root
             if (e.Key == Key.R)
             {
-                GetViewModel()?.MoveFileToRoot(sender, e);
+                MoveFileToRoot(sender, e);
             }
 
             //Select all files
@@ -151,14 +151,26 @@ namespace SCAuditStudio.Views.Editor
         public void MoveFileToRoot(object sender, RoutedEventArgs e)
         {
             GetViewModel()?.MoveFileToRoot(sender, e);
+
+            GetViewModel()?.mdManager.ReorderIssues();
+            GetViewModel()?.LoadMDFileItems();
+            GetViewModel()?.LoadMDFileContext();
         }
         public void MoveFileToInvalid(object sender, RoutedEventArgs e)
         {
             GetViewModel()?.MoveFileToInvalid(sender, e);
+
+            GetViewModel()?.mdManager.ReorderIssues();
+            GetViewModel()?.LoadMDFileItems();
+            GetViewModel()?.LoadMDFileContext();
         }
         public void MoveFileToNewIssue(object sender, RoutedEventArgs e)
         {
             GetViewModel()?.MoveFileToNewIssue(sender, e);
+
+            GetViewModel()?.mdManager.ReorderIssues();
+            GetViewModel()?.LoadMDFileItems();
+            GetViewModel()?.LoadMDFileContext();
         }
         public void MarkFileAsBest(object sender, RoutedEventArgs e)
         {
@@ -170,7 +182,7 @@ namespace SCAuditStudio.Views.Editor
         }
         public void StaticSortFile(object sender, RoutedEventArgs e)
         {
-            GetViewModel()?.StaticSortFiles(sender,e);
+            GetViewModel()?.StaticSortFiles(sender, e);
         }
     }
 }

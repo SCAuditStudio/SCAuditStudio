@@ -3,6 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TerraFX.Interop.Windows;
+using DynamicData;
 
 namespace SCAuditStudio
 {
@@ -28,7 +30,7 @@ namespace SCAuditStudio
 
             //Get file
             MDFile? mdFile = GetFile(name);
-            if (object.Equals(mdFile,null)) return;
+            if (Equals(mdFile, null)) return;
             if (mdFile.subPath == subPath) return;
 
             //Create subdirectory if necessary
@@ -41,6 +43,9 @@ namespace SCAuditStudio
             File.Move(mdFile.path, path);
             mdFile.subPath = subPath;
             mdFile.path = path;
+
+            //Refresh mdFile array
+            mdFiles[mdFiles.IndexOf(mdFile)] = mdFile;
 
             //Try remove folder if empty
             if (Directory.GetFiles(oldPath).Length == 0 && oldPath != directory)
@@ -67,6 +72,9 @@ namespace SCAuditStudio
             string path = Path.Combine(dir, newName);
             File.Move(mdFile.path, path);
             mdFile.path = path;
+
+            //Refresh mdFile array
+            mdFiles[mdFiles.IndexOf(mdFile)] = mdFile;
 
             return newName;
         }
@@ -153,6 +161,24 @@ namespace SCAuditStudio
             string issue = $"{index:000}-{severityLetter}";
 
             IMoveFileTo(name, issue);
+        }
+        public void ReorderIssues()
+        {
+            Func<string, int> GetIndex = (s => { try { return int.Parse(s[..s.IndexOf('-')].TrimStart('0')); } catch { return 0; } });
+
+            string[] subDirs = GetSubDirectories().Where(s => GetIndex(Path.GetFileName(s) ?? s) > GetIssueIndex(s[^1] == 'M' ? MDFileIssue.Medium : MDFileIssue.High)).ToArray();
+            foreach (string subDir in subDirs)
+            {
+                char sev = subDir[^1];
+                int subNum = GetIssueIndex(sev == 'M' ? MDFileIssue.Medium : MDFileIssue.High);
+                string newSubName = $"{subNum:000}-{sev}";
+
+                MDFile[] subFiles = GetFilesInSubPath(Path.GetFileName(subDir));
+                foreach (MDFile subFile in subFiles)
+                {
+                    MoveFileToIssue(subFile.fileName, newSubName, true);
+                }
+            }
         }
         public string MarkFileAsBest(string name)
         {
