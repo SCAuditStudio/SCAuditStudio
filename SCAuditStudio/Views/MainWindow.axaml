@@ -13,7 +13,11 @@
         ExtendClientAreaToDecorationsHint="True"
         PointerMoved="InputElement_OnPointerMoved"
         PointerPressed="InputElement_OnPointerPressed"
-        PointerReleased="InputElement_OnPointerReleased">
+        PointerReleased="InputElement_OnPointerReleased"
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaTitleBarHeightHint="50"
+        ExtendClientAreaChromeHints="Default, PreferSystemChrome, OSXThickTitleBar"
+		>
 
   <!-- HARDCODED STYLE ATTRIBUTES OVERWRITE -->
   <Window.Resources>

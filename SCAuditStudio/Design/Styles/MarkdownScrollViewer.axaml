@@ -20,7 +20,7 @@
           </md:MarkdownScrollViewer>
         </Border>
     </Design.PreviewWith>
-
+   
   <Style Selector="ctxt|CTextBlock.Heading1">
     <Setter Property="Foreground" Value="{Binding $parent[6].DataContext.selectedTheme.Foreground}"/>
   </Style>
@@ -37,8 +37,8 @@
   <Style Selector="ctxt|CCode">
     <Style.Setters>
       <Setter Property="MonospaceFontFamily" Value="Meiryo" />
-      <Setter Property="Foreground"          Value="{Binding $parent[6].DataContext.selectedTheme.Accent}" />
-      <Setter Property="Background"          Value="{Binding $parent[6].DataContext.selectedTheme.Background}" />
+      <Setter Property="Foreground"          Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Accent}" />
+      <Setter Property="Background"          Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Background}" />
     </Style.Setters>
   </Style>
 </Styles>
