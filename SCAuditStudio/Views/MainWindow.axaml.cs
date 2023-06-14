@@ -57,6 +57,10 @@ namespace SCAuditStudio.Views
             GetViewModel()?.LoadMDFileItems();
             GetViewModel()?.LoadMDFileContext();
         }
+        public void SearchTextInput(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine(e.Key.ToString());
+        }
 
 
         /* MOVE WINDOW EVENTS */

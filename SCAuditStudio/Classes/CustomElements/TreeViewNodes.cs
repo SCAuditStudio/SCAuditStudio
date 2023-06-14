@@ -14,6 +14,7 @@ namespace SCAuditStudio.Classes.CustomElements
         public string fileName { get; }
         public string title;
         public uint? score;
+        public int searchDiff { get; set; }
 
         public Node(string path)
         {

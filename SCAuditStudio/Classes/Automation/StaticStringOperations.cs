@@ -42,14 +42,14 @@ namespace SCAuditStudio
         //Returns 0 if the same, returns lenght of longer string if everything is different 
         public static int GetDamerauLevenshteinDistance(string s, string t)
         {
-            if (string.IsNullOrEmpty(s))
+            if (s == null)
             {
-                throw new ArgumentNullException(s, "String Cannot Be Null Or Empty");
+                throw new ArgumentNullException(s, "String Cannot Be Null");
             }
 
-            if (string.IsNullOrEmpty(t))
+            if (t == null)
             {
-                throw new ArgumentNullException(t, "String Cannot Be Null Or Empty");
+                throw new ArgumentNullException(t, "String Cannot Be Null");
             }
 
             int n = s.Length; // length of s

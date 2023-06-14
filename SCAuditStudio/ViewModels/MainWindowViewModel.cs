@@ -27,6 +27,17 @@ namespace SCAuditStudio.ViewModels
         public MDManager mdManager { get; private set; }
         public MainWindow? mainWindow { get; private set; }
 
+        private string? searchText;
+        public string? SearchText
+        {
+            get => searchText;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref searchText, value);
+                SearchFileTree();
+            }
+        }
+
         public ObservableCollection<TabItem> tabPages { get; }
         public ObservableCollection<Node> mdFileItems { get; }
         public HierarchicalTreeDataGridSource<Node> mdFileTree { get; }
@@ -250,6 +261,29 @@ namespace SCAuditStudio.ViewModels
             LoadContextBrushes();
             LoadMDFileItems();
             LoadMDFileContext();
+        }
+        public void SearchFileTree()
+        {
+            if (string.IsNullOrEmpty(searchText))
+            {
+                mdFileTree.SortBy(mdFileTree.Columns[0], System.ComponentModel.ListSortDirection.Descending);
+                return;
+            }
+
+            for (int n = 0; n < mdFileItems.Count; n++)
+            {
+                int titleDiff = mdFileItems[n].title.IndexesOf(searchText).Length;
+                int nameDiff = mdFileItems[n].fileName.IndexesOf(searchText).Length;
+
+                mdFileItems[n].searchDiff = titleDiff > nameDiff ? titleDiff : nameDiff;
+            }
+
+            static int compare(Node n, Node m)
+            {
+                return m.searchDiff - n.searchDiff;
+            }
+
+            mdFileTree.Sort(compare);
         }
 
         public bool TabOpen(string tabName)
@@ -477,7 +511,6 @@ namespace SCAuditStudio.ViewModels
                 {
                     mdManager.MoveFileToIssue(mdFiles[f].fileName, MDManager.MDFileIssue.Medium, index ?? 0, true);
                 }
-
             }
 
             LoadMDFileItems();
