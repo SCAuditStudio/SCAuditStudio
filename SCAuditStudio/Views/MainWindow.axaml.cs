@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Input;
 using Avalonia.Controls;
 using Avalonia.VisualTree;
@@ -56,10 +55,6 @@ namespace SCAuditStudio.Views
             GetViewModel()?.mdManager.ReorderIssues();
             GetViewModel()?.LoadMDFileItems();
             GetViewModel()?.LoadMDFileContext();
-        }
-        public void SearchTextInput(object sender, KeyEventArgs e)
-        {
-            Console.WriteLine(e.Key.ToString());
         }
 
 

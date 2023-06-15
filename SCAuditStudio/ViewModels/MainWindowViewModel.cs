@@ -15,6 +15,8 @@ using SCAuditStudio.Design;
 using System.Reactive.Linq;
 using ReactiveUI;
 using SCAuditStudio.Classes.ProjectFile;
+using AvaloniaEdit.Utils;
+using DynamicData;
 
 #pragma warning disable IDE1006
 namespace SCAuditStudio.ViewModels
@@ -39,7 +41,8 @@ namespace SCAuditStudio.ViewModels
         }
 
         public ObservableCollection<TabItem> tabPages { get; }
-        public ObservableCollection<Node> mdFileItems { get; }
+        public ObservableCollection<Node> oldNodes { get; private set; }
+        public ObservableCollection<Node> mdFileItems { get; private set; }
         public HierarchicalTreeDataGridSource<Node> mdFileTree { get; set; }
         public HierarchicalTreeDataGridSource<Node> mdFileTreeStart;
         public ObservableCollection<MenuItem> mdFileIssues { get; private set; }
@@ -64,6 +67,7 @@ namespace SCAuditStudio.ViewModels
             mdManager = new(ProjectDirectory);
 
             mdFileItems = new();
+            oldNodes = new();
             mdFileTree = new(mdFileItems);
             mdFileTree.RowSelection!.SingleSelect = false;
             mdFileTree.Columns.Add(new HierarchicalExpanderColumn<Node>(new TextColumn<Node, string>("File Name", f => f.fileName), f => f.subNodes));
@@ -203,6 +207,7 @@ namespace SCAuditStudio.ViewModels
             //Update File Tree
             mdFileTree.Items = mdFileItems;
             mdFileTreeStart = mdFileTree;
+            oldNodes = new(mdFileItems);
         }
         public void LoadMDFileContext()
         {
@@ -265,32 +270,48 @@ namespace SCAuditStudio.ViewModels
             LoadMDFileItems();
             LoadMDFileContext();
         }
+        public static float Min(params float[] values)
+        {
+            float min = float.PositiveInfinity;
+            foreach (float value in values)
+            {
+                min = MathF.Min(min, value);
+            }
+
+            return min;
+        }
         public void SearchFileTree()
         {
             if (string.IsNullOrEmpty(searchText))
             {
-                //mdFileTree.SortBy(mdFileTree.Columns[0], System.ComponentModel.ListSortDirection.Ascending);
-                mdFileTree = mdFileTreeStart;
                 LoadMDFileItems();
                 LoadMDFileContext();
+                mdFileTree = mdFileTreeStart;
                 return;
-
             }
 
-            for (int n = 0; n < mdFileItems.Count; n++)
+            int Compare(Node n, Node m)
             {
-                int titleDiff = mdFileItems[n].title.IndexesOf(searchText).Length;
-                int nameDiff = mdFileItems[n].fileName.IndexesOf(searchText).Length;
+                MDFile? nFile = mdManager.GetFile(n.fileName);
+                MDFile? mFile = mdManager.GetFile(m.fileName);
 
-                mdFileItems[n].searchDiff = titleDiff > nameDiff ? titleDiff : nameDiff;
+                float titleDiffN = StaticStringOperations.StaticCompareString(n.title.ToLower(), searchText.ToLower());
+                float titleDiffM = StaticStringOperations.StaticCompareString(m.title.ToLower(), searchText.ToLower());
+                float nameDiffN = StaticStringOperations.StaticCompareString(n.fileName, searchText.ToLower());
+                float nameDiffM = StaticStringOperations.StaticCompareString(m.fileName, searchText.ToLower());
+                float userDiffN = StaticStringOperations.StaticCompareString(nFile?.author.ToLower() ?? "", searchText.ToLower());
+                float userDiffM = StaticStringOperations.StaticCompareString(mFile?.author.ToLower() ?? "", searchText.ToLower());
+
+                int searchDiffN = (int)(Min(titleDiffN, nameDiffN, userDiffN) * 100);
+                int searchDiffM = (int)(Min(titleDiffM, nameDiffM, userDiffM) * 100);
+
+                n.searchDiff = searchDiffN;
+                m.searchDiff = searchDiffM;
+
+                return searchDiffN - searchDiffM;
             }
 
-            static int compare(Node n, Node m)
-            {
-                return m.searchDiff - n.searchDiff;
-            }
-
-            mdFileTree.Sort(compare);
+            mdFileTree.Sort(Compare);
         }
 
         public bool TabOpen(string tabName)

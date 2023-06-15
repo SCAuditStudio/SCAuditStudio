@@ -72,7 +72,7 @@
         <MenuItem Header="Static Sort" Click="AutoSortIssuesClicked" />
         <MenuItem Header="Auto Invalid" Click="AutoInvalidateIssueClicked"/>
       </MenuItem>
-		<MenuItem Header="Search" IsVisible="{Binding !startmenuactive}" >
+		<MenuItem Header="Search" IsVisible="{Binding !startmenuactive}">
 			<TextBox Width="200" Height="5" Watermark="Search" Text="{Binding SearchText}"/>
 		</MenuItem>
     </Menu>
