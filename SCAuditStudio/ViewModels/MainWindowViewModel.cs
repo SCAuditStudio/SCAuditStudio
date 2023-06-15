@@ -40,7 +40,8 @@ namespace SCAuditStudio.ViewModels
 
         public ObservableCollection<TabItem> tabPages { get; }
         public ObservableCollection<Node> mdFileItems { get; }
-        public HierarchicalTreeDataGridSource<Node> mdFileTree { get; }
+        public HierarchicalTreeDataGridSource<Node> mdFileTree { get; set; }
+        public HierarchicalTreeDataGridSource<Node> mdFileTreeStart;
         public ObservableCollection<MenuItem> mdFileIssues { get; private set; }
         public ObservableCollection<MenuItem> highlightBrushes { get; }
 
@@ -81,8 +82,9 @@ namespace SCAuditStudio.ViewModels
             _selectedTheme = new();
             selectedTheme = new();
             LoadTheme();
-           
+
             tabPages = new();
+            mdFileTreeStart = mdFileTree;
         }
         public MainWindowViewModel() : this("") { }
         public void SetJudgingEditorActive()
@@ -200,6 +202,7 @@ namespace SCAuditStudio.ViewModels
 
             //Update File Tree
             mdFileTree.Items = mdFileItems;
+            mdFileTreeStart = mdFileTree;
         }
         public void LoadMDFileContext()
         {
@@ -266,8 +269,12 @@ namespace SCAuditStudio.ViewModels
         {
             if (string.IsNullOrEmpty(searchText))
             {
-                mdFileTree.SortBy(mdFileTree.Columns[0], System.ComponentModel.ListSortDirection.Descending);
+                //mdFileTree.SortBy(mdFileTree.Columns[0], System.ComponentModel.ListSortDirection.Ascending);
+                mdFileTree = mdFileTreeStart;
+                LoadMDFileItems();
+                LoadMDFileContext();
                 return;
+
             }
 
             for (int n = 0; n < mdFileItems.Count; n++)

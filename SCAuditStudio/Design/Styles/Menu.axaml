@@ -32,6 +32,14 @@
     <Style Selector="TextBox" >
 		<Setter Property="Background" Value="{Binding selectedTheme.Background}"/>
 		<Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
-		<Setter Property="Foreground" Value="{Binding selectedTheme.SelectedText}"/>
+		<Setter Property="BorderBrush" Value="{Binding selectedTheme.SelectedText}"/>
+	</Style>
+	<Style Selector="TextBox:pressed /template/ ContentPresenter">
+		<Setter Property="Background" Value="{Binding selectedTheme.Background}" />
+		<Setter Property="BorderBrush" Value="{Binding selectedTheme.SelectedText}" />
+	</Style>
+	<Style Selector="TextBox:pointerover /template/ ContentPresenter">
+		<Setter Property="Background" Value="{Binding selectedTheme.Background}" />
+		<Setter Property="BorderBrush" Value="{Binding selectedTheme.SelectedText}" />
 	</Style>
 </Styles>

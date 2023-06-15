@@ -46,6 +46,16 @@
     <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
     <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="{Binding selectedTheme.ForegroundColor}"/>
     <SolidColorBrush x:Key="TreeDataGridBorderBrush" Color="{Binding selectedTheme.ControlOutlineColor}"/>
+	
+	<SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="{Binding selectedTheme.ForegroundColor}"/>
+	<SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
+	<SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="{Binding selectedTheme.BackgroundColor}"/>
+	<SolidColorBrush x:Key="TextControlPlaceholderForegroundPointerOver" Color="{Binding selectedTheme.SelectedTextColor}"/>
+
+	<SolidColorBrush x:Key="TextControlForegroundFocused" Color="{Binding selectedTheme.ForegroundColor}"/>
+	<SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="{Binding selectedTheme.SelectedTextColor}"/>
+	<SolidColorBrush x:Key="TextControlBackgroundFocused" Color="{Binding selectedTheme.BackgroundColor}"/>
+	<SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="{Binding selectedTheme.SelectedTextColor}"/>
   </Window.Resources>
   <DockPanel>
     <!-- MENU BAR -->
