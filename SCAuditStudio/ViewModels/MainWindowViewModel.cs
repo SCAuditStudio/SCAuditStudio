@@ -436,6 +436,7 @@ namespace SCAuditStudio.ViewModels
                 mdManager.MoveFileToRoot(item.fileName);
             }
 
+            mdManager.ReorderIssues();
             LoadMDFileItems();
             LoadMDFileContext();
         }
@@ -460,6 +461,7 @@ namespace SCAuditStudio.ViewModels
                 mdManager.MoveFileToInvalid(item.fileName);
             }
 
+            mdManager.ReorderIssues();
             LoadMDFileItems();
             LoadMDFileContext();
         }
@@ -491,6 +493,7 @@ namespace SCAuditStudio.ViewModels
                 mdManager.MoveFileToIssue(item.fileName, issue, false);
             }
 
+            mdManager.ReorderIssues();
             LoadMDFileItems();
             LoadMDFileContext();
         }
@@ -575,6 +578,7 @@ namespace SCAuditStudio.ViewModels
                 mdManager.MoveFileToIssue(item.fileName, severity, issueIndex, true);
             }
 
+            mdManager.ReorderIssues();
             LoadMDFileItems();
             LoadMDFileContext();
         }

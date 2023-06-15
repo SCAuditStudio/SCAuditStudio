@@ -151,26 +151,14 @@ namespace SCAuditStudio.Views.Editor
         public void MoveFileToRoot(object sender, RoutedEventArgs e)
         {
             GetViewModel()?.MoveFileToRoot(sender, e);
-
-            GetViewModel()?.mdManager.ReorderIssues();
-            GetViewModel()?.LoadMDFileItems();
-            GetViewModel()?.LoadMDFileContext();
         }
         public void MoveFileToInvalid(object sender, RoutedEventArgs e)
         {
             GetViewModel()?.MoveFileToInvalid(sender, e);
-
-            GetViewModel()?.mdManager.ReorderIssues();
-            GetViewModel()?.LoadMDFileItems();
-            GetViewModel()?.LoadMDFileContext();
         }
         public void MoveFileToNewIssue(object sender, RoutedEventArgs e)
         {
             GetViewModel()?.MoveFileToNewIssue(sender, e);
-
-            GetViewModel()?.mdManager.ReorderIssues();
-            GetViewModel()?.LoadMDFileItems();
-            GetViewModel()?.LoadMDFileContext();
         }
         public void MarkFileAsBest(object sender, RoutedEventArgs e)
         {
