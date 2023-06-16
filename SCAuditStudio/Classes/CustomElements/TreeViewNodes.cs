@@ -12,7 +12,7 @@ namespace SCAuditStudio.Classes.CustomElements
 
         public IBrush? Background { get; set; }
         public IBrush? Foreground { get; set; }
-        public string fileName { get; }
+        public string fileName { get; set; }
         public string title;
         public uint? score;
         public int searchDiff { get; set; }

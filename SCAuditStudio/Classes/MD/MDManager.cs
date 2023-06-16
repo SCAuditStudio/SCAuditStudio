@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TerraFX.Interop.Windows;
+using SCAuditStudio.Views;
 using DynamicData;
 
 namespace SCAuditStudio
@@ -162,7 +162,7 @@ namespace SCAuditStudio
 
             IMoveFileTo(name, issue);
         }
-        public void ReorderIssues()
+        public List<Classes.CustomElements.Node> ReorderIssues(List<Classes.CustomElements.Node> expandedNodes)
         {
             Func<string, int> GetIndex = (s => { try { return int.Parse(s[..s.IndexOf('-')].TrimStart('0')); } catch { return 0; } });
 
@@ -173,12 +173,29 @@ namespace SCAuditStudio
                 int subNum = GetIssueIndex(sev == 'M' ? MDFileIssue.Medium : MDFileIssue.High);
                 string newSubName = $"{subNum:000}-{sev}";
 
+                Classes.CustomElements.Node? expanded = expandedNodes.Where(n => n.fileName == Path.GetFileName(subDir)).FirstOrDefault();
+
+                if (expanded != null)
+                {
+                    int? index = expandedNodes.IndexOf(expanded);
+                    
+                    expanded.fileName = newSubName;
+                    expanded.indexPath = new(expanded.indexPath[0] - 1);
+                    if (index != null)
+                    {
+                        
+                        expandedNodes[index ?? 0] = expanded;
+                    }
+                }
+
                 MDFile[] subFiles = GetFilesInSubPath(Path.GetFileName(subDir));
                 foreach (MDFile subFile in subFiles)
                 {
                     MoveFileToIssue(subFile.fileName, newSubName, true);
                 }
             }
+
+            return expandedNodes;
         }
         public string MarkFileAsBest(string name)
         {

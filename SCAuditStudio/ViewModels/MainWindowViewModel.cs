@@ -48,7 +48,7 @@ namespace SCAuditStudio.ViewModels
         public ObservableCollection<MenuItem> mdFileIssues { get; private set; }
         public ObservableCollection<MenuItem> highlightBrushes { get; }
 
-        public List<Node> expandedNodes { get; private set; }
+        public List<Node> expandedNodes { get; set; }
 
         public AppTheme selectedTheme
         {
@@ -172,7 +172,7 @@ namespace SCAuditStudio.ViewModels
                 //expand node if previously expanded
                 foreach (Node expanded in expandedNodes)
                 {
-                    Console.WriteLine(expanded.fileName);
+                    //Console.WriteLine(expanded.fileName);
                     if (expanded.fileName == subNode.fileName)
                     {
                         mdFileTree.Expand(subNode.indexPath);
@@ -433,12 +433,13 @@ namespace SCAuditStudio.ViewModels
                     {
                         mdManager.MoveFileToRoot(subnode.fileName);
                     }
+                    expandedNodes.Remove(item);
                     continue;
                 }
                 mdManager.MoveFileToRoot(item.fileName);
             }
 
-            mdManager.ReorderIssues();
+            expandedNodes = mdManager.ReorderIssues(expandedNodes);
             LoadMDFileItems();
             LoadMDFileContext();
         }
@@ -458,12 +459,13 @@ namespace SCAuditStudio.ViewModels
                     {
                         mdManager.MoveFileToInvalid(subnode.fileName);
                     }
+                    expandedNodes.Remove(item);
                     continue;
                 }
                 mdManager.MoveFileToInvalid(item.fileName);
             }
 
-            mdManager.ReorderIssues();
+            expandedNodes = mdManager.ReorderIssues(expandedNodes);
             LoadMDFileItems();
             LoadMDFileContext();
         }
@@ -490,12 +492,13 @@ namespace SCAuditStudio.ViewModels
                     {
                         mdManager.MoveFileToIssue(subnode.fileName, issue, false);
                     }
+                    expandedNodes.Remove(item);
                     continue;
                 }
                 mdManager.MoveFileToIssue(item.fileName, issue, false);
             }
 
-            mdManager.ReorderIssues();
+            expandedNodes = mdManager.ReorderIssues(expandedNodes);
             LoadMDFileItems();
             LoadMDFileContext();
         }
@@ -575,12 +578,13 @@ namespace SCAuditStudio.ViewModels
                     {
                         mdManager.MoveFileToIssue(subnode.fileName, severity, issueIndex, true);
                     }
+                    expandedNodes.Remove(item);
                     continue;
                 }
                 mdManager.MoveFileToIssue(item.fileName, severity, issueIndex, true);
             }
 
-            mdManager.ReorderIssues();
+            expandedNodes = mdManager.ReorderIssues(expandedNodes);
             LoadMDFileItems();
             LoadMDFileContext();
         }
