@@ -1,4 +1,5 @@
-﻿using Avalonia.Media;
+﻿using Avalonia.Controls;
+using Avalonia.Media;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -15,6 +16,7 @@ namespace SCAuditStudio.Classes.CustomElements
         public string title;
         public uint? score;
         public int searchDiff { get; set; }
+        public IndexPath indexPath { get; set; }
 
         public Node(string path)
         {

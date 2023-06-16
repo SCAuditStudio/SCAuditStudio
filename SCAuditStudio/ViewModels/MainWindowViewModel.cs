@@ -49,7 +49,6 @@ namespace SCAuditStudio.ViewModels
         public ObservableCollection<MenuItem> highlightBrushes { get; }
 
         public List<Node> expandedNodes { get; private set; }
-        public List<IndexPath> expandedIndexes { get; private set; }
 
         public AppTheme selectedTheme
         {
@@ -77,9 +76,8 @@ namespace SCAuditStudio.ViewModels
             mdFileTree.Columns.SetColumnWidth(1, GridLength.Parse("185"));
             mdFileTree.Columns.SetColumnWidth(2, GridLength.Parse("55"));
             expandedNodes = new();
-            expandedIndexes = new();
-            mdFileTree.RowExpanded += (s, e) => { expandedNodes.Add(e.Row.Model); expandedIndexes.Add(e.Row.ModelIndexPath); };
-            mdFileTree.RowCollapsed += (s, e) => { for (int n = 0; n < expandedNodes.Count; n++) if (expandedNodes[n].fileName == e.Row.Model.fileName) { expandedNodes.RemoveAt(n); expandedIndexes.RemoveAt(n); } };
+            mdFileTree.RowExpanded += (s, e) => { expandedNodes.Add(e.Row.Model); };
+            mdFileTree.RowCollapsed += (s, e) => { for (int n = 0; n < expandedNodes.Count; n++) if (expandedNodes[n].fileName == e.Row.Model.fileName) { expandedNodes.RemoveAt(n); Console.WriteLine("Remove: " + e.Row.Model.fileName); } };
             mdFileIssues = new();
 
             highlightBrushes = new();
@@ -140,7 +138,7 @@ namespace SCAuditStudio.ViewModels
                 Node subNode = new(subDir)
                 {
                     Background = selectedTheme.Background,
-                    Foreground = selectedTheme.Foreground
+                    Foreground = selectedTheme.Foreground,
                 };
 
                 string[] subFiles = Directory.GetFiles(subDir);
@@ -163,18 +161,21 @@ namespace SCAuditStudio.ViewModels
                     subFileNode.score = mdFile?.score ?? subFileNode.score;
                     subFileNode.Background = mdFile?.highlight;
                     subFileNode.Foreground = mdFile?.highlight == null ? selectedTheme.Foreground : selectedTheme.SelectedText;
+                    subFileNode.indexPath = new IndexPath(mdFileItems.Count, subNode.subNodes.Count);
                     subNodeTitle = subFileNode.title;
                     subNode.subNodes.Add(subFileNode);
                 }
                 subNode.title = subNodeTitle;
+                subNode.indexPath = new(mdFileItems.Count);
                 mdFileItems.Add(subNode);
 
-                //expand node if possible
-                foreach (Node node in expandedNodes)
+                //expand node if previously expanded
+                foreach (Node expanded in expandedNodes)
                 {
-                    if (node.fileName == subNode.fileName)
+                    Console.WriteLine(expanded.fileName);
+                    if (expanded.fileName == subNode.fileName)
                     {
-                        mdFileTree.Expand(expandedIndexes[expandedNodes.IndexOf(node)]);
+                        mdFileTree.Expand(subNode.indexPath);
                         break;
                     }
                 }
@@ -201,6 +202,7 @@ namespace SCAuditStudio.ViewModels
                 fileNode.score = mdFile?.score ?? fileNode.score;
                 fileNode.Background = mdFile?.highlight;
                 fileNode.Foreground = mdFile?.highlight == null ? selectedTheme.Foreground : selectedTheme.SelectedText;
+                fileNode.indexPath = expandedNodes.Where(n => n.fileName == fileNode.fileName).FirstOrDefault()?.indexPath ?? new IndexPath(mdFileItems.Count);
                 mdFileItems.Add(fileNode);
             }
 
