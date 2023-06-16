@@ -1,4 +1,0 @@
-AppTheme_BackgroundStretchMode : Uniform
-AppTheme_UseDarkMode : True
-AppTheme_BackgroundBorderThickness : 0,25
-AppTheme_BackgroundOpacity : 0,05999999865889549
