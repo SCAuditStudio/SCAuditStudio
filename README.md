@@ -1,4 +1,4 @@
-# SCAuditStudio
+# SCAuditStudio - Judge Sherlock Contest Faster
 
 ## Getting Started
 1. Download the latest windows or linux release depending on your system 
