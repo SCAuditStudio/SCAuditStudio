@@ -37,6 +37,9 @@
               <MenuItem Header="As Best" Click="MarkFileAsBest"/>
             </MenuItem>
             <MenuItem Header="Highlight" Items="{Binding highlightBrushes}"/>
+			 <MenuItem Header="Comment">
+				  <MenuItem Header="Add Comment" Click="MarkFileAsBest"/>
+			 </MenuItem>
           </ContextMenu>
         </TreeDataGrid.ContextMenu>
       </TreeDataGrid>

@@ -11,6 +11,8 @@ namespace SCAuditStudio
         public string subPath;
         public string rawContent;
 
+        public string judgeComment;
+
         public string author;
         public string severity;
         public string title;
@@ -32,6 +34,8 @@ namespace SCAuditStudio
             subPath = "";
             rawContent = "";
 
+            judgeComment = "";
+
             author = "";
             severity = "";
             title = "";
@@ -49,6 +53,8 @@ namespace SCAuditStudio
             this.path = path;
             subPath = "";
             this.rawContent = rawContent;
+
+            judgeComment = "";
 
             author = "";
             severity = "";

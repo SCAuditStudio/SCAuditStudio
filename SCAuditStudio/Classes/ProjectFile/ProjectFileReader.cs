@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SCAuditStudio.Classes.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,7 @@ namespace SCAuditStudio.Classes.ProjectFile
     {
         public static string Appdatafolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string SCAuditProjectsFolderName = "SCASProjects";
+        public static string SCAuditJudgingCommentsFolderName = "SCASJudgingComments";
         public static string SCAuditProjectsFileName = "ProjectFilePath.json";
 
         public static ProjectFile[] ReadProjects()
@@ -50,7 +52,12 @@ namespace SCAuditStudio.Classes.ProjectFile
         public static void CreateProjectFile(string directory)
         {
             ProjectFile[] projects = ReadProjects();
-            ProjectFile currentOpenProject = new(Path.GetFileName(directory), directory);
+
+            string judgingCommentFolderPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditJudgingCommentsFolderName);
+            string judgingCommentFilePath = Path.Combine(judgingCommentFolderPath, Path.GetFileName(directory));
+
+            ProjectFile currentOpenProject = new(Path.GetFileName(directory), directory, judgingCommentFilePath);
+
             foreach (ProjectFile project in projects)
             {
                 if (project.path == directory)
@@ -62,15 +69,22 @@ namespace SCAuditStudio.Classes.ProjectFile
             projects = projects.Concat(new ProjectFile[1] { currentOpenProject }).ToArray();
 
             string SCAuditProjectsPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditProjectsFileName);
+
             if (!Directory.Exists(Path.Combine(Appdatafolder, SCAuditProjectsFolderName)))
             {
                 Directory.CreateDirectory(Path.Combine(Appdatafolder, SCAuditProjectsFolderName));
+                Directory.CreateDirectory(judgingCommentFolderPath);
             }
+
             //open file stream
             using StreamWriter file = File.CreateText(SCAuditProjectsPath);
-            JsonSerializer serializer = new ();
+            JsonSerializer serializer = new();
             //serialize object directly into file stream
             serializer.Serialize(file, projects);
+
+            //Add CVS File creation
+
+            CSVManager.CreateCSVFile(judgingCommentFilePath);
         }
     }
 }
