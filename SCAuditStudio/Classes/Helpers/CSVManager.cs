@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SCAuditStudio.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 
 namespace SCAuditStudio.Classes.Helpers
 {
@@ -27,14 +29,29 @@ namespace SCAuditStudio.Classes.Helpers
         public static void ExportFormatedCSVFile(string csvFilePath, string resultFilePath)
         {
             List<string[]> data = ReadCSVFile(csvFilePath);
+            List<string[]> endData = new List<string[]>();
+
+            //Read MD file -> save data in corret format
+            //End CSV File should look like this: IssueName,Author,Severity,IssueTitle,JudgeComment
+            //Path should be definded by user
 
             foreach (string[] rowData in data)
             {
-                //Read MD file -> save data in corret format
-                //End CSV File should look like this: IssueName,Author,Severity,IssueTitle,JudgeComment
-                //Path should be definded by user
+                
+                MDFile issue = MainWindow.Instance!.GetViewModel()!.mdManager.GetFile(rowData[1]);
+
+                endData.Add(new string[] { issue!.path, issue.author, issue.severity, issue.title, rowData[0] });
+
             }
 
+            using (StreamWriter writer = new StreamWriter(resultFilePath))
+            {
+                foreach (string[] rowData in endData)
+                {
+                    string row = string.Join(",", rowData);
+                    writer.WriteLine(row);
+                }
+            }
         }
 
         public static void CreateCSVFile(string csvFilePath)
