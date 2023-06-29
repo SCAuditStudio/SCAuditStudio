@@ -22,18 +22,25 @@
     </Design.PreviewWith>
    
   <Style Selector="ctxt|CTextBlock.Heading1">
-    <Setter Property="Foreground" Value="{Binding $parent[6].DataContext.selectedTheme.Foreground}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Foreground}"/>
   </Style>
   <Style Selector="ctxt|CTextBlock.Heading2">
-    <Setter Property="Foreground" Value="{Binding $parent[6].DataContext.selectedTheme.Foreground}"/>
+    <Setter Property="Foreground" Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Foreground}"/>
   </Style>
   <Style Selector="ctxt|CTextBlock.CodeBlock">
     <Style.Setters>
-      <Setter Property="Foreground" Value="{Binding $parent[7].DataContext.selectedTheme.Foreground}"/>
-      <Setter Property="Background" Value="{Binding $parent[7].DataContext.selectedTheme.Background}"/>
+      <Setter Property="Foreground" Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Foreground}"/>
+      <Setter Property="Background" Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Background}"/>
       <Setter Property="FontFamily" Value="Meiryo"/>
     </Style.Setters>
   </Style>
+	<Style Selector="TextBlock.CodeBlock">
+		<Style.Setters>
+			<Setter Property="Foreground" Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Foreground}"/>
+			<Setter Property="Background" Value="{Binding $parent[ItemsControl].DataContext.selectedTheme.Background}"/>
+			<Setter Property="FontFamily" Value="Meiryo"/>
+		</Style.Setters>
+	</Style>
   <Style Selector="ctxt|CCode">
     <Style.Setters>
       <Setter Property="MonospaceFontFamily" Value="Meiryo" />

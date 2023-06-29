@@ -24,6 +24,19 @@ namespace SCAuditStudio.Classes.Helpers
             }
         }
 
+        public static void ExportFormatedCSVFile(string csvFilePath, string resultFilePath)
+        {
+            List<string[]> data = ReadCSVFile(csvFilePath);
+
+            foreach (string[] rowData in data)
+            {
+                //Read MD file -> save data in corret format
+                //End CSV File should look like this: IssueName,Author,Severity,IssueTitle,JudgeComment
+                //Path should be definded by user
+            }
+
+        }
+
         public static void CreateCSVFile(string csvFilePath)
         {
             File.Create(csvFilePath).Close();
