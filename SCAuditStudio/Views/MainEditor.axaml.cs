@@ -7,6 +7,9 @@ using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
 using SCAuditStudio.Classes.CustomElements;
 using Avalonia.Markup.Xaml;
+using System;
+using System.ComponentModel;
+using SCAuditStudio.Classes.Helpers;
 
 namespace SCAuditStudio.Views.Editor
 {
@@ -171,6 +174,14 @@ namespace SCAuditStudio.Views.Editor
         public void StaticSortFile(object sender, RoutedEventArgs e)
         {
             GetViewModel()?.StaticSortFiles(sender, e);
+        }
+        public void WriteComment(object sender, RoutedEventArgs e)
+        {
+            GetViewModel()?.WriteComment(sender, e);
+        }
+        public void TreeView_SelectionChanged(object sender, CancelEventArgs e)
+        {
+            GetViewModel()?.ContextMenuOpened(sender, e);
         }
     }
 }

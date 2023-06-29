@@ -7,6 +7,8 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using SCAuditStudio.ViewModels;
 using System;
+using System.IO;
+using SCAuditStudio.Classes.Helpers;
 
 namespace SCAuditStudio.Views
 {
@@ -80,6 +82,24 @@ namespace SCAuditStudio.Views
             Task? loadProjectTask = GetViewModel()?.LoadProject(directory);
             if (loadProjectTask == null) return;
             await loadProjectTask;
+        }
+        public async void ExportCSV(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new()
+            {
+                Directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            };
+            FileDialogFilter filter = new()
+            {
+                Name = "CSV File (.csv)"
+            };
+            filter.Extensions.Add("csv");
+            dialog.Filters = new() { filter };
+
+            string? path = await dialog.ShowAsync(this);
+            if (path == null) return;
+
+            CSVManager.ExportFormatedCSVFile(path);
         }
         public void OpenOptionsMenu(object sender, RoutedEventArgs e)
         {

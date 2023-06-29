@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using SCAuditStudio.Classes.Helpers;
+using SCAuditStudio.ViewModels;
 
 namespace SCAuditStudio
 {
@@ -160,6 +162,7 @@ namespace SCAuditStudio
             CodeSnippet[] linkSnippets = ignoreLinks ? Array.Empty<CodeSnippet>() : await ParseCodeLinks(mdFile);
             mdFile.code = codeSnippets.Concat(linkSnippets).ToArray();
             mdFile.links = ParseWebLinks(mdFile.rawContent);
+            mdFile.judgeComment = CSVManager.ReadCommentOfIssue(mdFile.fileName);
 
             return mdFile;
         }

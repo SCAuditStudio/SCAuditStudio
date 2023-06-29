@@ -16,7 +16,7 @@
     <!-- FILE LIST AND VIEWER -->
     <Grid ColumnDefinitions="350, 0, *">
       <!-- MD FILE LIST -->
-      <TreeDataGrid Margin="5" Source="{Binding mdFileTree}" AutoDragDropRows="False" DoubleTapped="TreeView_DoubleTapped" KeyDown="TreeView_KeyDown">
+      <TreeDataGrid Margin="5" Source="{Binding mdFileTree}" AutoDragDropRows="False" DoubleTapped="TreeView_DoubleTapped" KeyDown="TreeView_KeyDown" SelectionChanging="TreeView_SelectionChanged">
         <!-- MD FILE LIST CONTEXT MENU -->
         <TreeDataGrid.ContextMenu>
           <ContextMenu>
@@ -38,7 +38,8 @@
             </MenuItem>
             <MenuItem Header="Highlight" Items="{Binding highlightBrushes}"/>
 			 <MenuItem Header="Comment">
-				  <MenuItem Header="Add Comment" Click="MarkFileAsBest"/>
+				 <TextBox AcceptsTab="True" Text="{Binding CommentText}" TextWrapping="Wrap"/>
+         <Button Click="WriteComment">Write</Button>
 			 </MenuItem>
           </ContextMenu>
         </TreeDataGrid.ContextMenu>

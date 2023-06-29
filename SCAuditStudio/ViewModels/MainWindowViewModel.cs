@@ -15,8 +15,8 @@ using SCAuditStudio.Design;
 using System.Reactive.Linq;
 using ReactiveUI;
 using SCAuditStudio.Classes.ProjectFile;
-using AvaloniaEdit.Utils;
-using DynamicData;
+using SCAuditStudio.Classes.Helpers;
+using System.ComponentModel;
 
 #pragma warning disable IDE1006
 namespace SCAuditStudio.ViewModels
@@ -38,6 +38,13 @@ namespace SCAuditStudio.ViewModels
                 this.RaiseAndSetIfChanged(ref searchText, value);
                 SearchFileTree();
             }
+        }
+
+        private string? commentText;
+        public string? CommentText
+        {
+            get => commentText;
+            set => this.RaiseAndSetIfChanged(ref commentText, value);
         }
 
         public ObservableCollection<TabItem> tabPages { get; }
@@ -106,6 +113,7 @@ namespace SCAuditStudio.ViewModels
         public async Task LoadProject(string directory)
         {
             ProjectDirectory = directory;
+            AddProjectToFolder(directory);
 
             mdManager = new(ProjectDirectory);
             await mdManager.LoadFilesAsync();
@@ -113,7 +121,6 @@ namespace SCAuditStudio.ViewModels
             CloseTabPages();
             LoadMDFileItems();
             LoadMDFileContext();
-            AddProjectToFolder(directory);
         }
 
         public static void AddProjectToFolder(string directory)
@@ -649,6 +656,50 @@ namespace SCAuditStudio.ViewModels
             }
 
             LoadMDFileItems();
+        }
+        public void WriteComment(object sender, RoutedEventArgs e)
+        {
+            if (e.Source == null) return;
+
+            MenuItem? menuItem = ((IVisual)e.Source).GetSelfAndVisualAncestors()
+                .OfType<MenuItem>()
+                .FirstOrDefault();
+            if (menuItem == null) return;
+
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
+            if (selectedItems == null) return;
+
+            foreach (Node? item in selectedItems)
+            {
+                if (item == null) continue;
+
+                MDFile? mdFile = mdManager.GetFile(item.fileName);
+                if (mdFile == null) continue;
+
+                mdFile.judgeComment = CommentText ?? string.Empty;
+                CSVManager.WriteCommentToIssue(CommentText ?? string.Empty, mdFile.fileName);
+            }
+
+            CommentText = string.Empty;
+        }
+        public void ContextMenuOpened(object sender, CancelEventArgs e)
+        {
+            IReadOnlyList<Node?>? selectedItems = mdFileTree.RowSelection?.SelectedItems;
+            if (selectedItems == null) return;
+
+            if (selectedItems.Count > 1)
+            {
+                CommentText = string.Empty;
+                return;
+            }
+
+            Node? item = selectedItems.FirstOrDefault();
+            if (item == null) return;
+
+            MDFile? mdFile = mdManager.GetFile(item.fileName);
+            if (mdFile == null) return;
+
+            CommentText = mdFile?.judgeComment;
         }
     }
 }

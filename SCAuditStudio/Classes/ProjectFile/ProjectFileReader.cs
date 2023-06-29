@@ -17,11 +17,15 @@ namespace SCAuditStudio.Classes.ProjectFile
         public static ProjectFile[] ReadProjects()
         {
             string SCAuditProjectsPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditProjectsFileName);
-            if (!Directory.Exists(Path.Combine(Appdatafolder, SCAuditProjectsFolderName)) && !File.Exists(SCAuditProjectsPath))
+            if (!Directory.Exists(Path.Combine(Appdatafolder, SCAuditProjectsFolderName)))
             {
                return Array.Empty<ProjectFile>();
             }
-            using StreamReader r = new (SCAuditProjectsPath);
+            if (!File.Exists(SCAuditProjectsPath))
+            {
+                File.Create(SCAuditProjectsPath).Close();
+            }
+            using StreamReader r = new(SCAuditProjectsPath);
             string json = r.ReadToEnd();
             List<ProjectFile>? projects = JsonConvert.DeserializeObject<List<ProjectFile>>(json);
             if (projects == null) return Array.Empty<ProjectFile>();
@@ -52,11 +56,7 @@ namespace SCAuditStudio.Classes.ProjectFile
         public static void CreateProjectFile(string directory)
         {
             ProjectFile[] projects = ReadProjects();
-
-            string judgingCommentFolderPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditJudgingCommentsFolderName);
-            string judgingCommentFilePath = Path.Combine(judgingCommentFolderPath, Path.GetFileName(directory));
-
-            ProjectFile currentOpenProject = new(Path.GetFileName(directory), directory, judgingCommentFilePath);
+            ProjectFile currentOpenProject = new(Path.GetFileName(directory), directory, CSVManager.CSVFilePath);
 
             foreach (ProjectFile project in projects)
             {
@@ -67,24 +67,27 @@ namespace SCAuditStudio.Classes.ProjectFile
             }
 
             projects = projects.Concat(new ProjectFile[1] { currentOpenProject }).ToArray();
-
             string SCAuditProjectsPath = Path.Combine(Appdatafolder, SCAuditProjectsFolderName, SCAuditProjectsFileName);
 
             if (!Directory.Exists(Path.Combine(Appdatafolder, SCAuditProjectsFolderName)))
             {
                 Directory.CreateDirectory(Path.Combine(Appdatafolder, SCAuditProjectsFolderName));
-                Directory.CreateDirectory(judgingCommentFolderPath);
+            }
+
+            if (!File.Exists(CSVManager.CSVFilePath))
+            {
+                File.Create(CSVManager.CSVFilePath).Close();
             }
 
             //open file stream
             using StreamWriter file = File.CreateText(SCAuditProjectsPath);
             JsonSerializer serializer = new();
+
             //serialize object directly into file stream
             serializer.Serialize(file, projects);
 
             //Add CVS File creation
-
-            CSVManager.CreateCSVFile(judgingCommentFilePath);
+            CSVManager.CreateCSVFile();
         }
     }
 }
