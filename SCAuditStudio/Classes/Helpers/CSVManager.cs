@@ -61,11 +61,11 @@ namespace SCAuditStudio.Classes.Helpers
             MDManager? mdManager = MainWindow.Instance?.GetViewModel()?.mdManager;
             if (mdManager == null) return;
 
-            string csv = "\"Issue\",\"Author\",\"Severity\",\"Title\",\"Comment\"\n";
+            string csv = "\"Issue\",\"Folder\",\"Author\",\"Severity\",\"Title\",\"Comment\"\n";
             for (int f = 0; f < mdManager.mdFiles.Length; f++)
             {
                 MDFile mdFile = mdManager.mdFiles[f];
-                string[] row = new string[] { $"\"{mdFile.fileName}\"", $"\"{mdFile.author}\"", $"\"{mdFile.severity}\"", $"\"{mdFile.title}\"", $"\"{mdFile.judgeComment}\"" };
+                string[] row = new string[] { $"\"{mdFile.fileName}\"", $"\"{mdFile.subPath}\"", $"\"{mdFile.author}\"", $"\"{mdFile.severity}\"", $"\"{mdFile.title}\"", $"\"{mdFile.judgeComment}\"" };
                 csv += string.Join(',', row) + (f < mdManager.mdFiles.Length - 1 ? '\n' : string.Empty);
             }
 
