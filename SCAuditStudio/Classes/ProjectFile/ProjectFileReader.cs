@@ -74,6 +74,11 @@ namespace SCAuditStudio.Classes.ProjectFile
                 Directory.CreateDirectory(Path.Combine(Appdatafolder, SCAuditProjectsFolderName));
             }
 
+            if (!Directory.Exists(CSVManager.CSVFolderPath))
+            {
+                Directory.CreateDirectory(CSVManager.CSVFolderPath);
+            }
+
             if (!File.Exists(CSVManager.CSVFilePath))
             {
                 File.Create(CSVManager.CSVFilePath).Close();
