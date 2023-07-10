@@ -199,6 +199,7 @@ namespace SCAuditStudio
         }
         public string MarkFileAsBest(string name)
         {
+            if (name.Contains("best")) return name;
             return IRenameFileTo(name, name.Replace(".md", "-best.md"));
         }
         public string UnmarkFile(string name)
