@@ -29,22 +29,9 @@ Every project that involves smart contracts must undergo a thorough auditing pro
 With our powerful background changing feature, you can effortlessly personalize your desktop by selecting any picture as your backdrop.  
 Say goodbye to monotony and hello to a world of visual delight. Not only that, but our application also offers the flexibility of light and dark themes, ensuring optimal viewing comfort in any lighting condition.  
 Take control of your desktop experience and embrace a new level of personalization with our feature-rich application.   
-## Roadmap
-SCAuditStudio V2.0 (automate Sherlock judging)
-UI/UX
-- add basic UI [done]
 
-Functionality to judge contests:
-- file transfer [done]
-- issue creation/editing [done]
-- file highlight and mark [done]
-- score calculation [WIP]
-- auto invalidate issues [WIP]
-- static sort issues [done]
-- allow user to add own scripts and addones [nice to have]
-
-SCAuditStudio V3.0 (Better Auditing)
-Stay tuned!;)
+## Issues
+please open issues if you notice anything
 
 ## Documentation
 Look inside ./Documentation 
